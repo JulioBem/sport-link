@@ -1,15 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
 
 export default function Page() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <Text style={styles.title}>Hello World</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
-        <Link href="/comunidade">Ir para comunidade</Link>
+        <Link href="/comunidade/123">Ir para comunidade</Link>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -18,6 +19,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: 24,
+    backgroundColor: "red",
   },
   main: {
     flex: 1,
@@ -28,9 +30,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 64,
     fontWeight: "bold",
+    color: "blue",
   },
   subtitle: {
     fontSize: 36,
-    color: "#38434D",
+    color: "blue",
   },
 });
