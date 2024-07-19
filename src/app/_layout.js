@@ -1,10 +1,16 @@
+import React from "react";
 import { Stack } from "expo-router";
 
 export default function Layout() {
   return (
     <Stack>
-      <Stack.Screen name="comunidade" />
-      <Stack.Screen name="index" />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="comunidade/[id]"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }
