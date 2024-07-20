@@ -8,9 +8,7 @@ import {
 } from "react-native";
 import { ChevronLeft } from "lucide-react-native";
 
-const CommunityHeader = () => {
-  const imageURI =
-    "https://img.freepik.com/fotos-premium/um-surfista-surfa-uma-onda-em-frente-ao-por-do-sol_201528-74.jpg";
+const CommunityHeader = ({ imageURI, communityTitle, communitySubtitle }) => {
 
   return (
     <View style={styles.headerContainer}>
@@ -23,10 +21,8 @@ const CommunityHeader = () => {
           <View style={styles.titleContainer}>
             <ChevronLeft color="#fff" size={34} style={styles.returnBtn} />
             <View>
-              <Text style={styles.communityName}>Comunidade de Surfe</Text>
-              <Text style={styles.communitySubtitle}>
-                Grupo de surfistas da UFPE
-              </Text>
+              <Text style={styles.communityName}>{communityTitle}</Text>
+              <Text style={styles.communitySubtitle}>{communitySubtitle}</Text>
             </View>
           </View>
         </View>
