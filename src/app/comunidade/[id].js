@@ -73,7 +73,14 @@ export default function Comunidade(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <CommunityHeader hasTabs={true} routes={routes} {...props} />
+      <CommunityHeader
+        communityTitle="TESTE"
+        communitySubtitle="olaa"
+        imageURI="https://img.freepik.com/fotos-premium/um-surfista-surfa-uma-onda-em-frente-ao-por-do-sol_201528-74.jpg"
+        hasTabs={true}
+        routes={routes}
+        {...props}
+      />
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderSceneMap}
