@@ -9,13 +9,13 @@ import {
 import { ChevronLeft } from "lucide-react-native";
 
 const CommunityHeader = ({ imageURI, communityTitle, communitySubtitle }) => {
-
   return (
     <View style={styles.headerContainer}>
       <ImageBackground
         source={{ uri: imageURI }}
-        resizeMode="stretch"
+        resizeMode="cover"
         style={styles.headerImage}
+        imageStyle={{ filter: "brightness(0.8)" }}
       >
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>

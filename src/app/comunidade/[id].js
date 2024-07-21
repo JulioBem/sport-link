@@ -6,30 +6,24 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
-import { Link, useLocalSearchParams } from "expo-router";
+import { SceneMap, TabView } from "react-native-tab-view";
+
 import CommunityHeader from "../../components/community-header";
 import CommunityMural from "../../components/community-mural";
-import { SceneMap, TabView } from "react-native-tab-view";
+import CommunityEvents from "../../components/community-events";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
 export default function Comunidade(props) {
-  const { id } = useLocalSearchParams();
-
   const Mural = () => <CommunityMural />;
 
-  const SecondRoute = () => (
-    <View style={[styles.scene, { backgroundColor: "#673ab7" }]}>
-      <Text>Eventos Content</Text>
-    </View>
-  );
+  const Events = () => <CommunityEvents />;
 
   const routes = [
     { key: "first", title: "Mural", component: Mural },
-    { key: "second", title: "Eventos", component: SecondRoute },
+    { key: "second", title: "Eventos", component: Events },
     // { key: "second", title: "Eventos", component: SecondRoute },
     // Adicione mais rotas conforme necessário
   ];
@@ -41,7 +35,6 @@ export default function Comunidade(props) {
     renderScene[route.key] = route.component;
   });
 
-  // Use renderScene na SceneMap
   const renderSceneMap = SceneMap(renderScene);
 
   const renderTabBar = (props) => {
@@ -74,8 +67,8 @@ export default function Comunidade(props) {
   return (
     <SafeAreaView style={styles.container}>
       <CommunityHeader
-        communityTitle="TESTE"
-        communitySubtitle="olaa"
+        communityTitle="Comunidade de Surf"
+        communitySubtitle="Grupo de surfistas da UFPE"
         imageURI="https://img.freepik.com/fotos-premium/um-surfista-surfa-uma-onda-em-frente-ao-por-do-sol_201528-74.jpg"
         hasTabs={true}
         routes={routes}
@@ -89,33 +82,39 @@ export default function Comunidade(props) {
         initialLayout={initialLayout}
         style={styles.tabView}
       />
-      <View style={styles.main}>
-        <Text style={styles.title}>Hello World</Text>
-        <Text style={styles.subtitle}>This is the first page of your app.</Text>
-        <Text>Página de usuário com id {id}</Text>
-        <Link href="/">Ir para home</Link>
-      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: "100%",
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+  },
   tabView: {
     flex: 1,
     marginTop: StatusBar.currentHeight,
-    bottom: 38,
+    height: "100%",
+    width: "100%",
   },
   tabBar: {
     flexDirection: "row",
     justifyContent: "center",
     flexWrap: "wrap",
     overflow: "hidden",
+    position: "fixed",
+    top: "118px",
+    margin: "0 auto",
+    width: "100%",
   },
   tabItem: {
     width: 110,
     alignItems: "center",
     borderBottomWidth: 2,
-    marginHorizontal: 37.5, // 75px gap between tabs (37.5px on each side)
+    marginHorizontal: 37.5,
     marginTop: 10,
     fontSize: 12,
     lineHeight: 14,
