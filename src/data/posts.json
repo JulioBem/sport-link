@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "author": {
+      "imageURI": "https://placehold.co/50.png",
+      "authorName": "John",
+      "authorSurname": "Doe"
+    },
+    "post": {
+      "postContent": "Pessoal, os responsáveis pelos equipamentos avisaram que houve uma confusão nos agendamentos. Atrasei o horário do nosso encontro em 20 minutos!",
+      "postDate": "16:48 - 17jul"
+    }
+  },
+  {
+    "id": 2,
+    "author": {
+      "imageURI": "https://placehold.co/50.png",
+      "authorName": "Jane",
+      "authorSurname": "Smith"
+    },
+    "post": {
+      "postContent": "Lembrete: nossa próxima reunião será na sexta-feira às 14h.",
+      "postDate": "14:00 - 16jul"
+    }
+  },
+  {
+    "id": 3,
+    "author": {
+      "imageURI": "https://placehold.co/50.png",
+      "authorName": "Alice",
+      "authorSurname": "Johnson"
+    },
+    "post": {
+      "postContent": "Obrigado a todos que participaram do evento de ontem! Foi um sucesso. As fotos estão disponíveis no álbum do grupo.",
+      "postDate": "09:15 - 18jul"
+    }
+  },
+  {
+    "id": 4,
+    "author": {
+      "imageURI": "https://placehold.co/50.png",
+      "authorName": "Bob",
+      "authorSurname": "Williams"
+    },
+    "post": {
+      "postContent": "Alguém pode me enviar o link para o vídeo da apresentação? Preciso revisar alguns pontos.",
+      "postDate": "19:30 - 17jul"
+    }
+  },
+  {
+    "id": 5,
+    "author": {
+      "imageURI": "https://placehold.co/50.png",
+      "authorName": "Emily",
+      "authorSurname": "Davis"
+    },
+    "post": {
+      "postContent": "Preparativos para o próximo evento estão a todo vapor. Se alguém tiver sugestões de atividades, por favor, compartilhem!",
+      "postDate": "11:00 - 18jul"
+    }
+  }
+]
