@@ -7,8 +7,11 @@ import {
   Text,
 } from "react-native";
 import { ChevronLeft } from "lucide-react-native";
+import { useRouter } from "expo-router";
 
 const CommunityHeader = ({ imageURI, communityTitle, communitySubtitle }) => {
+  const router = useRouter();
+
   return (
     <View style={styles.headerContainer}>
       <ImageBackground
@@ -19,7 +22,12 @@ const CommunityHeader = ({ imageURI, communityTitle, communitySubtitle }) => {
       >
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
-            <ChevronLeft color="#fff" size={34} style={styles.returnBtn} />
+            <ChevronLeft
+              color="#fff"
+              size={34}
+              style={styles.returnBtn}
+              onPress={() => router.back()}
+            />
             <View>
               <Text style={styles.communityName}>{communityTitle}</Text>
               <Text style={styles.communitySubtitle}>{communitySubtitle}</Text>

@@ -9,22 +9,31 @@ import {
   FlatList,
 } from "react-native";
 import { Avatar } from "@rneui/themed";
+import { useRouter } from "expo-router";
 
 const CommunityEventCard = ({ event }) => {
   if (!event) return null;
+  const router = useRouter();
   const {
     participants,
     capacity,
     currentRegistrations,
     imageURI: eventIMG,
     title,
+    id,
   } = event;
-  console.log("🚀 ~ CommunityEventCard ~ event:", event);
   const backupImage =
     "https://img.freepik.com/fotos-premium/um-surfista-surfa-uma-onda-em-frente-ao-por-do-sol_201528-74.jpg";
 
   return (
-    <TouchableHighlight>
+    <TouchableHighlight
+      onPress={() =>
+        router.push({
+          pathname: `/comunidade/123/evento/${id}`,
+          params: { event: JSON.stringify(event) },
+        })
+      }
+    >
       <ImageBackground
         style={styles.eventContainer}
         source={{ uri: backupImage ?? eventIMG }}
