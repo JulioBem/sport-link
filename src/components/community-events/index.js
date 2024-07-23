@@ -14,6 +14,7 @@ const CommunityEvents = () => {
               participando
             </Text>
             <FlatList
+              scrollEnabled={false}
               data={events}
               renderItem={({ item }) => <CommunityEventCard event={item} />}
               keyExtractor={(item) => item.id}
@@ -21,10 +22,11 @@ const CommunityEvents = () => {
               contentContainerStyle={styles.eventList}
             />
           </View>
-          <Divider style={{ marginTop: "16px" }} />
+          <Divider style={{ marginTop: 16 }} />
           <View style={styles.eventListGeneral}>
             <Text style={styles.eventListHeading}>outros eventos</Text>
             <FlatList
+              scrollEnabled={false}
               data={events}
               renderItem={({ item }) => <CommunityEventCard event={item} />}
               keyExtractor={(item) => item.id}
@@ -45,8 +47,8 @@ const CommunityEvents = () => {
           width: 42,
           height: 42,
           position: "absolute",
-          bottom: "26px",
-          right: "10px",
+          bottom: 26,
+          right: 10,
         }}
         icon={<Icon name="add" size={20} color="#fff" />}
         iconContainerStyle={{ background: "#000" }}
@@ -68,16 +70,16 @@ const styles = StyleSheet.create({
   },
   eventListHeading: {
     fontSize: 12,
-    fontWeight: 500,
+    fontWeight: "500",
     marginVertical: 16,
-    width: "360px",
+    width: 360,
     marginHorizontal: "auto",
   },
   eventList: {
     margin: "0px auto",
     display: "flex",
     flexDirection: "column",
-    gap: "11px",
+    gap: 11,
   },
 });
 

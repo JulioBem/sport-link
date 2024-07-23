@@ -74,9 +74,9 @@ const styles = StyleSheet.create({
   },
   postDate: {
     position: "absolute",
-    bottom: "12px",
-    right: "10px",
-    fontSize: "9px",
+    bottom: 12,
+    right: 10,
+    fontSize: 9,
   },
 });
 

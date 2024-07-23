@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 10,
     position: "relative",
-    bottom: "25px",
+    bottom: 25,
   },
   returnBtn: {
     position: "absolute",

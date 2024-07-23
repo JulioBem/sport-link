@@ -24,7 +24,6 @@ export default function Comunidade(props) {
   const routes = [
     { key: "first", title: "Mural", component: Mural },
     { key: "second", title: "Eventos", component: Events },
-    // { key: "second", title: "Eventos", component: SecondRoute },
     // Adicione mais rotas conforme necessário
   ];
 
@@ -74,10 +73,13 @@ export default function Comunidade(props) {
         routes={routes}
         {...props}
       />
+      <View style={styles.tabContainer}>
+        {renderTabBar({ navigationState: { index, routes }, setIndex })}
+      </View>
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderSceneMap}
-        renderTabBar={renderTabBar}
+        renderTabBar={() => <></>}
         onIndexChange={setIndex}
         initialLayout={initialLayout}
         style={styles.tabView}
@@ -91,24 +93,23 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
   },
-  scrollViewContent: {
-    flexGrow: 1,
-  },
   tabView: {
     flex: 1,
-    marginTop: StatusBar.currentHeight,
-    height: "100%",
     width: "100%",
+  },
+  tabContainer: {
+    position: "absolute",
+    top: 118,
+    width: "100%",
+    zIndex: 1,
+    backgroundColor: "transparent",
   },
   tabBar: {
     flexDirection: "row",
     justifyContent: "center",
     flexWrap: "wrap",
     overflow: "hidden",
-    position: "fixed",
-    top: "118px",
-    margin: "0 auto",
-    width: "100%",
+    backgroundColor: "transparent",
   },
   tabItem: {
     width: 110,
