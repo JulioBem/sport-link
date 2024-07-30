@@ -13,6 +13,7 @@ import { SceneMap, TabView } from "react-native-tab-view";
 import CommunityHeader from "../../components/community-header";
 import CommunityMural from "../../components/community-mural";
 import CommunityEvents from "../../components/community-events";
+import MaterialColaborators from "../../components/event-colaborators";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
@@ -21,9 +22,12 @@ export default function Comunidade(props) {
 
   const Events = () => <CommunityEvents />;
 
+  const Colaborators = () => <MaterialColaborators />;
+
   const routes = [
     { key: "first", title: "Mural", component: Mural },
     { key: "second", title: "Eventos", component: Events },
+    { key: "forth", title: "Colaboradores", component: Colaborators },
     // { key: "second", title: "Eventos", component: SecondRoute },
     // Adicione mais rotas conforme necessário
   ];
