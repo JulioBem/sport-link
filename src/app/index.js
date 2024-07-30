@@ -7,7 +7,6 @@ export default function Page() {
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <Link href="/comunidade/123">Ir para comunidade</Link>
-        <Link href="/comunidade/123/participantes">Ir para participantes</Link>
       </View>
     </SafeAreaView>
   );
