@@ -11,7 +11,7 @@ const CommunityEvents = () => {
         <View style={styles.eventsContainer}>
           <View style={styles.eventListParticipating}>
             <Text style={[styles.eventListHeading, { marginTop: 36 }]}>
-              participando
+              Participando
             </Text>
             <FlatList
               scrollEnabled={false}
@@ -24,7 +24,7 @@ const CommunityEvents = () => {
           </View>
           <Divider style={{ marginTop: 16 }} />
           <View style={styles.eventListGeneral}>
-            <Text style={styles.eventListHeading}>outros eventos</Text>
+            <Text style={styles.eventListHeading}>Outros eventos</Text>
             <FlatList
               scrollEnabled={false}
               data={events}
