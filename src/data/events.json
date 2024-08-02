@@ -1,115 +1,197 @@
 [
-    {
-      "id": "event123",
-      "title": "Competições de Surf Local",
-      "description": "Participe das competições locais de surfe e mostre suas habilidades nas ondas. Aberto para todos os níveis de habilidade.",
-      "date": "2024-08-15T09:00:00Z",
-      "createdAt": "2024-07-21T09:00:00Z",
-      "location": {
-        "address": "Praia Exemplo, 123",
-        "city": "São Paulo",
-        "state": "SP",
-        "zipCode": "01234-567"
+  {
+    "id": "event123",
+    "title": "Competições de Surf Local",
+    "description": "Participe das competições locais de surfe e mostre suas habilidades nas ondas. Aberto para todos os níveis de habilidade.",
+    "date": "2024-08-15T09:00:00Z",
+    "createdAt": "2024-07-21T09:00:00Z",
+    "location": {
+      "address": "Praia Exemplo, 123",
+      "city": "São Paulo",
+      "state": "SP",
+      "zipCode": "01234-567"
+    },
+    "author": {
+      "id": "author456",
+      "name": "João Barbosa",
+      "email": "joao.barbosa@example.com",
+      "profilePicture": "https://s3-alpha-sig.figma.com/img/e19d/7bec/3f4127fabc3f49755feb106c459a0354?Expires=1723420800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J2g5Hgpg~WCtfoaFcJ8tey~jNn2P48AcLsvokQ3A3WL3hSo9-mCVVEyo1UROhy0q-Ms0K4A1bum8~0iMiSkAIyEDT-n278uIMVY~nXRvYj8pao~sDYrZovHnDm4HH1Evj9Tcojj8n-j2FVFf9jRubdL~gE8t3t1lgK5xVnNz2goxTicIWECWv2aaUxoXe~b6FfMMqhiKqV~hUiYZPGkSxYl1MTIf7I4~AOUfEpl9YplBriStYTAqcFORsiKzfr-Pw8Ds5hob1IYbnNuaDpf5ZF3-TY5ji6GvbKzswJjaAy8HQRguNAcBbqnYwRtLAPmYA1TZYC6E8mSizSF5rbr35g__"
+    },
+    "participants": [
+      {
+        "id": "participant789",
+        "name": "Marina Peixoto",
+        "email": "marina.peixoto@example.com",
+        "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1723420800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=g0xWyjyDf~1w9C3Hq8SihUOF5OM71THyfaw6fucr6onaHBF-EtZf39FodWumf-SxDebX7TqNDEjdaVgaI1jYY0Qd9s8Q0C3bnyqxwNitn4avI90~gV71OVYslEMW8u9Whww3805qTK9p~PI2WK1Mn2C4qojZUYstUDOVSU4amoD8yCvn2e1JzjUu2OIkvL4Eea~sVJ9EzKmhOb5I9md5wRDA3eRYy3v8U8k9SjdnFU-dywMSQ5F4Mip37UCKtMLrC135RMXZba83bWx6CWsR8agL4nImQ2Ofg6xcKnqKM87aXWox3oBZL9OSPVqBwJJtIzgxASyrjgdk~QbBukvTLw__",
+        "status": "confirmed"
       },
-      "author": {
-        "id": "author456",
-        "name": "João Silva",
-        "email": "joao.silva@example.com",
-        "profilePicture": "https://example.com/profile-pictures/joao-silva.jpg"
+      {
+        "id": "participant101",
+        "name": "Leticia Marinho",
+        "email": "leticia.marinho@example.com",
+        "profilePicture": "https://s3-alpha-sig.figma.com/img/7bc3/ba70/f51d1887345954eb0285ee011141c8b5?Expires=1723420800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=D1kkW6Ls7qXlkNuNkcfAHTnsANaOy-uy2a5c~emPKrkNJRL3nxb0uO5toO8hC2bM9WxeR-iD8Ghh2YY-3ayf7Z1ny1MpZFgPg3n01Wv5Cg8YTAZ0V4vev4MkJsUBMG5ZYRle~BDAs5GHvrrVBugUg3FCWzbjS149j5ayTPX2u3NIXQEIDHWZmAAcsYeyNGGV0uUocUhOwnMLcWg26tk~7egf3aNqzFXURw5q5Htdg~ojoqQhofVxViDF3b954gT8ezyETy5WL0TKsQcXoYp1Mw0Sc01LhYzCBPZioG1hEJTFxPTOciQfQVGdDZKrs~gOfz-RcFEvff09FIWhAconvw__",
+        "status": "pending"
       },
-      "participants": [
-        {
-          "id": "participant789",
-          "name": "Maria Oliveira",
-          "email": "maria.oliveira@example.com",
-          "profilePicture": "https://example.com/profile-pictures/maria-oliveira.jpg",
-          "status": "confirmed"
-        },
+      {
+        "id": "participant302",
+        "name": "Julia Costa",
+        "email": "julia.costa@example.com",
+        "profilePicture": "https://s3-alpha-sig.figma.com/img/124e/8f25/0a5073549ee4b6adff4266f59090b07a?Expires=1723420800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=UIpP3Rsfbn6xpDhxXc8y1jVKwaE60dRHJvY61ny6XHq6~KdJm1W5PsRn6kj6h0baVawifzaW-DBTERY4ARvhjC-tIf8uUIT-u5WSbkyetHdALwScMdWlp9UszfWj0hzgPO9eR9pPHVPAKrfeX-pRtzTr0MJySVCcrx65WPK5CyjIqkLVU3L-0ZX0maalRHixK3iP3rnL2n8T4bx7YWAWK9gW6Zqed84Jq1dXsQ4qOkpmo8EqBeCLIv~wHFPYO5DSVUzbnu4X1nnjy8ySKDD2qbBXfAFne6WjRTyggeyoykOGkdtTmrGCuPvCcejZNIH8CqkxZtYj-VrW40aaol5wqA__",
+        "status": "confirmed"
+      }
+    ],
+    "capacity": 50,
+    "currentRegistrations": 35,
+    "imageURI": "https://example.com/event-images/competicoes-surf-local.jpg",
+    "materials": [
+      {
+        "material": "Veículos",
+        "usuarios": [
+          {
+            "id": "participant789",
+            "capacidade": "4",
+            "associados": [
+              {
+                "id": "participant101"
+              },
+              {
+                "id": "author456"
+              },
+              {
+                "id": "participant302"
+              }
+            ]
+          },
+          {
+            "id": "participant302",
+            "capacidade": "4",
+            "associados": []
+          }
+        ]
+      },
+      {
+        "material": "Pranchas",
+        "usuarios": [
         {
           "id": "participant101",
-          "name": "Carlos Santos",
-          "email": "carlos.santos@example.com",
-          "profilePicture": "https://example.com/profile-pictures/carlos-santos.jpg",
-          "status": "pending"
-        }
-      ],
-      "capacity": 50,
-      "currentRegistrations": 35,
-      "imageURI": "https://example.com/event-images/competicoes-surf-local.jpg"
-    },
-    {
-      "id": "event124",
-      "title": "Festival de Surf e Música",
-      "description": "Um evento incrível que combina surf com música ao vivo. Aproveite as ondas e as apresentações de bandas locais.",
-      "date": "2024-09-10T10:00:00Z",
-      "createdAt": "2024-07-21T09:00:00Z",
-      "location": {
-        "address": "Avenida do Surf, 456",
-        "city": "Rio de Janeiro",
-        "state": "RJ",
-        "zipCode": "12345-678"
-      },
-      "author": {
-        "id": "author457",
-        "name": "Ana Pereira",
-        "email": "ana.pereira@example.com",
-        "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg"
-      },
-      "participants": [
-        {
-          "id": "participant102",
-          "name": "Luiz Almeida",
-          "email": "luiz.almeida@example.com",
-          "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
-          "status": "confirmed"
+          "capacidade": "1",
+          "associados": [
+            {
+              "id": "participant302"
+            }
+          ]
         },
         {
-          "id": "participant103",
-          "name": "Fernanda Costa",
-          "email": "fernanda.costa@example.com",
-          "profilePicture": "https://example.com/profile-pictures/fernanda-costa.jpg",
-          "status": "confirmed"
+          "id": "author456",
+          "capacidade": "1",
+          "associados": []
         }
-      ],
-      "capacity": 100,
-      "currentRegistrations": 80,
-      "imageURI": "https://example.com/event-images/festival-surf-musica.jpg"
+      ]
+      }
+    ]
+  },
+  {
+    "id": "event124",
+    "title": "Festival de Surf e Música",
+    "description": "Um evento incrível que combina surf com música ao vivo. Aproveite as ondas e as apresentações de bandas locais.",
+    "date": "2024-09-10T10:00:00Z",
+    "createdAt": "2024-07-21T09:00:00Z",
+    "location": {
+      "address": "Avenida do Surf, 456",
+      "city": "Rio de Janeiro",
+      "state": "RJ",
+      "zipCode": "12345-678"
     },
-    {
-      "id": "event125",
-      "title": "Encontro de Surfistas Profissionais",
-      "description": "Uma oportunidade para surfar com os melhores surfistas profissionais e aprender técnicas avançadas.",
-      "date": "2024-10-20T11:00:00Z",
-      "location": {
-        "address": "Praça das Ondas, 789",
-        "city": "Curitiba",
-        "state": "PR",
-        "zipCode": "87654-321"
+    "author": {
+      "id": "author457",
+      "name": "Ana Pereira",
+      "email": "ana.pereira@example.com",
+      "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg"
+    },
+    "participants": [
+      {
+        "id": "participant102",
+        "name": "Luiz Almeida",
+        "email": "luiz.almeida@example.com",
+        "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
+        "status": "confirmed"
       },
-      "author": {
-        "id": "author458",
-        "name": "Bruno Souza",
-        "email": "bruno.souza@example.com",
-        "profilePicture": "https://example.com/profile-pictures/bruno-souza.jpg"
+      {
+        "id": "participant103",
+        "name": "Fernanda Costa",
+        "email": "fernanda.costa@example.com",
+        "profilePicture": "https://example.com/profile-pictures/fernanda-costa.jpg",
+        "status": "confirmed"
+      }
+    ],
+    "capacity": 100,
+    "currentRegistrations": 80,
+    "imageURI": "https://example.com/event-images/festival-surf-musica.jpg",
+    "materials": [
+      {
+        "material": "Pranchas",
+        "usuarios": []
       },
-      "participants": [
-        {
-          "id": "participant104",
-          "name": "Juliana Mendes",
-          "email": "juliana.mendes@example.com",
-          "profilePicture": "https://example.com/profile-pictures/juliana-mendes.jpg",
-          "status": "confirmed"
-        },
-        {
-          "id": "participant105",
-          "name": "Ricardo Lima",
-          "email": "ricardo.lima@example.com",
-          "profilePicture": "https://example.com/profile-pictures/ricardo-lima.jpg",
-          "status": "pending"
-        }
-      ],
-      "capacity": 150,
-      "currentRegistrations": 120,
-      "imageURI": "https://example.com/event-images/encontro-surfistas.jpg"
-    }
-  ]
+      {
+        "material": "Equipamentos",
+        "usuarios": []
+      },
+      {
+        "material": "Veículos",
+        "usuarios": []
+      }
+    ]
+  },
+  {
+    "id": "event125",
+    "title": "Encontro de Surfistas Profissionais",
+    "description": "Uma oportunidade para surfar com os melhores surfistas profissionais e aprender técnicas avançadas.",
+    "date": "2024-10-20T11:00:00Z",
+    "location": {
+      "address": "Praça das Ondas, 789",
+      "city": "Curitiba",
+      "state": "PR",
+      "zipCode": "87654-321"
+    },
+    "author": {
+      "id": "author458",
+      "name": "Bruno Souza",
+      "email": "bruno.souza@example.com",
+      "profilePicture": "https://example.com/profile-pictures/bruno-souza.jpg"
+    },
+    "participants": [
+      {
+        "id": "participant104",
+        "name": "Juliana Mendes",
+        "email": "juliana.mendes@example.com",
+        "profilePicture": "https://example.com/profile-pictures/juliana-mendes.jpg",
+        "status": "confirmed"
+      },
+      {
+        "id": "participant105",
+        "name": "Ricardo Lima",
+        "email": "ricardo.lima@example.com",
+        "profilePicture": "https://example.com/profile-pictures/ricardo-lima.jpg",
+        "status": "pending"
+      }
+    ],
+    "capacity": 150,
+    "currentRegistrations": 120,
+    "imageURI": "https://example.com/event-images/encontro-surfistas.jpg",
+    "materials": [
+      {
+        "material": "Pranchas",
+        "usuarios": []
+      },
+      {
+        "material": "Equipamentos",
+        "usuarios": []
+      },
+      {
+        "material": "Veículos",
+        "usuarios": []
+      }
+    ]
+  }
+]
+

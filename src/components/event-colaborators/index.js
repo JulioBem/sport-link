@@ -1,16 +1,42 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { ListItem, Avatar, Icon } from 'react-native-elements';
-import materials from "../../data/materials.json"; 
-import users from "../../data/users.json"; 
+import events from '../../data/events.json'; // Atualize o caminho conforme necessário
 
-const MaterialColaborators = () => {
+const MaterialColaborators = ({ eventId }) => {
   const [expandedUsuarios, setExpandedUsuarios] = useState({});
 
+  // Filtra o evento com base no ID
+  const eventData = events.find(event => event.id === eventId);
+
+  if (!eventData) {
+    return (
+      <View style={styles.container}>
+        <Text>Evento não encontrado</Text>
+      </View>
+    );
+  }
+
+
+  
+  const getAllUsers = () => {
+    // Cria um array com todos os participantes e o autor
+    const users = [...eventData.participants];
+    
+    if (eventData.author) {
+      users.push(eventData.author);
+    }
+    
+    return users;
+  };
+  
+  // Exemplo de uso da função para encontrar um usuário por ID
   const getUserById = (id) => {
-    return users.usuarios.find(user => user.id === id);
+    const users = getAllUsers();
+    return users.find(user => user.id === id);
   };
 
+  // Alterna a seção do usuário
   const toggleUsuarioSection = (usuario) => {
     setExpandedUsuarios((prev) => ({
       ...prev,
@@ -20,7 +46,7 @@ const MaterialColaborators = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {materials.map((section, index) => (
+      {eventData.materials.map((section, index) => (
         <View key={index}>
           <Text style={styles.materialTitle}>{section.material}</Text>
           {section.usuarios.map((usuario, idx) => {
@@ -28,33 +54,33 @@ const MaterialColaborators = () => {
             return (
               <View key={idx}>
                 <ListItem containerStyle={styles.listItem} bottomDivider={false}>
-                  <Avatar source={{ uri: user.imagem }} rounded size="medium" />
+                  <Avatar source={{ uri: user.profilePicture }} rounded size="medium" />
                   <ListItem.Content style={styles.listItemContent}>
                     <ListItem.Title style={styles.userName}>
-                      <Text style={styles.userNameBold}>{user.nome.split(' ')[0]}</Text>
-                      <Text style={styles.userNameNormal}>{` ${user.nome.split(' ').slice(1).join(' ')}`}</Text>
+                      <Text style={styles.userNameBold}>{user.name.split(' ')[0]}</Text>
+                      <Text style={styles.userNameNormal}>{` ${user.name.split(' ').slice(1).join(' ')}`}</Text>
                     </ListItem.Title>
                     <ListItem.Subtitle style={styles.userCount}>
-                      {usuario.associados.length}/{user.capacidade}
+                      {usuario.associados.length}/{usuario.capacidade}
                     </ListItem.Subtitle>
                   </ListItem.Content>
                   {usuario.associados.length > 0 && (
-                    <TouchableOpacity onPress={() => toggleUsuarioSection(user.nome)}>
+                    <TouchableOpacity onPress={() => toggleUsuarioSection(user.name)}>
                       <Icon
-                        name={expandedUsuarios[user.nome] ? 'expand-less' : 'expand-more'}
+                        name={expandedUsuarios[user.name] ? 'expand-less' : 'expand-more'}
                         type='material'
                         color='#000'
                       />
                     </TouchableOpacity>
                   )}
                 </ListItem>
-                {expandedUsuarios[user.nome] && (
+                {expandedUsuarios[user.name] && (
                   usuario.associados.map((associadoId, idx) => {
                     const associado = getUserById(associadoId.id); 
                     return (
                       <View key={idx} style={styles.associadoItem}>
-                        <Avatar source={{ uri: associado.imagem }} rounded size="small" />
-                        <Text style={styles.associadoName}>{associado.nome}</Text>
+                        <Avatar source={{ uri: associado.profilePicture }} rounded size="small" />
+                        <Text style={styles.associadoName}>{associado.name}</Text>
                       </View>
                     );
                   })
@@ -132,3 +158,4 @@ const styles = StyleSheet.create({
 });
 
 export default MaterialColaborators;
+

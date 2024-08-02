@@ -59,9 +59,11 @@ export default function Evento(props) {
               icon={{ name: "group", type: "material" }}
               containerStyle={{ backgroundColor: "#d4d4d4", top: 3 }}
             />
+            <Button>
             <Text style={styles.boldText}>
               Júlia, João, Marina e mais 10 estão envolvidos no evento
             </Text>
+            </Button>
           </View>
         </View>
         <Divider style={{ marginVertical: 17 }} />

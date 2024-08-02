@@ -14,21 +14,27 @@ import CommunityHeader from "../../components/community-header";
 import CommunityMural from "../../components/community-mural";
 import CommunityEvents from "../../components/community-events";
 import MaterialColaborators from "../../components/event-colaborators";
+import ParticipantList from "../../components/event-participants";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
 export default function Comunidade(props) {
+
+  const eventId = "event123";
+
   const Mural = () => <CommunityMural />;
 
   const Events = () => <CommunityEvents />;
 
-  const Colaborators = () => <MaterialColaborators />;
+  const Colaborators = () => <MaterialColaborators eventId={eventId}/>;
+
+  const Participants = () => <ParticipantList eventId={eventId}/>;
 
   const routes = [
     { key: "first", title: "Mural", component: Mural },
     { key: "second", title: "Eventos", component: Events },
-    { key: "forth", title: "Colaboradores", component: Colaborators },
-    // { key: "second", title: "Eventos", component: SecondRoute },
+    { key: "third", title: "Colaboradores", component: Colaborators },
+    { key: "forth", title: "Participantes", component:  Participants }
     // Adicione mais rotas conforme necessário
   ];
 
