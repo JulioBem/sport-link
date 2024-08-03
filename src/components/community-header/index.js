@@ -9,13 +9,18 @@ import {
 import { ChevronLeft } from "lucide-react-native";
 import { useRouter } from "expo-router";
 
-const CommunityHeader = ({ imageURI, communityTitle, communitySubtitle }) => {
+const CommunityHeader = ({
+  imageURI,
+  communityTitle,
+  communitySubtitle,
+  hasSubtitle = "true",
+}) => {
   const router = useRouter();
 
   return (
     <View style={styles.headerContainer}>
       <ImageBackground
-        source={{ uri: imageURI }}
+        source={imageURI && { uri: imageURI }}
         resizeMode="cover"
         style={styles.headerImage}
         imageStyle={{ filter: "brightness(0.8)" }}
@@ -23,14 +28,25 @@ const CommunityHeader = ({ imageURI, communityTitle, communitySubtitle }) => {
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
             <ChevronLeft
-              color="#fff"
+              color={!imageURI ? "#000" : "#fff"}
               size={34}
               style={styles.returnBtn}
               onPress={() => router.back()}
             />
             <View>
-              <Text style={styles.communityName}>{communityTitle}</Text>
-              <Text style={styles.communitySubtitle}>{communitySubtitle}</Text>
+              <Text
+                style={[
+                  styles.communityName,
+                  !imageURI && { color: "#000 !important" },
+                ]}
+              >
+                {communityTitle}
+              </Text>
+              {hasSubtitle && (
+                <Text style={styles.communitySubtitle}>
+                  {communitySubtitle}
+                </Text>
+              )}
             </View>
           </View>
         </View>
@@ -44,6 +60,7 @@ const styles = StyleSheet.create({
     height: 156,
     color: "#fff",
     boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
+    backgroundColor: "#fff",
   },
   headerImage: {
     minWidth: "100%",
@@ -52,11 +69,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-end",
-    backgroundColor: "#000",
+    backgroundColor: "#fff",
   },
   communityName: {
     margin: 0,
     color: "#fff",
+
     fontSize: 15,
     fontWeight: "700",
     whiteSpace: "nowrap",

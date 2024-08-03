@@ -10,19 +10,20 @@ import {
 } from "react-native";
 import CommunityHeader from "../../../../components/community-header";
 import { Avatar, Button, Divider, Icon } from "@rneui/themed";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 export default function Evento(props) {
-  const { event } = useLocalSearchParams(); // Obtém o parâmetro "event"
+  const { event, communityId, eventId } = useLocalSearchParams(); // Obtém o parâmetro "event"
+  const router = useRouter();
   const {
-    id,
+    // id,
     location,
     title,
-    participants,
-    imageURI,
-    description,
-    date,
-    capacity,
+    // participants,
+    // imageURI,
+    // description,
+    // date,
+    // capacity,
   } = JSON.parse(event);
 
   return (
@@ -31,6 +32,7 @@ export default function Evento(props) {
         communityTitle={title}
         imageURI="https://img.freepik.com/fotos-premium/um-surfista-surfa-uma-onda-em-frente-ao-por-do-sol_201528-74.jpg"
         hasTabs={false}
+        hasSubtitle={false}
         {...props}
       />
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -112,7 +114,15 @@ export default function Evento(props) {
               <Text style={styles.boldText}>a receber</Text> desse evento
             </Text>
           </Pressable>
-          <Button color="#2260A8" buttonStyle={{ borderRadius: 10 }}>
+          <Button
+            color="#2260A8"
+            buttonStyle={{ borderRadius: 10 }}
+            onPress={() =>
+              router.push(
+                `/comunidade/${communityId}/evento/${eventId}/organizacao`
+              )
+            }
+          >
             Atualizar participação
           </Button>
         </View>

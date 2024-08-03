@@ -30,7 +30,11 @@ const CommunityEventCard = ({ event }) => {
       onPress={() =>
         router.push({
           pathname: `/comunidade/123/evento/${id}`,
-          params: { event: JSON.stringify(event) },
+          params: {
+            event: JSON.stringify(event),
+            eventId: id,
+            communityId: "123",
+          },
         })
       }
     >

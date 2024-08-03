@@ -9,6 +9,10 @@ export default function ComunidadeLayout() {
         name="[id]/evento/[eventId]"
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="[id]/evento/[eventId]/organizacao"
+        options={{ headerShown: false }}
+      />
     </Stack>
   );
 }
