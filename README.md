@@ -21,7 +21,7 @@ O **Wave Sync** é um aplicativo de logística desenvolvido para a disciplina **
 
 Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
 
-- Node.js (v14 ou superior)
+- Node.js (^18.18.0 || ^20.9.0 || >=21.1.0)
 - Expo CLI (`npm install -g expo-cli`)
 
 ## Instalação
