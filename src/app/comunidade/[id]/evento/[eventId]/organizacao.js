@@ -10,18 +10,18 @@ import {
 import { SceneMap, TabView } from "react-native-tab-view";
 
 import CommunityHeader from "../../../../../components/community-header";
-import CommunityMural from "../../../../../components/community-mural";
+import CommunityReservation from "../../../../../components/community-reservation";
 import CommunityEvents from "../../../../../components/community-events";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
 export default function Evento(props) {
-  const Mural = () => <CommunityMural />;
+  const Reservation = () => <CommunityReservation />;
 
   const Events = () => <CommunityEvents />;
 
   const routes = [
-    { key: "first", title: "Reservar", component: Mural },
+    { key: "first", title: "Reservar", component: Reservation },
     { key: "second", title: "Disponibilizar", component: Events },
   ];
 
@@ -66,6 +66,7 @@ export default function Evento(props) {
       <CommunityHeader
         communityTitle="Organização do Evento"
         hasSubtitle={false}
+        hideShadow={true}
         {...props}
       />
       <View style={styles.tabContainer}>

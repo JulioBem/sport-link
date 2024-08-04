@@ -13,12 +13,22 @@ const CommunityHeader = ({
   imageURI,
   communityTitle,
   communitySubtitle,
-  hasSubtitle = "true",
+  hasSubtitle = true,
+  hideShadow = false,
 }) => {
   const router = useRouter();
 
   return (
-    <View style={styles.headerContainer}>
+    <View
+      style={[
+        styles.headerContainer,
+        hideShadow && {
+          boxShadow: "none",
+          borderBottomWidth: 1,
+          borderBottomColor: "#C4C4C4",
+        },
+      ]}
+    >
       <ImageBackground
         source={imageURI && { uri: imageURI }}
         resizeMode="cover"
