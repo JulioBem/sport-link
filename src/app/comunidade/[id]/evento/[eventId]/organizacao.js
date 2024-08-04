@@ -11,18 +11,18 @@ import { SceneMap, TabView } from "react-native-tab-view";
 
 import CommunityHeader from "../../../../../components/community-header";
 import CommunityReservation from "../../../../../components/community-reservation";
-import CommunityEvents from "../../../../../components/community-events";
+import CommunityCostRegister from "../../../../../components/community-cost-register";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
 export default function Evento(props) {
   const Reservation = () => <CommunityReservation />;
 
-  const Events = () => <CommunityEvents />;
+  const CostRegister = () => <CommunityCostRegister />;
 
   const routes = [
     { key: "first", title: "Reservar", component: Reservation },
-    { key: "second", title: "Disponibilizar", component: Events },
+    { key: "second", title: "Disponibilizar", component: CostRegister },
   ];
 
   const [index, setIndex] = React.useState(0);

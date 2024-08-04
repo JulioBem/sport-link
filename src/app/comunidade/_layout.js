@@ -1,9 +1,15 @@
 import React from "react";
 import { Stack } from "expo-router";
+import { StyleSheet } from "react-native";
 
 export default function ComunidadeLayout() {
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        contentStyle: { backgroundColor: "#fff" },
+      }}
+      style={styles.container}
+    >
       <Stack.Screen name="[id]" options={{ headerShown: false }} />
       <Stack.Screen
         name="[id]/evento/[eventId]"
@@ -16,3 +22,10 @@ export default function ComunidadeLayout() {
     </Stack>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f0f0f0",
+  },
+});

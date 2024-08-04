@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     height: 156,
     color: "#fff",
     boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
-    backgroundColor: "#fff",
+    backgroundColor: "fff",
   },
   headerImage: {
     minWidth: "100%",
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-end",
-    backgroundColor: "#fff",
+    backgroundColor: "fff",
   },
   communityName: {
     margin: 0,
