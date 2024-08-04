@@ -9,6 +9,13 @@ import {
   Platform,
 } from "react-native";
 import OrdinaryInput from "../ordinary-input";
+import { useRouter } from "expo-router";
+
+const formatCurrency = (value) => {
+  const number = value.replace(/\D/g, "");
+  const formattedValue = (number / 100).toFixed(2).replace(".", ",");
+  return "R$ " + formattedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+};
 
 const CommunityCostRegister = () => {
   const [equipmentName, setEquipmentName] = useState("");
@@ -18,6 +25,8 @@ const CommunityCostRegister = () => {
   const [transportCost, setTransportCost] = useState("");
   const [transportQuantity, setTransportQuantity] = useState("");
   const [transportItinerary, setTransportItinerary] = useState("");
+
+  const router = useRouter();
 
   const handleRegisterEquipment = () => {
     if (
@@ -29,10 +38,11 @@ const CommunityCostRegister = () => {
         Platform.OS === "android" &&
         ToastAndroid.showWithGravity(
           "Preencha todos os campos obrigatórios",
-          ToastAndroid.SHORT,
+          ToastAndroid.LONG,
           ToastAndroid.CENTER
         )
       );
+
     const newEquipment = {
       name: equipmentName,
       cost: equipmentCost,
@@ -40,14 +50,14 @@ const CommunityCostRegister = () => {
     };
     console.log("🚀 ~ handleRegisterEquipment ~ newEquipment:", newEquipment);
 
-    return (
-      Platform.OS === "android" &&
+    Platform.OS === "android" &&
       ToastAndroid.showWithGravity(
         "Equipamento Registrado",
-        ToastAndroid.SHORT,
+        ToastAndroid.LONG,
         ToastAndroid.CENTER
-      )
-    );
+      );
+
+    router.back();
   };
 
   const handleRegisterTransport = () => {
@@ -60,26 +70,27 @@ const CommunityCostRegister = () => {
         Platform.OS === "android" &&
         ToastAndroid.showWithGravity(
           "Preencha todos os campos obrigatórios",
-          ToastAndroid.SHORT,
+          ToastAndroid.LONG,
           ToastAndroid.CENTER
         )
       );
+
     const newTransport = {
       name: "Transporte",
       cost: transportCost,
       maxQuantity: parseInt(transportQuantity, 10),
-      itinerary: "",
+      itinerary: transportItinerary,
     };
     console.log("🚀 ~ handleRegisterTransport ~ newTransport:", newTransport);
 
-    return (
-      Platform.OS === "android" &&
+    Platform.OS === "android" &&
       ToastAndroid.showWithGravity(
         "Transporte Registrado",
-        ToastAndroid.SHORT,
+        ToastAndroid.LONG,
         ToastAndroid.CENTER
-      )
-    );
+      );
+
+    router.back();
   };
 
   return (
@@ -101,13 +112,13 @@ const CommunityCostRegister = () => {
           />
           <OrdinaryInput
             label="Custo do equipamento *"
-            placeholder="0"
+            placeholder="R$ 0,00"
             isFilled={true}
             keyboardType="numeric"
             inputMode="numeric"
             isMultiLine={false}
             value={equipmentCost}
-            onChangeText={setEquipmentCost}
+            onChangeText={(text) => setEquipmentCost(formatCurrency(text))}
           />
           <OrdinaryInput
             label="Quantidade disponibilizada *"
@@ -137,13 +148,13 @@ const CommunityCostRegister = () => {
         <View style={styles.costRegisterContent}>
           <OrdinaryInput
             label="Custo da gasolina *"
-            placeholder="0"
+            placeholder="R$ 0,00"
             isFilled={true}
             keyboardType="numeric"
             inputMode="numeric"
             isMultiLine={false}
             value={transportCost}
-            onChangeText={setTransportCost}
+            onChangeText={(text) => setTransportCost(formatCurrency(text))}
           />
           <OrdinaryInput
             label="Vagas disponibilizadas *"

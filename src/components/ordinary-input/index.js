@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
   inputContainer: {
     backgroundColor: "#F1F1F1",
     borderRadius: 10,
-    border: "0",
+    borderWidth: 0,
+    borderColor: "transparent",
     paddingLeft: 15,
     paddingVertical: 5,
   },
