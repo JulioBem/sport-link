@@ -33,18 +33,18 @@ const CommunityReservationController = ({
         <View style={styles.controller}>
           <Icon
             size={15}
-            name="add-circle-outline"
+            name="remove-circle-outline"
             type="material"
-            onPress={onIncrease}
+            onPress={onDecrease}
           />
           <Text>
             {quantity}/{maxQuantity}
           </Text>
           <Icon
             size={15}
-            name="remove-circle-outline"
+            name="add-circle-outline"
             type="material"
-            onPress={onDecrease}
+            onPress={onIncrease}
           />
         </View>
       </View>
