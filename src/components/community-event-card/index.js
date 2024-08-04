@@ -32,7 +32,6 @@ const CommunityEventCard = ({ event }) => {
           pathname: `/comunidade/123/evento/${id}`,
           params: {
             event: JSON.stringify(event),
-            eventId: id,
             communityId: "123",
           },
         })
