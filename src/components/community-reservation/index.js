@@ -105,7 +105,7 @@ const CommunityReservation = () => {
             color="#2260A8"
             buttonStyle={{ borderRadius: 10 }}
             containerStyle={{ width: "100%" }}
-            titleStyle={{ fontWeight: "600" }}
+            titleStyle={{ fontSize: 13 }}
           >
             Reservar Vaga
           </Button>
@@ -135,7 +135,7 @@ const CommunityReservation = () => {
             color="#2260A8"
             buttonStyle={{ borderRadius: 10 }}
             containerStyle={{ width: "100%", paddingHorizontal: 21 }}
-            titleStyle={{ fontWeight: "600" }}
+            titleStyle={{ fontSize: 13 }}
           >
             Reservar Equipamentos
           </Button>
@@ -167,7 +167,7 @@ const CommunityReservation = () => {
             color="#2260A8"
             buttonStyle={{ borderRadius: 10 }}
             containerStyle={{ width: "100%", paddingHorizontal: 21 }}
-            titleStyle={{ fontWeight: "600" }}
+            titleStyle={{ fontSize: 13 }}
           >
             Reservar Assentos
           </Button>

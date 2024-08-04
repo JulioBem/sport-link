@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { Button } from "@rneui/themed";
-import { StyleSheet, Text, View, ScrollView, ToastAndroid } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  ToastAndroid,
+  Platform,
+} from "react-native";
 import OrdinaryInput from "../ordinary-input";
 
 const CommunityCostRegister = () => {
@@ -18,10 +25,13 @@ const CommunityCostRegister = () => {
       equipmentCost?.length === 0 ||
       equipmentQuantity?.length === 0
     )
-      return ToastAndroid.showWithGravity(
-        "Preencha todos os campos obrigatórios",
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER
+      return (
+        Platform.OS === "android" &&
+        ToastAndroid.showWithGravity(
+          "Preencha todos os campos obrigatórios",
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        )
       );
     const newEquipment = {
       name: equipmentName,
@@ -30,10 +40,13 @@ const CommunityCostRegister = () => {
     };
     console.log("🚀 ~ handleRegisterEquipment ~ newEquipment:", newEquipment);
 
-    return ToastAndroid.showWithGravity(
-      "Equipamento Registrado",
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
+    return (
+      Platform.OS === "android" &&
+      ToastAndroid.showWithGravity(
+        "Equipamento Registrado",
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      )
     );
   };
 
@@ -43,10 +56,13 @@ const CommunityCostRegister = () => {
       transportQuantity?.length === 0 ||
       transportItinerary?.length === 0
     )
-      return ToastAndroid.showWithGravity(
-        "Preencha todos os campos obrigatórios",
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER
+      return (
+        Platform.OS === "android" &&
+        ToastAndroid.showWithGravity(
+          "Preencha todos os campos obrigatórios",
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        )
       );
     const newTransport = {
       name: "Transporte",
@@ -56,10 +72,13 @@ const CommunityCostRegister = () => {
     };
     console.log("🚀 ~ handleRegisterTransport ~ newTransport:", newTransport);
 
-    return ToastAndroid.showWithGravity(
-      "Transporte Registrado",
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
+    return (
+      Platform.OS === "android" &&
+      ToastAndroid.showWithGravity(
+        "Transporte Registrado",
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      )
     );
   };
 
@@ -104,7 +123,7 @@ const CommunityCostRegister = () => {
             color="#2260A8"
             buttonStyle={{ borderRadius: 10 }}
             containerStyle={{ width: "100%" }}
-            titleStyle={{ fontWeight: "600" }}
+            titleStyle={{ fontSize: 13 }}
             onPress={handleRegisterEquipment}
           >
             Cadastrar Equipamento
@@ -151,7 +170,7 @@ const CommunityCostRegister = () => {
             color="#2260A8"
             buttonStyle={{ borderRadius: 10 }}
             containerStyle={{ width: "100%" }}
-            titleStyle={{ fontWeight: "600" }}
+            titleStyle={{ fontSize: 13 }}
             onPress={handleRegisterTransport}
           >
             Cadastrar Veículo

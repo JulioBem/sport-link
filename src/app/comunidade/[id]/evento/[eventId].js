@@ -117,6 +117,8 @@ export default function Evento(props) {
           <Button
             color="#2260A8"
             buttonStyle={{ borderRadius: 10 }}
+            containerStyle={{ width: "100%" }}
+            titleStyle={{ fontSize: 13 }}
             onPress={() =>
               router.push(
                 `/comunidade/${communityId}/evento/${eventId}/organizacao`
