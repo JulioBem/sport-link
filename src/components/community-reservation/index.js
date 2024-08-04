@@ -151,14 +151,15 @@ const CommunityReservation = () => {
         <View style={[styles.reservationContent, { paddingHorizontal: 0 }]}>
           {transport.map((item, index) => (
             <CommunityReservationController
-              key={item.id}
-              name={item.name}
-              cost={item.cost}
-              quantity={item.quantity}
-              maxQuantity={item.maxQuantity}
-              isLast={equipment.length === index + 1}
-              onIncrease={() => handleIncrease(item.id)}
-              onDecrease={() => handleDecrease(item.id)}
+              key={item?.id}
+              name={item?.name}
+              cost={item?.cost}
+              quantity={item?.quantity}
+              maxQuantity={item?.maxQuantity}
+              itinerary={item?.itinerary}
+              isLast={transport.length === index + 1}
+              onIncrease={() => handleIncrease(item?.id)}
+              onDecrease={() => handleDecrease(item?.id)}
               isTransport={true}
             />
           ))}

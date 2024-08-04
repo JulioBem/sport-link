@@ -1,6 +1,6 @@
 import React from "react";
 import { Icon } from "@rneui/themed";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 const CommunityReservationController = ({
   isLast = false,
@@ -11,6 +11,7 @@ const CommunityReservationController = ({
   onIncrease,
   onDecrease,
   isTransport = false,
+  itinerary,
 }) => {
   return (
     <View
@@ -31,23 +32,24 @@ const CommunityReservationController = ({
           </Text>
         </View>
         <View style={styles.controller}>
-          <Icon
-            size={15}
-            name="remove-circle-outline"
-            type="material"
-            onPress={onDecrease}
-          />
+          <Pressable onPress={onDecrease}>
+            <Icon size={15} name="remove-circle-outline" type="material" />
+          </Pressable>
+
           <Text>
             {quantity}/{maxQuantity}
           </Text>
-          <Icon
-            size={15}
-            name="add-circle-outline"
-            type="material"
-            onPress={onIncrease}
-          />
+
+          <Pressable onPress={onIncrease}>
+            <Icon size={15} name="add-circle-outline" type="material" />
+          </Pressable>
         </View>
       </View>
+      {isTransport && itinerary && (
+        <View style={styles.itineraryContainer}>
+          <Text style={styles.itineraryTxt}>{itinerary}</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -65,6 +67,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 11,
+  },
+  itineraryTxt: {
+    fontSize: 13,
+    textAlign: "justify",
+    marginTop: 5,
   },
 });
 
