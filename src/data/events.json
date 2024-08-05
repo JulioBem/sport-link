@@ -125,22 +125,15 @@
         {
           "id": 4,
           "name": "Cera de prancha",
-          "cost": "R$ 0,00",
+          "cost": "R$ 220,00",
           "owner": {
-            "id": "author457",
+            "id": "participant102",
             "name": "Ana Pereira",
             "email": "ana.pereira@example.com",
             "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
             "chavePix": "teste@gmail.com"
           },
           "participants": [
-            {
-              "id": "participant102",
-              "name": "Luiz Almeida",
-              "email": "luiz.almeida@example.com",
-              "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
-              "status": "confirmed"
-            },
             {
               "id": "participant103",
               "name": "Fernanda Costa",
@@ -160,20 +153,13 @@
           "maxQuantity": 10,
           "itinerary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut gravida metus. Morbi convallis ipsum eu eros sodales laoreet. Vestibulum rutrum metus in convallis congue. Curabitur venenatis pellentesque diam, vitae consectetur diam dictum quis. Duis suscipit, tellus nec tincidunt ornare, orci odio bibendum lectus, at maximus ipsum arcu vitae velit. In accumsan rutrum felis id varius. Suspendisse sollicitudin dignissim ipsum, vel molestie purus posuere a.",
           "owner": {
-            "id": "author457",
+            "id": "participant102",
             "name": "Ana Pereira",
             "email": "ana.pereira@example.com",
             "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
             "chavePix": "teste@gmail.com"
           },
           "participants": [
-            {
-              "id": "participant102",
-              "name": "Luiz Almeida",
-              "email": "luiz.almeida@example.com",
-              "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
-              "status": "confirmed"
-            },
             {
               "id": "participant103",
               "name": "Fernanda Costa",

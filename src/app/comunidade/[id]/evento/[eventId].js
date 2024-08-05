@@ -14,6 +14,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 
 export default function Evento(props) {
   const { event, communityId, eventId } = useLocalSearchParams(); // Obtém o parâmetro "event"
+  console.log("🚀 ~ Evento ~ event:", event);
   const router = useRouter();
   const {
     // id,
@@ -24,7 +25,9 @@ export default function Evento(props) {
     // description,
     // date,
     // capacity,
+    expenses,
   } = JSON.parse(event);
+  console.log("🚀 ~ Evento ~ expenses:", expenses);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,10 +44,7 @@ export default function Evento(props) {
           <View style={styles.mainInfoGrid}>
             <Icon containerStyle={{ top: 3 }} name="place" size={15} />
             <View>
-              <Text
-                style={styles.boldText}
-              >{`${location?.city}, ${location?.state}`}</Text>
-              <Text>{`${location?.address}`}</Text>
+              <Text style={styles.boldText}>{`${location?.address}`}</Text>
             </View>
           </View>
           <View style={styles.mainInfoGrid}>
@@ -102,13 +102,35 @@ export default function Evento(props) {
               )}
             />
           </View>
-          <Pressable style={styles.eventBtnContainer}>
+          <Pressable
+            style={styles.eventBtnContainer}
+            onPress={() =>
+              router.push({
+                pathname: `/comunidade/123/evento/${eventId}/pagamentos`,
+                params: {
+                  currentPage: "Despesas",
+                  expenses: JSON.stringify(expenses),
+                },
+              })
+            }
+          >
             <Text>
               <Text style={styles.boldText}>Confira as despesas</Text> que você
               tem no evento
             </Text>
           </Pressable>
-          <Pressable style={styles.eventBtnContainer}>
+          <Pressable
+            style={styles.eventBtnContainer}
+            onPress={() =>
+              router.push({
+                pathname: `/comunidade/123/evento/${eventId}/pagamentos`,
+                params: {
+                  currentPage: "Receitas",
+                  expenses: JSON.stringify(expenses),
+                },
+              })
+            }
+          >
             <Text>
               Veja o valor que você tem{" "}
               <Text style={styles.boldText}>a receber</Text> desse evento
