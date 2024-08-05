@@ -6,16 +6,14 @@
     "date": "2024-08-15T09:00:00Z",
     "createdAt": "2024-07-21T09:00:00Z",
     "location": {
-      "address": "Praia Exemplo, 123",
-      "city": "São Paulo",
-      "state": "SP",
-      "zipCode": "01234-567"
+      "address": "Praia Exemplo, 123"
     },
     "author": {
       "id": "author456",
       "name": "João Silva",
       "email": "joao.silva@example.com",
-      "profilePicture": "https://example.com/profile-pictures/joao-silva.jpg"
+      "profilePicture": "https://example.com/profile-pictures/joao-silva.jpg",
+      "chavePix": "teste@gmail.com"
     },
     "participants": [
       {
