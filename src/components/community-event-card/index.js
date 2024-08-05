@@ -5,7 +5,7 @@ import {
   Text,
   View,
   ImageBackground,
-  TouchableHighlight,
+  Pressable,
   FlatList,
 } from "react-native";
 import { Avatar } from "@rneui/themed";
@@ -17,7 +17,6 @@ const CommunityEventCard = ({ event }) => {
   const {
     participants,
     capacity,
-    currentRegistrations,
     imageURI: eventIMG,
     title,
     id,
@@ -26,11 +25,14 @@ const CommunityEventCard = ({ event }) => {
     "https://img.freepik.com/fotos-premium/um-surfista-surfa-uma-onda-em-frente-ao-por-do-sol_201528-74.jpg";
 
   return (
-    <TouchableHighlight
+    <Pressable
       onPress={() =>
         router.push({
           pathname: `/comunidade/123/evento/${id}`,
-          params: { event: JSON.stringify(event) },
+          params: {
+            event: JSON.stringify(event),
+            communityId: "123",
+          },
         })
       }
     >
@@ -43,6 +45,7 @@ const CommunityEventCard = ({ event }) => {
         <Text style={styles.eventName}>{title}</Text>
         <View style={styles.eventMembers}>
           <FlatList
+            scrollEnabled={false}
             data={participants}
             renderItem={({ item, index }) => (
               <Avatar
@@ -60,12 +63,12 @@ const CommunityEventCard = ({ event }) => {
           <Text
             style={[styles.eventMembersTxt, { right: participants.length * 8 }]}
           >
-            {currentRegistrations}
-            <span style={{ fontWeight: "500" }}>/{capacity}</span>
+            {participants?.length}
+            <Text style={{ fontWeight: "500" }}>/{capacity}</Text>
           </Text>
         </View>
       </ImageBackground>
-    </TouchableHighlight>
+    </Pressable>
   );
 };
 
@@ -78,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginHorizontal: "auto",
-    borderRadius: "5px",
+    borderRadius: 5,
     overflow: "hidden",
     boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.25)",
     position: "relative",
@@ -91,16 +94,16 @@ const styles = StyleSheet.create({
   },
   eventMembers: {
     position: "absolute",
-    bottom: "7px",
-    left: "11px",
+    bottom: 7,
+    left: 11,
     display: "flex",
     flexDirection: "row",
   },
   eventMembersTxt: {
     color: "#fff",
-    fontSize: "12px",
-    marginLeft: "10px",
-    lineHeight: "18px",
+    fontSize: 12,
+    marginLeft: 10,
+    lineHeight: 18,
   },
   avatarGroup: {
     display: "flex",
@@ -109,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   memberAvatar: {
-    right: "10px",
+    right: 10,
   },
 });
 
