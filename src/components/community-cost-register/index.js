@@ -103,7 +103,7 @@ const CommunityCostRegister = () => {
           <OrdinaryInput
             label="Nome do equipamento *"
             placeholder="Prancha"
-            isFilled={false}
+            isFilled={true}
             keyboardType="text"
             inputMode="text"
             isMultiLine={false}
