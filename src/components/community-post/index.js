@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: "12px",
     right: "10px",
-    fontSize: "9px",
+    fontSize: 9,
   },
 });
 

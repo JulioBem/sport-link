@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   eventListHeading: {
     fontSize: 12,
-    fontWeight: 500,
+    fontWeight: "500",
     marginVertical: 16,
     width: "360px",
     marginHorizontal: "auto",

@@ -6,23 +6,24 @@ import {
   StyleSheet,
   Text,
   View,
+  Pressable,
 } from "react-native";
 import CommunityHeader from "../../../../components/community-header";
 import { Avatar, Button, Divider, Icon } from "@rneui/themed";
-import { TouchableOpacity } from "react-native-web";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 export default function Evento(props) {
-  const { event } = useLocalSearchParams(); // Obtém o parâmetro "event"
+  const { event, communityId, eventId } = useLocalSearchParams(); // Obtém o parâmetro "event"
+  const router = useRouter();
   const {
-    id,
+    // id,
     location,
     title,
-    participants,
-    imageURI,
-    description,
-    date,
-    capacity,
+    // participants,
+    // imageURI,
+    // description,
+    // date,
+    // capacity,
   } = JSON.parse(event);
 
   return (
@@ -31,14 +32,15 @@ export default function Evento(props) {
         communityTitle={title}
         imageURI="https://img.freepik.com/fotos-premium/um-surfista-surfa-uma-onda-em-frente-ao-por-do-sol_201528-74.jpg"
         hasTabs={false}
+        hasSubtitle={false}
         {...props}
       />
-      <ScrollView style={styles.eventContainer}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.eventMainInfo}>
           <Text style={styles.eventTitle}>{title}</Text>
           <View style={styles.mainInfoGrid}>
             <Icon containerStyle={{ top: 3 }} name="place" size={15} />
-            <View style={{ width: "fit-content" }}>
+            <View>
               <Text
                 style={styles.boldText}
               >{`${location?.city}, ${location?.state}`}</Text>
@@ -59,11 +61,9 @@ export default function Evento(props) {
               icon={{ name: "group", type: "material" }}
               containerStyle={{ backgroundColor: "#d4d4d4", top: 3 }}
             />
-            <Button>
             <Text style={styles.boldText}>
               Júlia, João, Marina e mais 10 estão envolvidos no evento
             </Text>
-            </Button>
           </View>
         </View>
         <Divider style={{ marginVertical: 17 }} />
@@ -87,6 +87,7 @@ export default function Evento(props) {
               Materiais necessários
             </Text>
             <FlatList
+              scrollEnabled={false}
               data={[
                 { key: "Devin" },
                 { key: "Dan" },
@@ -101,17 +102,27 @@ export default function Evento(props) {
               )}
             />
           </View>
-          <TouchableOpacity style={styles.eventBtnContainer}>
+          <Pressable style={styles.eventBtnContainer}>
             <Text>
-              <b>Confira as despesas</b> que você tem no evento
+              <Text style={styles.boldText}>Confira as despesas</Text> que você
+              tem no evento
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.eventBtnContainer}>
+          </Pressable>
+          <Pressable style={styles.eventBtnContainer}>
             <Text>
-              Veja o valor que você tem <b>a receber</b> desse evento
+              Veja o valor que você tem{" "}
+              <Text style={styles.boldText}>a receber</Text> desse evento
             </Text>
-          </TouchableOpacity>
-          <Button color="#2260A8" buttonStyle={{ borderRadius: 10 }}>
+          </Pressable>
+          <Button
+            color="#2260A8"
+            buttonStyle={{ borderRadius: 10 }}
+            onPress={() =>
+              router.push(
+                `/comunidade/${communityId}/evento/${eventId}/organizacao`
+              )
+            }
+          >
             Atualizar participação
           </Button>
         </View>
@@ -125,7 +136,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
   },
-  eventContainer: {
+  scrollViewContent: {
+    flexGrow: 1,
     paddingVertical: 23,
     paddingHorizontal: 18,
   },
@@ -135,12 +147,12 @@ const styles = StyleSheet.create({
     gap: 13,
   },
   eventTitle: {
-    fontSize: "15px",
-    fontWeight: 500,
+    fontSize: 15,
+    fontWeight: "500",
     lineHeight: 18,
   },
   boldText: {
-    fontWeight: 600,
+    fontWeight: "600",
   },
   eventDetails: {
     display: "flex",
@@ -165,7 +177,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#d3d3d3",
     height: 75,
     width: "100%",
-    borderRadius: "10px",
+    borderRadius: 10,
     boxShadow: "0px 1px 2px 0px rgba(0,0,0,0.05)",
   },
 });

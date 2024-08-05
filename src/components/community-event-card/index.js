@@ -61,7 +61,7 @@ const CommunityEventCard = ({ event }) => {
             style={[styles.eventMembersTxt, { right: participants.length * 8 }]}
           >
             {currentRegistrations}
-            <span style={{ fontWeight: 500 }}>/{capacity}</span>
+            <span style={{ fontWeight: "500" }}>/{capacity}</span>
           </Text>
         </View>
       </ImageBackground>
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   eventName: {
     fontSize: 12,
-    fontWeight: 600,
+    fontWeight: "600",
     lineHeight: 14,
     color: "#fff",
   },

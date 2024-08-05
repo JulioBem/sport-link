@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
-import { ListItem, Avatar, Icon } from 'react-native-elements';
-import events from '../../data/events.json'; // Atualize o caminho conforme necessário
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import events from '../../data/events.json'; 
 
 const MaterialColaborators = ({ eventId }) => {
   const [expandedUsuarios, setExpandedUsuarios] = useState({});
@@ -17,8 +16,6 @@ const MaterialColaborators = ({ eventId }) => {
     );
   }
 
-
-  
   const getAllUsers = () => {
     // Cria um array com todos os participantes e o autor
     const users = [...eventData.participants];
@@ -44,61 +41,78 @@ const MaterialColaborators = ({ eventId }) => {
     }));
   };
 
-  return (
-    <ScrollView style={styles.container}>
-      {eventData.materials.map((section, index) => (
-        <View key={index}>
-          <Text style={styles.materialTitle}>{section.material}</Text>
-          {section.usuarios.map((usuario, idx) => {
-            const user = getUserById(usuario.id); 
+  const renderUserItem = ({ item: usuario }) => {
+    const user = getUserById(usuario.id); 
+    return (
+      <View>
+        <View style={styles.listItem}>
+          <Image 
+            source={{ uri: user.profilePicture }} 
+            style={styles.avatar} 
+          />
+          <View style={styles.listItemContent}>
+            <View>
+              <Text style={styles.userName}>
+                <Text style={styles.userNameBold}>{user.name.split(' ')[0]}</Text>
+                <Text style={styles.userNameNormal}>{` ${user.name.split(' ').slice(1).join(' ')}`}</Text>
+              </Text>
+              <Text style={styles.userCount}>
+                {usuario.associados.length}/{usuario.capacidade}
+              </Text>
+            </View>
+            {usuario.associados.length > 0 && (
+              <TouchableOpacity onPress={() => toggleUsuarioSection(user.name)}>
+                <Text style={styles.expandIcon}>
+                  {expandedUsuarios[user.name] ? '−' : '+'}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+        {expandedUsuarios[user.name] && (
+          usuario.associados.map((associadoId, idx) => {
+            const associado = getUserById(associadoId.id); 
             return (
-              <View key={idx}>
-                <ListItem containerStyle={styles.listItem} bottomDivider={false}>
-                  <Avatar source={{ uri: user.profilePicture }} rounded size="medium" />
-                  <ListItem.Content style={styles.listItemContent}>
-                    <ListItem.Title style={styles.userName}>
-                      <Text style={styles.userNameBold}>{user.name.split(' ')[0]}</Text>
-                      <Text style={styles.userNameNormal}>{` ${user.name.split(' ').slice(1).join(' ')}`}</Text>
-                    </ListItem.Title>
-                    <ListItem.Subtitle style={styles.userCount}>
-                      {usuario.associados.length}/{usuario.capacidade}
-                    </ListItem.Subtitle>
-                  </ListItem.Content>
-                  {usuario.associados.length > 0 && (
-                    <TouchableOpacity onPress={() => toggleUsuarioSection(user.name)}>
-                      <Icon
-                        name={expandedUsuarios[user.name] ? 'expand-less' : 'expand-more'}
-                        type='material'
-                        color='#000'
-                      />
-                    </TouchableOpacity>
-                  )}
-                </ListItem>
-                {expandedUsuarios[user.name] && (
-                  usuario.associados.map((associadoId, idx) => {
-                    const associado = getUserById(associadoId.id); 
-                    return (
-                      <View key={idx} style={styles.associadoItem}>
-                        <Avatar source={{ uri: associado.profilePicture }} rounded size="small" />
-                        <Text style={styles.associadoName}>{associado.name}</Text>
-                      </View>
-                    );
-                  })
-                )}
-                <View style={styles.userSpacing} />
+              <View key={idx} style={styles.associadoItem}>
+                <Image 
+                  source={{ uri: associado.profilePicture }} 
+                  style={styles.smallAvatar} 
+                />
+                <Text style={styles.associadoName}>{associado.name}</Text>
               </View>
             );
-          })}
-          <View style={styles.separator} />
-        </View>
-      ))}
-    </ScrollView>
+          })
+        )}
+        <View style={styles.userSpacing} />
+      </View>
+    );
+  };
+
+  const renderMaterialSection = ({ item: section }) => (
+    <View>
+      <Text style={styles.materialTitle}>{section.material}</Text>
+      <FlatList
+        data={section.usuarios}
+        renderItem={renderUserItem}
+        keyExtractor={(item, idx) => item.id.toString() + idx}
+        ListFooterComponent={<View style={styles.separator} />}
+      />
+    </View>
+  );
+
+  return (
+    <FlatList
+      data={eventData.materials}
+      renderItem={renderMaterialSection}
+      keyExtractor={(item, idx) => item.material + idx}
+      contentContainerStyle={styles.container}
+    />
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#fff',
   },
   materialTitle: {
@@ -108,9 +122,21 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   listItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: '#fff',
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
+  smallAvatar: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
   },
   listItemContent: {
     flexDirection: 'row',
@@ -155,7 +181,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
     marginVertical: 10,
   },
+  expandIcon: {
+    fontSize: 18,
+    color: '#000',
+  },
 });
 
 export default MaterialColaborators;
-
