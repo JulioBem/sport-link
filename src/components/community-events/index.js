@@ -3,8 +3,12 @@ import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button, Divider, Icon } from "@rneui/themed";
 import CommunityEventCard from "../community-event-card";
 import events from "../../data/events.json";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 const CommunityEvents = () => {
+  const { communityId } = useLocalSearchParams();
+  const router = useRouter();
+
   return (
     <>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -53,7 +57,7 @@ const CommunityEvents = () => {
         icon={<Icon name="add" size={20} color="#fff" />}
         iconContainerStyle={{ background: "#000" }}
         loadingProps={{ animating: true }}
-        onPress={() => alert("click")}
+        onPress={() => router.push(`/comunidade/${communityId}/criar-evento`)}
         color="#2260A8"
       />
     </>

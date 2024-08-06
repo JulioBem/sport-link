@@ -9,13 +9,14 @@ import {
   Image,
   ScrollView,
   Switch,
+  Pressable,
 } from "react-native";
-import AddImageIcon from "../../assets/images/icone-upload.png";
-import CommunityHeader from "../components/community-header";
+import AddImageIcon from "../../../../assets/images/icone-upload.png";
+import CommunityHeader from "../../../components/community-header";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function CriarEvento() {
   const [eventName, setEventName] = useState("");
-  const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [location, setLocation] = useState("");
@@ -24,6 +25,41 @@ export default function CriarEvento() {
   const [currentMaterial, setCurrentMaterial] = useState("");
   const [isBeginner, setIsBeginner] = useState(false);
   const [isAdvanced, setIsAdvanced] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showStartTimePicker, setShowStartTimePicker] = useState(false);
+  const [showEndTimePicker, setShowEndTimePicker] = useState(false);
+
+  const onChangeDate = (event, selectedDate) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      setDate(selectedDate);
+    }
+  };
+
+  const onChangeStartTime = (event, selectedTime) => {
+    setShowStartTimePicker(false);
+    if (selectedTime) {
+      setStartTime(
+        selectedTime.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      );
+    }
+  };
+
+  const onChangeEndTime = (event, selectedTime) => {
+    setShowEndTimePicker(false);
+    if (selectedTime) {
+      setEndTime(
+        selectedTime.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      );
+    }
+  };
 
   const addMaterial = () => {
     if (currentMaterial.trim() !== "") {
@@ -44,7 +80,7 @@ export default function CriarEvento() {
         <View style={styles.iconContainer}>
           <Image source={AddImageIcon} style={styles.icon} />
         </View>
-        <Image source={{ uri: 'image-url-here' }} style={styles.image} />
+        <Image source={{ uri: "image-url-here" }} style={styles.image} />
         <View style={styles.content}>
           <Text style={styles.label}>Nome do evento</Text>
           <TextInput
@@ -53,27 +89,68 @@ export default function CriarEvento() {
             onChangeText={setEventName}
             placeholder="Insira o nome do evento"
           />
-
           <Text style={styles.label}>Data</Text>
           <View style={styles.dateContainer}>
-            <TextInput
-              style={styles.dateInput}
-              value={date}
-              onChangeText={setDate}
-              placeholder="Insira a data"
-            />
-            <TextInput
-              style={styles.startTimeInput}
-              value={startTime}
-              onChangeText={setStartTime}
-              placeholder="Início"
-            />
-            <TextInput
-              style={styles.endTimeInput}
-              value={endTime}
-              onChangeText={setEndTime}
-              placeholder="Término"
-            />
+            <Pressable
+              onPress={() => setShowDatePicker(true)}
+              style={{ flex: 1, width: "100%" }}
+            >
+              <TextInput
+                style={styles.dateInput}
+                value={date.toLocaleDateString()}
+                placeholder="Insira a data"
+                editable={false}
+              />
+            </Pressable>
+            {showDatePicker && (
+              <DateTimePicker
+                value={date}
+                mode="date"
+                is24Hour={true}
+                display="default"
+                onChange={onChangeDate}
+              />
+            )}
+            <Pressable
+              onPress={() => setShowStartTimePicker(true)}
+              style={{ flex: 1, width: "100%" }}
+            >
+              <TextInput
+                style={styles.startTimeInput}
+                value={startTime}
+                placeholder="Início"
+                editable={false}
+              />
+            </Pressable>
+            {showStartTimePicker && (
+              <DateTimePicker
+                value={new Date()}
+                mode="time"
+                is24Hour={true}
+                display="default"
+                onChange={onChangeStartTime}
+              />
+            )}
+            <Pressable
+              onPress={() => setShowEndTimePicker(true)}
+              style={{ flex: 1, width: "100%" }}
+            >
+              <TextInput
+                style={styles.endTimeInput}
+                value={endTime}
+                placeholder="Término"
+                editable={false}
+              />
+            </Pressable>
+            {showEndTimePicker && (
+              <DateTimePicker
+                value={new Date()}
+                mode="time"
+                is24Hour={true}
+                display="default"
+                onChange={onChangeEndTime}
+              />
+            )}
           </View>
 
           <Text style={styles.label}>Local</Text>
@@ -178,7 +255,6 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     paddingHorizontal: 10,
     backgroundColor: "#f1f1f1",
-    width: "35%",
     marginRight: 5,
     placeholderTextColor: "grey",
   },
@@ -189,7 +265,6 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     paddingHorizontal: 10,
     backgroundColor: "#f1f1f1",
-    width: "20%",
     marginRight: 5,
     placeholderTextColor: "grey",
   },
@@ -200,7 +275,6 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     paddingHorizontal: 10,
     backgroundColor: "#f1f1f1",
-    width: "25%",
     placeholderTextColor: "grey",
   },
   dateContainer: {
@@ -289,7 +363,7 @@ const styles = StyleSheet.create({
   },
   materialText: {
     fontSize: 16,
-    flexWrap: 'wrap', // Permite a quebra de linha do texto
+    flexWrap: "wrap", // Permite a quebra de linha do texto
   },
   levelContainer: {
     flexDirection: "row",
