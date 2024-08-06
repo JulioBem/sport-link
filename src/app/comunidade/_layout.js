@@ -24,6 +24,10 @@ export default function EventoLayout() {
         name="[id]/evento/[eventId]/pagamentos"
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="[id]/evento/[eventId]/participantes"
+        options={{ headerShown: false }}
+      />
     </Stack>
   );
 }
