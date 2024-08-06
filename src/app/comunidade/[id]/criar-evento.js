@@ -25,7 +25,7 @@ export default function CriarEvento() {
   const [currentMaterial, setCurrentMaterial] = useState("");
   const [isBeginner, setIsBeginner] = useState(false);
   const [isAdvanced, setIsAdvanced] = useState(false);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState();
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showStartTimePicker, setShowStartTimePicker] = useState(false);
   const [showEndTimePicker, setShowEndTimePicker] = useState(false);
@@ -97,14 +97,14 @@ export default function CriarEvento() {
             >
               <TextInput
                 style={styles.dateInput}
-                value={date.toLocaleDateString()}
+                value={date ? date?.toLocaleDateString() : ""}
                 placeholder="Insira a data"
                 editable={false}
               />
             </Pressable>
             {showDatePicker && (
               <DateTimePicker
-                value={date}
+                value={date ?? new Date()}
                 mode="date"
                 is24Hour={true}
                 display="default"
