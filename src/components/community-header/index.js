@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-end",
-    backgroundColor: "#fff",
+    backgroundColor: "fff",
   },
   communityName: {
     margin: 0,

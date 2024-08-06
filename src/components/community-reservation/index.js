@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@rneui/themed";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import CommunityReservationController from "../community-reservation-controller";
-import eventsCosts from "../../data/event-costs.json";
+import events from "../../data/events.json";
 
 const CommunityReservation = () => {
-  const { expenses } = eventsCosts ?? {};
+  const eventId = "event123";
+  const event = events.find((e) => e.id === eventId);
+  const { expenses, capacity, participants } = event ?? {};
   const [newEventExpenses, setNewEventExpenses] = useState(expenses);
 
-  const [totalEquipamentCost, setTotalEquipamentCost] = useState(0);
+  const [totalEquipmentCost, setTotalEquipmentCost] = useState(0);
   const [totalTransportCost, setTotalTransportCost] = useState(0);
 
   const { equipment = [], transport = [] } = newEventExpenses ?? {};
@@ -16,14 +18,31 @@ const CommunityReservation = () => {
   const [initialQuantities, setInitialQuantities] = useState({});
 
   useEffect(() => {
-    const initialQuantitiesMap = {};
-    expenses.equipment.forEach((item) => {
-      initialQuantitiesMap[item.id] = item.quantity;
-    });
-    expenses.transport.forEach((item) => {
-      initialQuantitiesMap[item.id] = item.quantity;
-    });
-    setInitialQuantities(initialQuantitiesMap);
+    if (expenses) {
+      const initialQuantitiesMap = {};
+      expenses.equipment.forEach((item) => {
+        initialQuantitiesMap[item.id] = item.participants.length;
+      });
+      expenses.transport.forEach((item) => {
+        initialQuantitiesMap[item.id] = item.participants.length;
+      });
+      setInitialQuantities(initialQuantitiesMap);
+    }
+  }, [expenses]);
+
+  useEffect(() => {
+    if (expenses) {
+      setNewEventExpenses({
+        equipment: expenses.equipment.map((item) => ({
+          ...item,
+          quantity: item.participants.length,
+        })),
+        transport: expenses.transport.map((item) => ({
+          ...item,
+          quantity: item.participants.length,
+        })),
+      });
+    }
   }, [expenses]);
 
   const handleIncrease = (id) => {
@@ -52,15 +71,13 @@ const CommunityReservation = () => {
     setNewEventExpenses((prevExpenses) => {
       const updatedEquipment = prevExpenses.equipment.map((item) => {
         if (item.id === id && item.quantity > initialQuantities[item.id]) {
-          const newQty = item.quantity - 1;
-          return { ...item, quantity: newQty };
+          return { ...item, quantity: item.quantity - 1 };
         }
         return item;
       });
       const updatedTransport = prevExpenses.transport.map((item) => {
         if (item.id === id && item.quantity > initialQuantities[item.id]) {
-          const newQty = item.quantity - 1;
-          return { ...item, quantity: newQty };
+          return { ...item, quantity: item.quantity - 1 };
         }
         return item;
       });
@@ -72,11 +89,11 @@ const CommunityReservation = () => {
     });
   };
 
-  const calculateTotalCost = (item) => {
-    return item
+  const calculateTotalCost = (items) => {
+    return items
       .reduce((total, item) => {
         const itemCost = parseFloat(
-          item.cost.replace("R$", "").replace(",", ".")
+          item.cost.replace("R$", "").replace(".", "").replace(",", ".")
         );
         return total + item.quantity * itemCost;
       }, 0)
@@ -84,7 +101,7 @@ const CommunityReservation = () => {
   };
 
   useEffect(() => {
-    setTotalEquipamentCost(calculateTotalCost(equipment));
+    setTotalEquipmentCost(calculateTotalCost(equipment));
     setTotalTransportCost(calculateTotalCost(transport));
   }, [newEventExpenses]);
 
@@ -98,14 +115,17 @@ const CommunityReservation = () => {
           <View style={styles.totalVacancies}>
             <Text style={{ fontSize: 13 }}>Total de Vagas</Text>
             <Text style={{ fontSize: 13 }}>
-              8<Text style={{ fontWeight: "500", fontSize: 13 }}>/10</Text>
+              {participants.length}
+              <Text style={{ fontWeight: "500", fontSize: 13 }}>
+                /{capacity}
+              </Text>
             </Text>
           </View>
           <Button
             color="#2260A8"
             buttonStyle={{ borderRadius: 10 }}
             containerStyle={{ width: "100%" }}
-            titleStyle={{ fontWeight: "600" }}
+            titleStyle={{ fontSize: 13 }}
           >
             Reservar Vaga
           </Button>
@@ -115,7 +135,7 @@ const CommunityReservation = () => {
         <View style={styles.reservationBoxTitle}>
           <Text style={styles.reservationBoxTitleTxt}>Equipamentos</Text>
           <Text style={styles.reservationTotalPrice}>
-            R$ {String(totalEquipamentCost).replace(".", ",")}
+            R$ {String(totalEquipmentCost).replace(".", ",")}
           </Text>
         </View>
         <View style={[styles.reservationContent, { paddingHorizontal: 0 }]}>
@@ -135,7 +155,7 @@ const CommunityReservation = () => {
             color="#2260A8"
             buttonStyle={{ borderRadius: 10 }}
             containerStyle={{ width: "100%", paddingHorizontal: 21 }}
-            titleStyle={{ fontWeight: "600" }}
+            titleStyle={{ fontSize: 13 }}
           >
             Reservar Equipamentos
           </Button>
@@ -167,7 +187,7 @@ const CommunityReservation = () => {
             color="#2260A8"
             buttonStyle={{ borderRadius: 10 }}
             containerStyle={{ width: "100%", paddingHorizontal: 21 }}
-            titleStyle={{ fontWeight: "600" }}
+            titleStyle={{ fontSize: 13 }}
           >
             Reservar Assentos
           </Button>

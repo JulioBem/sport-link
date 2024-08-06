@@ -17,7 +17,6 @@ const CommunityEventCard = ({ event }) => {
   const {
     participants,
     capacity,
-    currentRegistrations,
     imageURI: eventIMG,
     title,
     id,
@@ -32,7 +31,6 @@ const CommunityEventCard = ({ event }) => {
           pathname: `/comunidade/123/evento/${id}`,
           params: {
             event: JSON.stringify(event),
-            eventId: id,
             communityId: "123",
           },
         })
@@ -65,7 +63,7 @@ const CommunityEventCard = ({ event }) => {
           <Text
             style={[styles.eventMembersTxt, { right: participants.length * 8 }]}
           >
-            {currentRegistrations}
+            {participants?.length}
             <Text style={{ fontWeight: "500" }}>/{capacity}</Text>
           </Text>
         </View>
