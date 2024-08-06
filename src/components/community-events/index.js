@@ -4,6 +4,7 @@ import { Button, Divider, Icon } from "@rneui/themed";
 import CommunityEventCard from "../community-event-card";
 import events from "../../data/events.json";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import surfImage from "../../../assets/images/surf-image.jpeg";
 
 const CommunityEvents = () => {
   const { communityId } = useLocalSearchParams();
@@ -20,7 +21,9 @@ const CommunityEvents = () => {
             <FlatList
               scrollEnabled={false}
               data={events}
-              renderItem={({ item }) => <CommunityEventCard event={item} />}
+              renderItem={({ item }) => (
+                <CommunityEventCard event={item} imageFile={surfImage} />
+              )}
               keyExtractor={(item) => item.id}
               numColumns={1}
               contentContainerStyle={styles.eventList}
@@ -32,7 +35,9 @@ const CommunityEvents = () => {
             <FlatList
               scrollEnabled={false}
               data={events}
-              renderItem={({ item }) => <CommunityEventCard event={item} />}
+              renderItem={({ item }) => (
+                <CommunityEventCard event={item} imageFile={surfImage} />
+              )}
               keyExtractor={(item) => item.id}
               numColumns={1}
               contentContainerStyle={styles.eventList}
@@ -65,6 +70,9 @@ const CommunityEvents = () => {
 };
 
 const styles = StyleSheet.create({
+  scrollViewContent: {
+    paddingBottom: 40,
+  },
   eventsContainer: {
     margin: "0px auto",
     height: "100%",
