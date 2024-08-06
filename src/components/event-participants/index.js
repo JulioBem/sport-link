@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
+    color: '#333',
   },
   boldName: {
     fontWeight: 'bold',

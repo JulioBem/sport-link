@@ -61,18 +61,23 @@ export default function Evento(props) {
               icon={{ name: "group", type: "material" }}
               containerStyle={{ backgroundColor: "#d4d4d4", top: 3 }}
             />
-            <Button
-            buttonStyle={{ borderRadius: 10 }}
-            containerStyle={{ width: "100%" }}
-            titleStyle={{ fontSize: 13 }}
-            onPress={() =>
-              router.push(
-                `/comunidade/${communityId}/evento/${eventId}/participantes`
-              )
-            }
-          >
-            Júlia, João, Marina e mais 10 estão envolvidos no evento
-          </Button>
+            <Pressable
+              onPress={() =>
+                router.push(
+                  `/comunidade/${communityId}/evento/${eventId}/participantes`
+                )
+              }
+              style={({ pressed }) => [
+                {
+                  opacity: pressed ? 0.5 : 1,
+                },
+                styles.pressableContainer,
+              ]}
+            >
+              <Text style={styles.pressableText}>
+                Júlia, João, Marina e mais 10 estão envolvidos no evento
+              </Text>
+            </Pressable>
           </View>
         </View>
         <Divider style={{ marginVertical: 17 }} />
@@ -201,6 +206,7 @@ const styles = StyleSheet.create({
   mainInfoGrid: {
     display: "flex",
     flexDirection: "row",
+    alignItems: "center",
     gap: 5,
   },
   eventBtnContainer: {
@@ -213,4 +219,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     boxShadow: "0px 1px 2px 0px rgba(0,0,0,0.05)",
   },
+  pressableContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  pressableText: {
+    color: "#000",
+    fontSize: 13,
+    fontWeight: "600",
+  },
 });
+
+
