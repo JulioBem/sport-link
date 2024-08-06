@@ -12,6 +12,7 @@ import { SceneMap, TabView } from "react-native-tab-view";
 import CommunityHeader from "../../components/community-header";
 import CommunityMural from "../../components/community-mural";
 import CommunityEvents from "../../components/community-events";
+import surfImage from "../../../assets/images/surf-image.jpeg";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
@@ -68,7 +69,7 @@ export default function Comunidade(props) {
       <CommunityHeader
         communityTitle="Comunidade de Surf"
         communitySubtitle="Grupo de surfistas da UFPE"
-        imageURI="https://img.freepik.com/fotos-premium/um-surfista-surfa-uma-onda-em-frente-ao-por-do-sol_201528-74.jpg"
+        imageFile={surfImage}
         {...props}
       />
       <View style={styles.tabContainer}>

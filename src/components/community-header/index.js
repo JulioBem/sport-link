@@ -11,6 +11,7 @@ import { useRouter } from "expo-router";
 
 const CommunityHeader = ({
   imageURI,
+  imageFile,
   communityTitle,
   communitySubtitle,
   hasSubtitle = true,
@@ -30,7 +31,7 @@ const CommunityHeader = ({
       ]}
     >
       <ImageBackground
-        source={imageURI && { uri: imageURI }}
+        source={imageURI ? { uri: imageURI } : imageFile}
         resizeMode="cover"
         style={styles.headerImage}
         imageStyle={{ filter: "brightness(0.8)" }}
@@ -38,16 +39,16 @@ const CommunityHeader = ({
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
             <ChevronLeft
-              color={!imageURI ? "grey" : "#fff"}
+              color={!imageURI && !imageFile ? "grey" : "#fff"}
               size={34}
-              style={[styles.returnBtn, { bottom: 23 }]}
+              style={styles.returnBtn}
               onPress={() => router.back()}
             />
             <View>
               <Text
                 style={[
                   styles.communityName,
-                  !imageURI && { color: "#000 !important" },
+                  !imageURI && !imageFile && { color: "#000 !important" },
                 ]}
               >
                 {communityTitle}

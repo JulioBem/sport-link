@@ -11,6 +11,7 @@ import {
 import CommunityHeader from "../../../../components/community-header";
 import { Avatar, Button, Divider, Icon } from "@rneui/themed";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import surfImage from "../../../../../assets/images/surf-image.jpeg";
 
 export default function Evento(props) {
   const { event, communityId, eventId } = useLocalSearchParams(); // Obtém o parâmetro "event"
@@ -33,9 +34,9 @@ export default function Evento(props) {
     <SafeAreaView style={styles.container}>
       <CommunityHeader
         communityTitle={title}
-        imageURI="https://img.freepik.com/fotos-premium/um-surfista-surfa-uma-onda-em-frente-ao-por-do-sol_201528-74.jpg"
         hasTabs={false}
         hasSubtitle={false}
+        imageFile={surfImage}
         {...props}
       />
       <ScrollView contentContainerStyle={styles.scrollViewContent}>

@@ -11,7 +11,8 @@ import {
 import { Avatar } from "@rneui/themed";
 import { useRouter } from "expo-router";
 
-const CommunityEventCard = ({ event }) => {
+const CommunityEventCard = ({ event, imageFile }) => {
+  console.log("🚀 ~ CommunityEventCard ~ event:", event);
   if (!event) return null;
   const router = useRouter();
   const {
@@ -21,8 +22,6 @@ const CommunityEventCard = ({ event }) => {
     title,
     id,
   } = event;
-  const backupImage =
-    "https://img.freepik.com/fotos-premium/um-surfista-surfa-uma-onda-em-frente-ao-por-do-sol_201528-74.jpg";
 
   return (
     <Pressable
@@ -38,7 +37,7 @@ const CommunityEventCard = ({ event }) => {
     >
       <ImageBackground
         style={styles.eventContainer}
-        source={{ uri: backupImage ?? eventIMG }}
+        source={imageFile ? imageFile : { uri: eventIMG }}
         resizeMode="cover"
         imageStyle={{ filter: "brightness(0.8)" }}
       >
