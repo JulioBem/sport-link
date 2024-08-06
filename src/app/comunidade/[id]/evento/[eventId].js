@@ -61,9 +61,18 @@ export default function Evento(props) {
               icon={{ name: "group", type: "material" }}
               containerStyle={{ backgroundColor: "#d4d4d4", top: 3 }}
             />
-            <Text style={styles.boldText}>
-              Júlia, João, Marina e mais 10 estão envolvidos no evento
-            </Text>
+            <Button
+            buttonStyle={{ borderRadius: 10 }}
+            containerStyle={{ width: "100%" }}
+            titleStyle={{ fontSize: 13 }}
+            onPress={() =>
+              router.push(
+                `/comunidade/${communityId}/evento/${eventId}/participantes`
+              )
+            }
+          >
+            Júlia, João, Marina e mais 10 estão envolvidos no evento
+          </Button>
           </View>
         </View>
         <Divider style={{ marginVertical: 17 }} />

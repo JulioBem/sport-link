@@ -8,23 +8,24 @@ import {
   View,
 } from "react-native";
 import { SceneMap, TabView } from "react-native-tab-view";
+import { useRoute } from "@react-navigation/native"; // Alterar importação
 
-import CommunityHeader from "../../components/community-header";
-import CommunityMural from "../../components/community-mural";
-import CommunityEvents from "../../components/community-events";
+import CommunityHeader from "../../../../../components/community-header";
+import MaterialColaborators from "../../../../../components/event-colaborators";
+import ParticipantList from "../../../../../components/event-participants";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
-export default function Comunidade(props) {
+export default function Evento() {
+  const route = useRoute();
+  const { eventId } = route.params; // Acesse o parâmetro diretamente
 
-  const Mural = () => <CommunityMural />;
-
-  const Events = () => <CommunityEvents />;
+  const Colaborators = () => <MaterialColaborators eventId={eventId} />;
+  const Participants = () => <ParticipantList eventId={eventId} />;
 
   const routes = [
-    { key: "first", title: "Mural", component: Mural },
-    { key: "second", title: "Eventos", component: Events },
-    // Adicione mais rotas conforme necessário
+    { key: "first", title: "Todos", component: Participants },
+    { key: "second", title: "Colaboradores", component: Colaborators },
   ];
 
   const [index, setIndex] = React.useState(0);
@@ -40,7 +41,7 @@ export default function Comunidade(props) {
     return (
       <View style={styles.tabBar}>
         {props.navigationState.routes.map((route, i) => {
-          const borderColor = index === i ? "#fff" : "transparent";
+          const borderColor = index === i ? "#000" : "transparent";
           const fontWeight = index === i ? "600" : "300";
           return (
             <Pressable
@@ -50,7 +51,7 @@ export default function Comunidade(props) {
             >
               <Animated.Text
                 style={{
-                  color: "#fff",
+                  color: "#000",
                   fontWeight,
                 }}
               >
@@ -66,10 +67,9 @@ export default function Comunidade(props) {
   return (
     <SafeAreaView style={styles.container}>
       <CommunityHeader
-        communityTitle="Comunidade de Surf"
-        communitySubtitle="Grupo de surfistas da UFPE"
-        imageURI="https://img.freepik.com/fotos-premium/um-surfista-surfa-uma-onda-em-frente-ao-por-do-sol_201528-74.jpg"
-        {...props}
+        communityTitle="Participantes"
+        hasSubtitle={false}
+        hideShadow={true}
       />
       <View style={styles.tabContainer}>
         {renderTabBar({ navigationState: { index, routes }, setIndex })}

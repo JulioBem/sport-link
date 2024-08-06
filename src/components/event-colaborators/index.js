@@ -1,190 +1,140 @@
-import React, { useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import events from '../../data/events.json'; 
+import React, { useState } from 'react';  
+import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';  
+import { AntDesign } from '@expo/vector-icons';  
+import events from '../../data/events.json';  
 
-const MaterialColaborators = ({ eventId }) => {
-  const [expandedUsuarios, setExpandedUsuarios] = useState({});
+const MaterialColaborators = ({ eventId }) => {  
+  const [expandedMaterials, setExpandedMaterials] = useState({});  
 
-  // Filtra o evento com base no ID
-  const eventData = events.find(event => event.id === eventId);
+  const event = events.find(event => event.id === eventId);  
 
-  if (!eventData) {
-    return (
-      <View style={styles.container}>
-        <Text>Evento não encontrado</Text>
-      </View>
-    );
-  }
+  const toggleMaterial = (materialId) => {  
+    setExpandedMaterials((prev) => ({  
+      ...prev,  
+      [materialId]: !prev[materialId],  
+    }));  
+  };  
 
-  const getAllUsers = () => {
-    // Cria um array com todos os participantes e o autor
-    const users = [...eventData.participants];
-    
-    if (eventData.author) {
-      users.push(eventData.author);
-    }
-    
-    return users;
-  };
+  const renderParticipants = (participants) => (  
+    <FlatList  
+      data={participants}  
+      keyExtractor={(item) => item.id}  
+      renderItem={({ item }) => (  
+        <View style={styles.participantContainer}>  
+          <Image source={{ uri: item.profilePicture }} style={styles.participantImage} />  
+          <Text style={styles.participantName}>{item.name}</Text>  
+        </View>  
+      )}  
+    />  
+  );  
+
+  const renderMaterial = (material) => (  
+    <View key={material.id} style={styles.materialContainer}>  
+      <View style={styles.ownerContainer}>  
+        <Image source={{ uri: material.owner.profilePicture }} style={styles.ownerImage} />  
+        <Text style={styles.ownerName}>{material.owner.name} {material.name}</Text>  
+        <Text style={styles.materialDisponibility}>{material.participants.length}/{material.maxQuantity}</Text>  
+        <TouchableOpacity onPress={() => toggleMaterial(material.id)}>  
+          <AntDesign name={expandedMaterials[material.id] ? 'up' : 'down'} />  
+        </TouchableOpacity>  
+      </View>  
+      {expandedMaterials[material.id] && (  
+        <View>  
+          {renderParticipants(material.participants)}  
+        </View>  
+      )}  
+    </View>  
+  );  
+
+  const renderSection = (section, materials) => (  
+    <View key={section} style={styles.sectionContainer}>  
+      <Text style={styles.sectionTitle}>{section}</Text>  
+      {materials.map((material) => renderMaterial(material))}  
+    </View>  
+  );  
+
+  if (!event) {  
+    return <Text>Evento não encontrado</Text>;  
+  }  
+
+  return (  
+    <ScrollView style={styles.eventContainer}>  
+      {event.expenses.equipment.length > 0 && renderSection('Equipamentos', event.expenses.equipment)}  
+      {event.expenses.transport.length > 0 && renderSection('Transportes', event.expenses.transport)}  
+    </ScrollView>  
+  );  
+};  
+
+const styles = StyleSheet.create({  
+    eventContainer: {  
+      flex: 1,  
+      padding: 16,  
+      backgroundColor: '#fff',  
+    },  
+    sectionContainer: {  
+      marginBottom: 16,  
+    },  
+    sectionTitle: {   
+      height: 20,  
+      fontSize: 16,  
+      fontWeight: '300',  
+      lineHeight: 20,   
+      marginBottom: 8,  
+      color: '#333',  
+    },  
+    ownerContainer: {  
+        width: 335.18,  
+        height: 50,  
+        marginBottom: 12,   
+        marginHorizontal: 17,  
+        borderRadius: 100,   
+        flexDirection: 'row',  
+        alignItems: 'center',  
+      },  
+    ownerImage: {  
+      width: 50,  
+      height: 50,  
+      borderRadius: 25,  
+      marginRight: 12,  
+    },  
+    ownerName: {  
+      fontSize: 16,  
+      color: '#333',  
+      flex: 1,  
+    },  
+    materialDisponibility: {
+        height: 18,
+        fontSize: 15,
+        fontWeight: "300",
+        lineHeight: 18.29,
+        textAlign: "left",
+    },
+    participantContainer: {  
+        width: 167,  
+        height: 40,  
+        marginBottom: 8,  
+        marginHorizontal: 67,  
+        borderRadius: 50,  
+        flexDirection: 'row',  
+        alignItems: 'center',  
+      },  
+    participantImage: {  
+      width: 40,  
+      height: 40,  
+      borderRadius: 20,  
+      marginRight: 8,  
+    },  
+    participantName: {  
+      fontSize: 14,  
+      color: '#333',  
+    },  
+    participantDetails: {  
+      fontSize: 12,  
+      color: '#666',  
+    },  
+  });  
   
-  // Exemplo de uso da função para encontrar um usuário por ID
-  const getUserById = (id) => {
-    const users = getAllUsers();
-    return users.find(user => user.id === id);
-  };
+  export default MaterialColaborators;
 
-  // Alterna a seção do usuário
-  const toggleUsuarioSection = (usuario) => {
-    setExpandedUsuarios((prev) => ({
-      ...prev,
-      [usuario]: !prev[usuario],
-    }));
-  };
 
-  const renderUserItem = ({ item: usuario }) => {
-    const user = getUserById(usuario.id); 
-    return (
-      <View>
-        <View style={styles.listItem}>
-          <Image 
-            source={{ uri: user.profilePicture }} 
-            style={styles.avatar} 
-          />
-          <View style={styles.listItemContent}>
-            <View>
-              <Text style={styles.userName}>
-                <Text style={styles.userNameBold}>{user.name.split(' ')[0]}</Text>
-                <Text style={styles.userNameNormal}>{` ${user.name.split(' ').slice(1).join(' ')}`}</Text>
-              </Text>
-              <Text style={styles.userCount}>
-                {usuario.associados.length}/{usuario.capacidade}
-              </Text>
-            </View>
-            {usuario.associados.length > 0 && (
-              <TouchableOpacity onPress={() => toggleUsuarioSection(user.name)}>
-                <Text style={styles.expandIcon}>
-                  {expandedUsuarios[user.name] ? '−' : '+'}
-                </Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </View>
-        {expandedUsuarios[user.name] && (
-          usuario.associados.map((associadoId, idx) => {
-            const associado = getUserById(associadoId.id); 
-            return (
-              <View key={idx} style={styles.associadoItem}>
-                <Image 
-                  source={{ uri: associado.profilePicture }} 
-                  style={styles.smallAvatar} 
-                />
-                <Text style={styles.associadoName}>{associado.name}</Text>
-              </View>
-            );
-          })
-        )}
-        <View style={styles.userSpacing} />
-      </View>
-    );
-  };
 
-  const renderMaterialSection = ({ item: section }) => (
-    <View>
-      <Text style={styles.materialTitle}>{section.material}</Text>
-      <FlatList
-        data={section.usuarios}
-        renderItem={renderUserItem}
-        keyExtractor={(item, idx) => item.id.toString() + idx}
-        ListFooterComponent={<View style={styles.separator} />}
-      />
-    </View>
-  );
-
-  return (
-    <FlatList
-      data={eventData.materials}
-      renderItem={renderMaterialSection}
-      keyExtractor={(item, idx) => item.material + idx}
-      contentContainerStyle={styles.container}
-    />
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    backgroundColor: '#fff',
-  },
-  materialTitle: {
-    fontSize: 20,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    color: '#000',
-  },
-  listItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: '#fff',
-  },
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-  smallAvatar: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-  },
-  listItemContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flex: 1,
-    marginLeft: 10,
-  },
-  userName: {
-    fontSize: 16,
-    flexDirection: 'row',
-  },
-  userNameBold: {
-    fontWeight: 'bold',
-  },
-  userNameNormal: {
-    fontWeight: 'normal',
-  },
-  userCount: {
-    fontSize: 14,
-    color: '#666',
-    marginLeft: 10,
-  },
-  associadoItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 25,
-    backgroundColor: '#fff',
-    marginHorizontal: 50,
-  },
-  associadoName: {
-    marginLeft: 15,
-    fontSize: 14,
-    fontWeight: 'normal',
-  },
-  userSpacing: {
-    height: 10,
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#ccc',
-    marginVertical: 10,
-  },
-  expandIcon: {
-    fontSize: 18,
-    color: '#000',
-  },
-});
-
-export default MaterialColaborators;
