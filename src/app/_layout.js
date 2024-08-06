@@ -6,6 +6,7 @@ export default function Layout() {
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="comunidade" options={{ headerShown: false }} />
+      <Stack.Screen name="pagina" options={{ headerShown: false }} />
     </Stack>
   );
 }
