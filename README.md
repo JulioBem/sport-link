@@ -8,13 +8,13 @@ O **Wave Sync** é um aplicativo de logística desenvolvido para a disciplina **
 - **Expo**: Conjunto de ferramentas e serviços para o desenvolvimento de aplicativos React Native. Permite uma configuração mais rápida e facilita o desenvolvimento e a distribuição de aplicativos.
 - **Expo Router**: Sistema de roteamento integrado ao Expo para navegação entre telas e gerenciamento de rotas.
 - **React Native Elements**: Biblioteca de componentes UI prontos para uso, que facilita a criação de interfaces de usuário consistentes e modernas.
-- **Material UI**: Biblioteca de componentes React que segue as diretrizes do Material Design, oferecendo uma vasta gama de elementos de UI.
 
 ## Funcionalidades
 
 - **Listagem de Eventos**: Exibe uma lista de eventos de surf com detalhes como título, descrição, data e localização.
 - **Participação em Eventos**: Permite aos usuários se inscreverem e participarem de eventos.
-- **Perfil de Usuário**: Visualização e edição do perfil do usuário, incluindo foto e informações de contato.
+- **Logística de Equipamentos e Transportes**: Permite aos usuários fretarem transportes e/ou dividir equipamentos próprios para realização de um evento esportivo.
+- **Perfil de Usuário**: Visualização do perfil do usuário, incluindo foto e informações de contato.
 - **Navegação Intuitiva**: Navegação entre diferentes seções do aplicativo com o auxílio do Expo Router.
 
 ## Pré-requisitos
