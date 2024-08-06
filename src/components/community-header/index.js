@@ -38,9 +38,9 @@ const CommunityHeader = ({
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
             <ChevronLeft
-              color={!imageURI ? "#000" : "#fff"}
+              color={!imageURI ? "grey" : "#fff"}
               size={34}
-              style={styles.returnBtn}
+              style={[styles.returnBtn, { bottom: 23 }]}
               onPress={() => router.back()}
             />
             <View>
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
   headerContainer: {
     height: 156,
     color: "#fff",
-    boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
-    backgroundColor: "fff",
+    boxShadow: "0 10px 20px rgba(0,0,0,0), 0 4px 4px rgba(0,0,0,0.1)",
+    backgroundColor: "#fff",
   },
   headerImage: {
     minWidth: "100%",
@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
   communityName: {
     margin: 0,
     color: "#fff",
-
     fontSize: 15,
     fontWeight: "700",
     whiteSpace: "nowrap",
