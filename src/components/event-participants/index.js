@@ -32,7 +32,7 @@ const ParticipantList = ({ eventId }) => {
   const data = [
     {
       ...eventData.author,
-      name: `${eventData.author.name} 👑`, // Adiciona o emoji de coroa ao nome do autor
+      name: `${eventData.author.name} 👑`, 
     },
     ...eventData.participants
   ];
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   participantContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 24, // Aumenta o espaçamento vertical entre os itens
+    marginBottom: 24, 
   },
   avatar: {
     width: 50,

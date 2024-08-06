@@ -17,8 +17,8 @@ const MaterialColaborators = ({ eventId }) => {
 
   const formatName = (fullName) => {
     const names = fullName.split(' ');
-    const firstName = names.shift(); // Remove o primeiro nome do array e armazena
-    const lastName = names.join(' '); // Junta o restante do array em um único string
+    const firstName = names.shift(); 
+    const lastName = names.join(' '); 
     return { firstName, lastName };
   };
 
@@ -159,9 +159,9 @@ const styles = StyleSheet.create({
   },
   participantContainer: {
     width: '100%',
-    height: 50, // Ajustado para reduzir o espaçamento vertical
-    marginBottom: 4, // Reduzido o espaçamento vertical entre os participantes
-    paddingHorizontal: 116, // Ajusta o espaçamento horizontal
+    height: 50, 
+    marginBottom: 4, 
+    paddingHorizontal: 116, 
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -173,8 +173,8 @@ const styles = StyleSheet.create({
   },
   participantTextContainer: {
     flexDirection: 'column',
-    alignItems: 'flex-start', // Alinha o texto à esquerda
-    justifyContent: 'center', // Centraliza verticalmente
+    alignItems: 'flex-start', 
+    justifyContent: 'center', 
   },
   participantName: {
     fontSize: 14,
