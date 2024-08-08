@@ -34,3 +34,10 @@ Siga os passos abaixo para configurar e rodar o servidor:
 
     ```uvicorn main:app --reload```
 
+## Documentação da API
+
+para checar a documentação de todas as rotas da API basta iniciar o servidor e entrar na URL abaixo:
+
+```http://localhost:8000/redoc```
+
+
