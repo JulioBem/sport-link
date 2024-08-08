@@ -57,7 +57,7 @@ class EventsJsonFields(BaseModel):
     expenses: Optional[Dict]
 
 #posts.json classes:
-class Author(BaseModel):
+class User(BaseModel):
     imageURI: str
     authorName: str
     authorSurname: str

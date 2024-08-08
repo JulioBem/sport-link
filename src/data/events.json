@@ -188,7 +188,8 @@
       "id": "author457",
       "name": "Ana Pereira",
       "email": "ana.pereira@example.com",
-      "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg"
+      "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
+      "chavePix": "blablabla"
     },
     "participants": [
       {
@@ -377,7 +378,8 @@
       "id": "author458",
       "name": "Bruno Souza",
       "email": "bruno.souza@example.com",
-      "profilePicture": "https://example.com/profile-pictures/bruno-souza.jpg"
+      "profilePicture": "https://example.com/profile-pictures/bruno-souza.jpg",
+      "chavePix": "blablabla"
     },
     "participants": [
       {
