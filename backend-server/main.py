@@ -66,7 +66,7 @@ class EventCreateRequest(BaseModel):
     title: str
 
 #posts.json classes:
-class Author(BaseModel):
+class PostAuthor(BaseModel):
     imageURI: str
     authorName: str
     authorSurname: str
@@ -77,7 +77,7 @@ class PostContent(BaseModel):
 
 class PostsJsonFields(BaseModel):
     id: int
-    author: Author
+    author: PostAuthor
     post: PostContent
 
     
