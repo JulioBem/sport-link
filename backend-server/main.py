@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Path
 from pydantic import BaseModel
 import json
 from typing import List
@@ -6,34 +6,68 @@ import os
 
 app = FastAPI()
 
-# Path to the JSON file
-json_file_path = "../src/data/events.json"
+json_file_path = "./events.json"
+event_id = 'event123'
 
-class Item(BaseModel):
-    name: str
-    value: str
+class EventsJsonFields(BaseModel):
+    id: str
+    title:str
+    description:str
+    location:dict
+    date:str
+    createdAt:str
+    author:dict
+    participants:list
+    capacity:int
+    imageURI:str
+    expenses:dict
+
+
+class PostsJsonFields(BaseModel):
+    pass
+
+    
 
 # Ensure the JSON file exists
 if not os.path.exists(json_file_path):
     with open(json_file_path, 'w') as file:
         json.dump([], file)
 
-@app.get("/data", response_model=List[Item])
+@app.get("/events/all", response_model=List[EventsJsonFields])
 def read_data():
-    with open(json_file_path, 'r') as file:
-        data = json.load(file)
-    return data
+    try:
+        with open(json_file_path, 'r') as file:
+            data = json.load(file)
+        valid_data = [EventsJsonFields(**item) for item in data]
+        return valid_data
+    
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+    
 
-@app.post("/data", response_model=Item)
-def write_data(item: Item):
-    with open(json_file_path, 'r') as file:
-        data = json.load(file)
-    if any(existing_item['name'] == item.name for existing_item in data):
-        raise HTTPException(status_code=400, detail="Item already exists")
-    data.append(item.dict())
-    with open(json_file_path, 'w') as file:
-        json.dump(data, file, indent=4)
-    return item
+@app.get("/events/id/{event_id}", response_model=EventsJsonFields)
+def read_event_by_id(event_id: str = Path(..., description="The ID of the event to retrieve")):
+    try:
+        with open(json_file_path, 'r') as file:
+            data = json.load(file)
+        # Find the event with the given ID
+        event = next((item for item in data if item['id'] == event_id), None)
+
+        if event is None:
+            raise HTTPException(status_code=404, detail="Event not found")
+        return EventsJsonFields(**event)
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+    
+
 
 @app.get("/")
 def root():

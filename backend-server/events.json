@@ -1,0 +1,552 @@
+[
+  {
+    "id": "event123",
+    "title": "Competições de Surf Local",
+    "description": "Participe das competições locais de surfe e mostre suas habilidades nas ondas. Aberto para todos os níveis de habilidade.",
+    "date": "2024-08-15T09:00:00Z",
+    "createdAt": "2024-07-21T09:00:00Z",
+    "location": {
+      "address": "Praia Exemplo, 123"
+    },
+    "author": {
+      "id": "author456",
+      "name": "João Silva",
+      "email": "joao.silva@example.com",
+      "profilePicture": "https://s3-alpha-sig.figma.com/img/e19d/7bec/3f4127fabc3f49755feb106c459a0354?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Qoa34mP9MSyxxvB-FHonQYJ3obi1hFxmz1~sWFsnXBCVk4HO1ygQXCLxEq1-WKNYAbhTxMjshQIIyFr4gUK1PjqOG2gIOl9E8Wtj2FSV89cZ4lPM1nEsS8wUpaWDOBBAGAIN7R1y3FZN04~w9WOJaa3aLzB1oJnW8Udqq1cz6ovb2JNVT45qPbOG9i~gHr4jkL8UkNBugShWHkFKf~HJlF0p-ZyDSecB2hOm5BHKHQcylrM7H-2tgdTzkWpsISw1wJWDCmrxhan1T9jfH6gWGwm6ZzEuO~tLdMIYyHgCpwlWmGhvb7zrtGul7-VdhsDBFBoqrCrc4ypTLw7ab1OKZA__",
+      "chavePix": "teste@gmail.com"
+    },
+    "participants": [
+      {
+        "id": "participant789",
+        "name": "Maria Oliveira",
+        "email": "maria.oliveira@example.com",
+        "profilePicture": "https://example.com/profile-pictures/maria-oliveira.jpg",
+        "status": "confirmed"
+      },
+      {
+        "id": "participant101",
+        "name": "Carlos Santos",
+        "email": "carlos.santos@example.com",
+        "profilePicture": "https://example.com/profile-pictures/carlos-santos.jpg",
+        "status": "pending"
+      }
+    ],
+    "capacity": 50,
+    "imageURI": "https://example.com/event-images/competicoes-surf-local.jpg",
+    "expenses": {
+      "equipment": [
+        {
+          "id": 1,
+          "name": "Prancha de surfe",
+          "cost": "R$ 76,98",
+          "owner": {
+            "id": "author457",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant102",
+              "name": "Luiz Almeida",
+              "email": "luiz.almeida@example.com",
+              "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+              "status": "confirmed"
+            },
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+              "status": "confirmed"
+            }
+          ],
+          "maxQuantity": 10
+        },
+        {
+          "id": 2,
+          "name": "Prancha de surfe",
+          "cost": "R$ 82,53",
+          "owner": {
+            "id": "author457",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant102",
+              "name": "Luiz Almeida",
+              "email": "luiz.almeida@example.com",
+              "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+              "status": "confirmed"
+            },
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+              "status": "confirmed"
+            }
+          ],
+          "maxQuantity": 10
+        },
+        {
+          "id": 3,
+          "name": "Leash",
+          "cost": "R$ 9,16",
+          "owner": {
+            "id": "author457",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant102",
+              "name": "Luiz Almeida",
+              "email": "luiz.almeida@example.com",
+              "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+              "status": "confirmed"
+            },
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+              "status": "confirmed"
+            }
+          ],
+          "maxQuantity": 10
+        },
+        {
+          "id": 4,
+          "name": "Cera de prancha",
+          "cost": "R$ 220,00",
+          "owner": {
+            "id": "participant102",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+              "status": "confirmed"
+            }
+          ],
+          "maxQuantity": 10
+        }
+      ],
+      "transport": [
+        {
+          "id": 5,
+          "name": "Van até a praia",
+          "cost": "R$ 23,65",
+          "maxQuantity": 10,
+          "itinerary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut gravida metus. Morbi convallis ipsum eu eros sodales laoreet. Vestibulum rutrum metus in convallis congue. Curabitur venenatis pellentesque diam, vitae consectetur diam dictum quis. Duis suscipit, tellus nec tincidunt ornare, orci odio bibendum lectus, at maximus ipsum arcu vitae velit. In accumsan rutrum felis id varius. Suspendisse sollicitudin dignissim ipsum, vel molestie purus posuere a.",
+          "owner": {
+            "id": "participant102",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+              "status": "confirmed"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "event124",
+    "title": "Festival de Surf e Música",
+    "description": "Um evento incrível que combina surf com música ao vivo. Aproveite as ondas e as apresentações de bandas locais.",
+    "date": "2024-09-10T10:00:00Z",
+    "createdAt": "2024-07-21T09:00:00Z",
+    "location": {
+      "address": "Avenida do Surf, 456",
+      "city": "Rio de Janeiro",
+      "state": "RJ",
+      "zipCode": "12345-678"
+    },
+    "author": {
+      "id": "author457",
+      "name": "Ana Pereira",
+      "email": "ana.pereira@example.com",
+      "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg"
+    },
+    "participants": [
+      {
+        "id": "participant102",
+        "name": "Luiz Almeida",
+        "email": "luiz.almeida@example.com",
+        "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
+        "status": "confirmed"
+      },
+      {
+        "id": "participant103",
+        "name": "Fernanda Costa",
+        "email": "fernanda.costa@example.com",
+        "profilePicture": "https://example.com/profile-pictures/fernanda-costa.jpg",
+        "status": "confirmed"
+      }
+    ],
+    "capacity": 100,
+    "imageURI": "https://example.com/event-images/festival-surf-musica.jpg",
+    "expenses": {
+      "equipment": [
+        {
+          "id": 1,
+          "name": "Prancha de surfe",
+          "cost": "R$ 76,98",
+          "owner": {
+            "id": "author457",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant102",
+              "name": "Luiz Almeida",
+              "email": "luiz.almeida@example.com",
+              "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
+              "status": "confirmed"
+            },
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://example.com/profile-pictures/fernanda-costa.jpg",
+              "status": "confirmed"
+            }
+          ],
+          "maxQuantity": 10
+        },
+        {
+          "id": 2,
+          "name": "Prancha de surfe",
+          "cost": "R$ 82,53",
+          "owner": {
+            "id": "author457",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant102",
+              "name": "Luiz Almeida",
+              "email": "luiz.almeida@example.com",
+              "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
+              "status": "confirmed"
+            },
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://example.com/profile-pictures/fernanda-costa.jpg",
+              "status": "confirmed"
+            }
+          ],
+          "maxQuantity": 10
+        },
+        {
+          "id": 3,
+          "name": "Leash",
+          "cost": "R$ 9,16",
+          "owner": {
+            "id": "author457",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant102",
+              "name": "Luiz Almeida",
+              "email": "luiz.almeida@example.com",
+              "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
+              "status": "confirmed"
+            },
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://example.com/profile-pictures/fernanda-costa.jpg",
+              "status": "confirmed"
+            }
+          ],
+          "maxQuantity": 10
+        },
+        {
+          "id": 4,
+          "name": "Cera de prancha",
+          "cost": "R$ 0,00",
+          "owner": {
+            "id": "author457",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant102",
+              "name": "Luiz Almeida",
+              "email": "luiz.almeida@example.com",
+              "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
+              "status": "confirmed"
+            },
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://example.com/profile-pictures/fernanda-costa.jpg",
+              "status": "confirmed"
+            }
+          ],
+          "maxQuantity": 10
+        }
+      ],
+      "transport": [
+        {
+          "id": 5,
+          "name": "Van até a praia",
+          "cost": "R$ 23,65",
+          "maxQuantity": 10,
+          "itinerary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut gravida metus. Morbi convallis ipsum eu eros sodales laoreet. Vestibulum rutrum metus in convallis congue. Curabitur venenatis pellentesque diam, vitae consectetur diam dictum quis. Duis suscipit, tellus nec tincidunt ornare, orci odio bibendum lectus, at maximus ipsum arcu vitae velit. In accumsan rutrum felis id varius. Suspendisse sollicitudin dignissim ipsum, vel molestie purus posuere a.",
+          "owner": {
+            "id": "author457",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant102",
+              "name": "Luiz Almeida",
+              "email": "luiz.almeida@example.com",
+              "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
+              "status": "confirmed"
+            },
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://example.com/profile-pictures/fernanda-costa.jpg",
+              "status": "confirmed"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "event125",
+    "title": "Encontro de Surfistas Profissionais",
+    "description": "Uma oportunidade para surfar com os melhores surfistas profissionais e aprender técnicas avançadas.",
+    "date": "2024-10-20T11:00:00Z",
+    "location": {
+      "address": "Praça das Ondas, 789",
+      "city": "Curitiba",
+      "state": "PR",
+      "zipCode": "87654-321"
+    },
+    "author": {
+      "id": "author458",
+      "name": "Bruno Souza",
+      "email": "bruno.souza@example.com",
+      "profilePicture": "https://example.com/profile-pictures/bruno-souza.jpg"
+    },
+    "participants": [
+      {
+        "id": "participant104",
+        "name": "Juliana Mendes",
+        "email": "juliana.mendes@example.com",
+        "profilePicture": "https://example.com/profile-pictures/juliana-mendes.jpg",
+        "status": "confirmed"
+      },
+      {
+        "id": "participant105",
+        "name": "Ricardo Lima",
+        "email": "ricardo.lima@example.com",
+        "profilePicture": "https://example.com/profile-pictures/ricardo-lima.jpg",
+        "status": "pending"
+      }
+    ],
+    "capacity": 150,
+    "imageURI": "https://example.com/event-images/encontro-surfistas.jpg",
+    "expenses": {
+      "equipment": [
+        {
+          "id": 1,
+          "name": "Prancha de surfe",
+          "cost": "R$ 76,98",
+          "owner": {
+            "id": "author457",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant102",
+              "name": "Luiz Almeida",
+              "email": "luiz.almeida@example.com",
+              "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
+              "status": "confirmed"
+            },
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://example.com/profile-pictures/fernanda-costa.jpg",
+              "status": "confirmed"
+            }
+          ],
+          "maxQuantity": 10
+        },
+        {
+          "id": 2,
+          "name": "Prancha de surfe",
+          "cost": "R$ 82,53",
+          "owner": {
+            "id": "author457",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant102",
+              "name": "Luiz Almeida",
+              "email": "luiz.almeida@example.com",
+              "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
+              "status": "confirmed"
+            },
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://example.com/profile-pictures/fernanda-costa.jpg",
+              "status": "confirmed"
+            }
+          ],
+          "maxQuantity": 10
+        },
+        {
+          "id": 3,
+          "name": "Leash",
+          "cost": "R$ 9,16",
+          "owner": {
+            "id": "author457",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant102",
+              "name": "Luiz Almeida",
+              "email": "luiz.almeida@example.com",
+              "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
+              "status": "confirmed"
+            },
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://example.com/profile-pictures/fernanda-costa.jpg",
+              "status": "confirmed"
+            }
+          ],
+          "maxQuantity": 10
+        },
+        {
+          "id": 4,
+          "name": "Cera de prancha",
+          "cost": "R$ 0,00",
+          "owner": {
+            "id": "author457",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant102",
+              "name": "Luiz Almeida",
+              "email": "luiz.almeida@example.com",
+              "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
+              "status": "confirmed"
+            },
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://example.com/profile-pictures/fernanda-costa.jpg",
+              "status": "confirmed"
+            }
+          ],
+          "maxQuantity": 10
+        }
+      ],
+      "transport": [
+        {
+          "id": 5,
+          "name": "Van até a praia",
+          "cost": "R$ 23,65",
+          "maxQuantity": 10,
+          "itinerary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut gravida metus. Morbi convallis ipsum eu eros sodales laoreet. Vestibulum rutrum metus in convallis congue. Curabitur venenatis pellentesque diam, vitae consectetur diam dictum quis. Duis suscipit, tellus nec tincidunt ornare, orci odio bibendum lectus, at maximus ipsum arcu vitae velit. In accumsan rutrum felis id varius. Suspendisse sollicitudin dignissim ipsum, vel molestie purus posuere a.",
+          "owner": {
+            "id": "author457",
+            "name": "Ana Pereira",
+            "email": "ana.pereira@example.com",
+            "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
+            "chavePix": "teste@gmail.com"
+          },
+          "participants": [
+            {
+              "id": "participant102",
+              "name": "Luiz Almeida",
+              "email": "luiz.almeida@example.com",
+              "profilePicture": "https://example.com/profile-pictures/luiz-almeida.jpg",
+              "status": "confirmed"
+            },
+            {
+              "id": "participant103",
+              "name": "Fernanda Costa",
+              "email": "fernanda.costa@example.com",
+              "profilePicture": "https://example.com/profile-pictures/fernanda-costa.jpg",
+              "status": "confirmed"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
