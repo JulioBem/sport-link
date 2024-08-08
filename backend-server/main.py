@@ -66,9 +66,8 @@ class EventCreateRequest(BaseModel):
     title: str
     capacity: int
     description: Optional[str]
-    location: Optional[str]
+    location: Location  
     date: Optional[str]
-
 
 #posts.json classes:
 class PostAuthor(BaseModel):
@@ -330,34 +329,37 @@ def read_all_posts():
 @app.post("/events/create", response_model=EventsJsonFields)
 def create_event(event: EventCreateRequest):
     try:
-        with open(events_json_file_path, 'r') as file:
-            data = json.load(file)
+        # Read existing data from JSON file
+        if os.path.exists(events_json_file_path):
+            with open(events_json_file_path, 'r') as file:
+                data = json.load(file)
+        else:
+            data = []
 
-        # Create a new event with default values
+        # Create a new event with values from the request body
         new_event = {
             "id": str(uuid.uuid4()),  # Generate a unique ID
             "title": event.title,
-            "description": "",
-            "location": {
-                "address": ""
-            },
-            "date": "",  # Default date
+            "description": event.description,
+            "location": event.location.dict(),  # Convert Location object to dict
+            "date": event.date,
             "createdAt": datetime.utcnow().isoformat(),
             "author": {
-                "id": str(uuid.uuid4()),
-                "name": "Admin Author",
-                "email": "author@example.com",
+                "id": str(uuid.uuid4()),  # Generate a unique ID for author
+                "name": "Admin",
+                "email": "admin@example.com",
                 "profilePicture": "https://placehold.co/50.png",
                 "chavePix": ""
             },
             "participants": [],
-            "capacity": 0,
+            "capacity": event.capacity,
             "imageURI": "https://placehold.co/50.png",
             "expenses": {}
         }
 
         # Append the new event to the data list
         data.append(new_event)
+        print(f"aaa data : {data}")
 
         # Write the updated data back to the JSON file
         with open(events_json_file_path, 'w') as file:
@@ -373,47 +375,11 @@ def create_event(event: EventCreateRequest):
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
 
 
-#creates a new post in the community mural
-@app.post("/posts/create", response_model=PostsJsonFields)
-def create_mural_post(event: EventCreatePost):
-    try:
-        # Read existing data from JSON file
-        if os.path.exists(posts_json_file_path):
-            with open(posts_json_file_path, 'r') as file:
-                data = json.load(file)
-        else:
-            data = []
-
-        # Determine the new post ID
-        new_id = max([post['id'] for post in data], default=0) + 1
-        
-        # Create the new post
-        new_post = {
-            "id": new_id,
-            "author": event.author,
-            "post": event.post
-        }
-
-        # Append the new post to the data list
-        data.append(new_post)
-
-        # Write the updated data back to the JSON file
-        with open(posts_json_file_path, 'w') as file:
-            json.dump(data, file, indent=4)
-
-        return PostsJsonFields(**new_post)
-    
-    except FileNotFoundError:
-        raise HTTPException(status_code=500, detail="JSON file not found")
-    except json.JSONDecodeError:
-        raise HTTPException(status_code=500, detail="Error decoding JSON file")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
-
-
 #----------------------------- REMOVE FUNCTIONS -----------------------------#
 
+
 #----------------------------- PUT FUNCTIONS -----------------------------#
+
 
 @app.get("/ping")
 def root():

@@ -929,26 +929,5 @@
                 }
             ]
         }
-    },
-    {
-        "id": "5509ca71-8d16-4b3d-bbd9-2fa60ff5fdb1",
-        "title": "evento bla bla",
-        "description": "",
-        "location": {
-            "address": ""
-        },
-        "date": "",
-        "createdAt": "2024-08-08T14:26:19.078511",
-        "author": {
-            "id": "fcd432f6-5b69-4575-ae2a-36ffa268dee3",
-            "name": "Admin Author",
-            "email": "author@example.com",
-            "profilePicture": "https://placehold.co/50.png",
-            "chavePix": ""
-        },
-        "participants": [],
-        "capacity": "",
-        "imageURI": "https://placehold.co/50.png",
-        "expenses": {}
     }
 ]
