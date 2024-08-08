@@ -64,6 +64,11 @@ class EventsJsonFields(BaseModel):
 
 class EventCreateRequest(BaseModel):
     title: str
+    capacity: int
+    description: Optional[str]
+    location: Optional[str]
+    date: Optional[str]
+
 
 #posts.json classes:
 class PostAuthor(BaseModel):
@@ -79,6 +84,11 @@ class PostsJsonFields(BaseModel):
     id: int
     author: PostAuthor
     post: PostContent
+
+class EventCreatePost(BaseModel):
+    author: dict
+    post: dict
+
 
     
 #check if JSON file exists:
@@ -315,6 +325,8 @@ def read_all_posts():
     
 
 #----------------------------- POST FUNCTIONS -----------------------------#
+
+#creates a new event inside community
 @app.post("/events/create", response_model=EventsJsonFields)
 def create_event(event: EventCreateRequest):
     try:
@@ -325,21 +337,21 @@ def create_event(event: EventCreateRequest):
         new_event = {
             "id": str(uuid.uuid4()),  # Generate a unique ID
             "title": event.title,
-            "description": "Default Description",
+            "description": "",
             "location": {
-                "address": "Default Address"
+                "address": ""
             },
-            "date": "2024-01-01T00:00:00Z",  # Default date
+            "date": "",  # Default date
             "createdAt": datetime.utcnow().isoformat(),
             "author": {
                 "id": str(uuid.uuid4()),
-                "name": "Default Author",
+                "name": "Admin Author",
                 "email": "author@example.com",
                 "profilePicture": "https://placehold.co/50.png",
-                "chavePix": "Default Pix"
+                "chavePix": ""
             },
             "participants": [],
-            "capacity": 100,
+            "capacity": 0,
             "imageURI": "https://placehold.co/50.png",
             "expenses": {}
         }
@@ -359,11 +371,45 @@ def create_event(event: EventCreateRequest):
         raise HTTPException(status_code=500, detail="Error decoding JSON file")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
-    
 
-@app.post("/events/create")
-def create_event():
-    pass
+
+#creates a new post in the community mural
+@app.post("/posts/create", response_model=PostsJsonFields)
+def create_mural_post(event: EventCreatePost):
+    try:
+        # Read existing data from JSON file
+        if os.path.exists(posts_json_file_path):
+            with open(posts_json_file_path, 'r') as file:
+                data = json.load(file)
+        else:
+            data = []
+
+        # Determine the new post ID
+        new_id = max([post['id'] for post in data], default=0) + 1
+        
+        # Create the new post
+        new_post = {
+            "id": new_id,
+            "author": event.author,
+            "post": event.post
+        }
+
+        # Append the new post to the data list
+        data.append(new_post)
+
+        # Write the updated data back to the JSON file
+        with open(posts_json_file_path, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        return PostsJsonFields(**new_post)
+    
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+
 
 #----------------------------- REMOVE FUNCTIONS -----------------------------#
 
