@@ -2,7 +2,13 @@ from fastapi import FastAPI, HTTPException, Path
 from pydantic import BaseModel
 import json
 from typing import List, Optional, Dict
+from datetime import datetime
+import uuid
 import os
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -55,6 +61,9 @@ class EventsJsonFields(BaseModel):
     capacity: int
     imageURI: str
     expenses: Optional[Dict]
+
+class EventCreateRequest(BaseModel):
+    title: str
 
 #posts.json classes:
 class Author(BaseModel):
@@ -306,6 +315,55 @@ def read_all_posts():
     
 
 #----------------------------- POST FUNCTIONS -----------------------------#
+@app.post("/events/create", response_model=EventsJsonFields)
+def create_event(event: EventCreateRequest):
+    try:
+        with open(events_json_file_path, 'r') as file:
+            data = json.load(file)
+
+        # Create a new event with default values
+        new_event = {
+            "id": str(uuid.uuid4()),  # Generate a unique ID
+            "title": event.title,
+            "description": "Default Description",
+            "location": {
+                "address": "Default Address"
+            },
+            "date": "2024-01-01T00:00:00Z",  # Default date
+            "createdAt": datetime.utcnow().isoformat(),
+            "author": {
+                "id": str(uuid.uuid4()),
+                "name": "Default Author",
+                "email": "author@example.com",
+                "profilePicture": "https://placehold.co/50.png",
+                "chavePix": "Default Pix"
+            },
+            "participants": [],
+            "capacity": 100,
+            "imageURI": "https://placehold.co/50.png",
+            "expenses": {}
+        }
+
+        # Append the new event to the data list
+        data.append(new_event)
+
+        # Write the updated data back to the JSON file
+        with open(events_json_file_path, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        return EventsJsonFields(**new_event)
+    
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+    
+
+@app.post("/events/create")
+def create_event():
+    pass
 
 #----------------------------- REMOVE FUNCTIONS -----------------------------#
 
