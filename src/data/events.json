@@ -29,13 +29,6 @@
                 "email": "carlos.santos@example.com",
                 "profilePicture": "https://example.com/profile-pictures/carlos-santos.jpg",
                 "status": "pending"
-            },
-            {
-                "id": "participant1",
-                "name": "Cachorro Chupetao",
-                "email": "johndoe@example.com",
-                "profilePicture": "https://img.quizur.com/f/img64624f77d49397.45271659.jpg?lastEdited=1684164477",
-                "status": "confirmed"
             }
         ],
         "capacity": 50,
