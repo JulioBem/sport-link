@@ -69,6 +69,13 @@ class EventCreateRequest(BaseModel):
     location: Location  
     date: Optional[str]
 
+class EventAddParticipant(BaseModel):
+    id: str
+    name: str
+    email: Optional[str]
+    profilePicture: Optional[str]
+    status: str
+
 #posts.json classes:
 class PostAuthor(BaseModel):
     imageURI: str
@@ -359,8 +366,6 @@ def create_event(event: EventCreateRequest):
 
         # Append the new event to the data list
         data.append(new_event)
-        print(f"aaa data : {data}")
-
         # Write the updated data back to the JSON file
         with open(events_json_file_path, 'w') as file:
             json.dump(data, file, indent=4)
@@ -374,6 +379,43 @@ def create_event(event: EventCreateRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
     
+
+#adds a new user to the event "participant" array
+@app.post("/event/id/{event_id}/enter")
+def add_event_participant(event_id: str, participant: EventAddParticipant):
+    try:
+        # Read existing data from JSON file
+        if os.path.exists(events_json_file_path):
+            with open(events_json_file_path, 'r') as file:
+                data = json.load(file)
+        else:
+            data = []
+
+        # Find the event with the given ID
+        event = next((item for item in data if item['id'] == event_id), None)
+        if event is None:
+            raise HTTPException(status_code=404, detail="Event not found")
+
+        # Check if the participant is already in the list
+        if any(p['id'] == participant.id for p in event['participants']):
+            return {"message": "Participant is already in the event"}
+
+        # Add the participant to the event's participants list
+        event['participants'].append(participant.dict())
+
+        # Write the updated data back to the JSON file
+        with open(events_json_file_path, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        return {"message": "new user added"}
+
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+
 
 #creates a new post in community mural
 @app.post("/posts/create", response_model=PostsJsonFields)
