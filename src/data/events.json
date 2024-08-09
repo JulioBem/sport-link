@@ -188,7 +188,8 @@
       "id": "author457",
       "name": "Ana Pereira",
       "email": "ana.pereira@example.com",
-      "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg"
+      "profilePicture": "https://example.com/profile-pictures/ana-pereira.jpg",
+      "chavePix": "blablabla"
     },
     "participants": [
       {
@@ -366,6 +367,7 @@
     "title": "Encontro de Surfistas Profissionais",
     "description": "Uma oportunidade para surfar com os melhores surfistas profissionais e aprender técnicas avançadas.",
     "date": "2024-10-20T11:00:00Z",
+    "createdAt": "2024-07-21T09:00:00Z",
     "location": {
       "address": "Praça das Ondas, 789",
       "city": "Curitiba",
@@ -376,7 +378,8 @@
       "id": "author458",
       "name": "Bruno Souza",
       "email": "bruno.souza@example.com",
-      "profilePicture": "https://example.com/profile-pictures/bruno-souza.jpg"
+      "profilePicture": "https://example.com/profile-pictures/bruno-souza.jpg",
+      "chavePix": "blablabla"
     },
     "participants": [
       {
