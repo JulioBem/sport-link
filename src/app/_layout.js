@@ -8,7 +8,6 @@ export default function Layout() {
         contentStyle: { backgroundColor: "#fff" },
       }}
     >
-      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="comunidade" options={{ headerShown: false }} />
     </Stack>
   );
