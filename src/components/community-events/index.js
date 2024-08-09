@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -11,6 +12,7 @@ import { Button, Divider, Icon } from "@rneui/themed";
 import CommunityEventCard from "../community-event-card";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import surfImage from "../../../assets/images/surf-image.jpeg";
+const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
 const CommunityEvents = () => {
   const { communityId } = useLocalSearchParams();
@@ -21,8 +23,12 @@ const CommunityEvents = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("http://localhost:8000/events/all");
-        console.log("🚀 ~ fetchEvents ~ response:", response);
+        const response = await fetch(`${apiUrl}/events/all`, {
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+          },
+        });
         const data = await response.json();
         setEvents(data);
       } catch (error) {
@@ -125,6 +131,14 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     gap: 11,
+  },
+  loadingContainer: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

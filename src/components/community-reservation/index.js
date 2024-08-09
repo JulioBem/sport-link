@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, ScrollView } from "react-native";
 import CommunityReservationController from "../community-reservation-controller";
 
 const CommunityReservation = ({ event }) => {
-  console.log("🚀 ~ CommunityReservation ~ event:", event);
   const { expenses, capacity, participants } = event ?? {};
   const [newEventExpenses, setNewEventExpenses] = useState(expenses);
   const [totalEquipmentCost, setTotalEquipmentCost] = useState(0);

@@ -1,6 +1,14 @@
+/* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  View,
+  ScrollView,
+} from "react-native";
 import CommunityPost from "../community-post";
+const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
 const CommunityMural = () => {
   const [posts, setPosts] = useState([]);
@@ -9,7 +17,12 @@ const CommunityMural = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("http://localhost:8000/posts/all");
+        const response = await fetch(`${apiUrl}/posts/all`, {
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+          },
+        });
         const data = await response.json();
         setPosts(data);
       } catch (error) {
@@ -31,7 +44,7 @@ const CommunityMural = () => {
   }
 
   return (
-    <View style={styles.muralContainer}>
+    <ScrollView style={styles.muralContainer}>
       <FlatList
         scrollEnabled={false}
         data={posts}
@@ -41,7 +54,7 @@ const CommunityMural = () => {
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.flatListContent}
       />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -53,6 +66,14 @@ const styles = StyleSheet.create({
   },
   flatListContent: {
     paddingBottom: 20, // Adicione padding se necessário
+  },
+  loadingContainer: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
