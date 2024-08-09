@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "@rneui/themed";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import CommunityReservationController from "../community-reservation-controller";
-import events from "../../data/events.json";
 
-const CommunityReservation = () => {
-  const eventId = "event123";
-  const event = events.find((e) => e.id === eventId);
+const CommunityReservation = ({ event }) => {
+  console.log("🚀 ~ CommunityReservation ~ event:", event);
   const { expenses, capacity, participants } = event ?? {};
   const [newEventExpenses, setNewEventExpenses] = useState(expenses);
-
   const [totalEquipmentCost, setTotalEquipmentCost] = useState(0);
   const [totalTransportCost, setTotalTransportCost] = useState(0);
-
   const { equipment = [], transport = [] } = newEventExpenses ?? {};
-
   const [initialQuantities, setInitialQuantities] = useState({});
 
+  // Calcular initialQuantities apenas quando expenses mudar
   useEffect(() => {
     if (expenses) {
       const initialQuantitiesMap = {};
@@ -30,6 +26,7 @@ const CommunityReservation = () => {
     }
   }, [expenses]);
 
+  // Atualizar newEventExpenses quando expenses mudar
   useEffect(() => {
     if (expenses) {
       setNewEventExpenses({
@@ -45,65 +42,69 @@ const CommunityReservation = () => {
     }
   }, [expenses]);
 
-  const handleIncrease = (id) => {
-    setNewEventExpenses((prevExpenses) => {
-      const updatedEquipment = prevExpenses.equipment.map((item) => {
-        if (item.id === id && item.quantity < item.maxQuantity) {
-          return { ...item, quantity: item.quantity + 1 };
-        }
-        return item;
-      });
-      const updatedTransport = prevExpenses.transport.map((item) => {
-        if (item.id === id && item.quantity < item.maxQuantity) {
-          return { ...item, quantity: item.quantity + 1 };
-        }
-        return item;
-      });
-      return {
-        ...prevExpenses,
-        equipment: updatedEquipment,
-        transport: updatedTransport,
-      };
-    });
-  };
-
-  const handleDecrease = (id) => {
-    setNewEventExpenses((prevExpenses) => {
-      const updatedEquipment = prevExpenses.equipment.map((item) => {
-        if (item.id === id && item.quantity > initialQuantities[item.id]) {
-          return { ...item, quantity: item.quantity - 1 };
-        }
-        return item;
-      });
-      const updatedTransport = prevExpenses.transport.map((item) => {
-        if (item.id === id && item.quantity > initialQuantities[item.id]) {
-          return { ...item, quantity: item.quantity - 1 };
-        }
-        return item;
-      });
-      return {
-        ...prevExpenses,
-        equipment: updatedEquipment,
-        transport: updatedTransport,
-      };
-    });
-  };
-
-  const calculateTotalCost = (items) => {
-    return items
-      .reduce((total, item) => {
-        const itemCost = parseFloat(
-          item.cost.replace("R$", "").replace(".", "").replace(",", ".")
-        );
-        return total + item.quantity * itemCost;
-      }, 0)
-      .toFixed(2);
-  };
-
+  // Calcular totalEquipmentCost e totalTransportCost apenas quando newEventExpenses mudar
   useEffect(() => {
+    const calculateTotalCost = (items) => {
+      return items
+        .reduce((total, item) => {
+          const itemCost = parseFloat(
+            item.cost.replace("R$", "").replace(".", "").replace(",", ".")
+          );
+          return total + item.quantity * itemCost;
+        }, 0)
+        .toFixed(2);
+    };
+
     setTotalEquipmentCost(calculateTotalCost(equipment));
     setTotalTransportCost(calculateTotalCost(transport));
-  }, [newEventExpenses]);
+  }, [newEventExpenses, equipment, transport]);
+
+  const handleIncrease = useCallback((id) => {
+    setNewEventExpenses((prevExpenses) => {
+      const updatedEquipment = prevExpenses.equipment.map((item) => {
+        if (item.id === id && item.quantity < item.maxQuantity) {
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      });
+      const updatedTransport = prevExpenses.transport.map((item) => {
+        if (item.id === id && item.quantity < item.maxQuantity) {
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      });
+      return {
+        ...prevExpenses,
+        equipment: updatedEquipment,
+        transport: updatedTransport,
+      };
+    });
+  }, []);
+
+  const handleDecrease = useCallback(
+    (id) => {
+      setNewEventExpenses((prevExpenses) => {
+        const updatedEquipment = prevExpenses.equipment.map((item) => {
+          if (item.id === id && item.quantity > initialQuantities[item.id]) {
+            return { ...item, quantity: item.quantity - 1 };
+          }
+          return item;
+        });
+        const updatedTransport = prevExpenses.transport.map((item) => {
+          if (item.id === id && item.quantity > initialQuantities[item.id]) {
+            return { ...item, quantity: item.quantity - 1 };
+          }
+          return item;
+        });
+        return {
+          ...prevExpenses,
+          equipment: updatedEquipment,
+          transport: updatedTransport,
+        };
+      });
+    },
+    [initialQuantities]
+  );
 
   return (
     <ScrollView contentContainerStyle={styles.reservationContainer}>

@@ -15,7 +15,6 @@ import surfImage from "../../../../../assets/images/surf-image.jpeg";
 
 export default function Evento(props) {
   const { event, communityId, eventId } = useLocalSearchParams(); // Obtém o parâmetro "event"
-  console.log("🚀 ~ Evento ~ event:", event);
   const router = useRouter();
   const {
     // id,
@@ -28,7 +27,6 @@ export default function Evento(props) {
     // capacity,
     expenses,
   } = JSON.parse(event);
-  console.log("🚀 ~ Evento ~ expenses:", expenses);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -64,9 +62,10 @@ export default function Evento(props) {
             />
             <Pressable
               onPress={() =>
-                router.push(
-                  `/comunidade/${communityId}/evento/${eventId}/participantes`
-                )
+                router.push({
+                  pathname: `/comunidade/${communityId}/evento/${eventId}/participantes`,
+                  params: { event: event },
+                })
               }
               style={({ pressed }) => [
                 {
@@ -157,9 +156,10 @@ export default function Evento(props) {
             containerStyle={{ width: "100%" }}
             titleStyle={{ fontSize: 13 }}
             onPress={() =>
-              router.push(
-                `/comunidade/${communityId}/evento/${eventId}/organizacao`
-              )
+              router.push({
+                pathname: `/comunidade/${communityId}/evento/${eventId}/organizacao`,
+                params: { event: event },
+              })
             }
           >
             Atualizar participação
@@ -230,5 +230,3 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 });
-
-

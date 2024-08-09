@@ -7,7 +7,6 @@ import { Avatar } from "@rneui/themed";
 
 export default function Pagamentos(props) {
   const { expenses, currentPage } = useLocalSearchParams(); // Obtém o parâmetro "event"
-  console.log("🚀 ~ Pagamentos ~ expenses:", expenses);
 
   const [totalAmountOwedToMe, setTotalAmountOwedToMe] = useState(0);
   const [totalAmountIOwe, setTotalAmountIOwe] = useState(0);
@@ -62,8 +61,6 @@ export default function Pagamentos(props) {
   const userId = "participant102"; // Substitua pelo ID do usuário desejado
   const userExpenses = getUserExpenses(expenses, userId);
   const ownedExpenses = getOwnedExpenses(expenses, userId);
-  console.log("🚀 ~ Pagamentos ~ ownedExpenses:", ownedExpenses);
-  console.log("🚀 ~ Pagamentos ~ userExpenses:", userExpenses);
 
   // Unir as despesas de equipment e transport em uma única lista
   const combinedUserExpenses = [
@@ -75,10 +72,6 @@ export default function Pagamentos(props) {
     ...(ownedExpenses?.equipment || []),
     ...(ownedExpenses?.transport || []),
   ];
-  console.log(
-    "🚀 ~ Pagamentos ~ combinedOwnedExpenses:",
-    combinedOwnedExpenses
-  );
 
   // Calcular os totais
   useEffect(() => {

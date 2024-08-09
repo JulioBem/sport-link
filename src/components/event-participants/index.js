@@ -1,10 +1,9 @@
-import React from 'react';
-import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
-import events from "../../data/events.json";
+import React from "react";
+import { View, Text, Image, FlatList, StyleSheet } from "react-native";
 
-const ParticipantList = ({ eventId }) => { 
+const ParticipantList = ({ event }) => {
   // Filtra o evento com base no ID
-  const eventData = events.find(event => event.id === eventId);
+  const eventData = JSON.parse(event);
 
   if (!eventData) {
     return (
@@ -16,13 +15,13 @@ const ParticipantList = ({ eventId }) => {
 
   // Função para renderizar cada item da lista
   const renderItem = ({ item }) => {
-    const [firstName, ...restOfName] = item.name.split(' ');
+    const [firstName, ...restOfName] = item.name.split(" ");
     return (
       <View style={styles.participantContainer}>
         <Image source={{ uri: item.profilePicture }} style={styles.avatar} />
         <Text style={styles.name}>
           <Text style={styles.boldName}>{firstName} </Text>
-          {restOfName.join(' ')}
+          {restOfName.join(" ")}
         </Text>
       </View>
     );
@@ -32,16 +31,16 @@ const ParticipantList = ({ eventId }) => {
   const data = [
     {
       ...eventData.author,
-      name: `${eventData.author.name} 👑`, 
+      name: `${eventData.author.name} 👑`,
     },
-    ...eventData.participants
+    ...eventData.participants,
   ];
 
   return (
     <FlatList
       data={data}
       renderItem={renderItem}
-      keyExtractor={item => item.id}
+      keyExtractor={(item) => item.id}
       contentContainerStyle={styles.listContainer}
     />
   );
@@ -50,16 +49,16 @@ const ParticipantList = ({ eventId }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   listContainer: {
     padding: 16,
   },
   participantContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 24, 
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 24,
   },
   avatar: {
     width: 50,
@@ -69,10 +68,10 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 16,
-    color: '#333',
+    color: "#333",
   },
   boldName: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 
