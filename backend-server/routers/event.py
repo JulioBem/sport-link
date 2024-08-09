@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Path
 import json
 from typing import List
-from models.event_models import EventsJsonFields, EventCreateRequest, EventAddParticipant, Participant, ExpenseItem, Owner, Author
+from models.event_models import *
 from utils.json_utils import events_json_file_path
 import uuid
 import datetime
@@ -268,7 +268,7 @@ def create_event(event: EventCreateRequest):
     
 
 #adds a new user to the event "participant" array
-@router.post("/event/id/{event_id}/enter")
+@router.post("/event/id/{event_id}/add/participant")
 def add_event_participant(event_id: str, participant: EventAddParticipant):
     try:
         #read existing data from JSON file
@@ -302,3 +302,142 @@ def add_event_participant(event_id: str, participant: EventAddParticipant):
         raise HTTPException(status_code=500, detail="Error decoding JSON file")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+    
+
+#reserve a vehicle seat 
+@router.post("/event/id/{event_id}/reserve/vehicle/{vehicle_id}")
+def reserve_vehicle_seat(event_id:str, vehicle_id, event=EventReserveVehicle):
+    try:
+        pass
+    #read existing data from JSON file
+    #find the event by ID
+    #check if vehicle exists
+    #compare if the lenght of equipment[participants] is less than the maxQuantity, if yes then add user, if no, inform he can't reserve this vehicle seat
+    #add user to the 'transport'[participants] list
+    #add changes to json
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+
+
+#reserve an equipment inside an event
+@router.post("/event/id/{event_id}/reserve/equipment/{equipment_id}")
+def reserve_equipment(event_id:str, equipment_id, event=EventReserveEquipment):
+    try:
+        pass
+    #read existing data from JSON file
+    #find the event by ID
+    #check if equipments exists
+    #compare if the lenght of equipment[participants] is less than the maxQuantity, if yes then add user, if no, inform he can't reserve this equipment
+    #add user in 'equipment[participants]' list
+    #add changes to json
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+
+
+# Adds vehicles to events given the event ID
+@router.post("/event/id/{event_id}/add/vehicle")
+def add_vehicle(event_id: str, vehicle: EventAddVehicle):
+    try:
+        # Read existing data from JSON file
+        if os.path.exists(events_json_file_path):
+            with open(events_json_file_path, 'r') as file:
+                data = json.load(file)
+        else:
+            data = []
+
+        # Find the event by ID
+        event = next((item for item in data if item['id'] == event_id), None)
+        if event is None:
+            raise HTTPException(status_code=404, detail="Event not found")
+
+        # Check if the vehicle with the same name and owner is already registered
+        if any(v['name'] == vehicle.name and v['owner']['name'] == vehicle.owner.name for v in event.get('expenses', {}).get('transport', [])):
+            return {"message": "Vehicle with the same name and owner is already registered"}
+
+        # Get the last element ID and increment this vehicle's ID
+        existing_vehicle_ids = [v['id'] for v in event.get('expenses', {}).get('transport', [])]
+        new_id = max(existing_vehicle_ids, default=0) + 1
+        
+        # Adding the new value to the ID field 
+        new_vehicle = {"id": new_id}
+        new_vehicle.update(vehicle.dict())
+
+        # Add the vehicle to the 'expenses[transport]' list
+        if 'expenses' not in event:
+            event['expenses'] = {}
+        if 'transport' not in event['expenses']:
+            event['expenses']['transport'] = []
+        
+        event['expenses']['transport'].append(new_vehicle)
+
+        # Save changes to JSON file
+        with open(events_json_file_path, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        return {"message": "New vehicle added to event"}
+
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+
+
+#adds an equipment to event given the event ID
+@router.post("/event/id/{event_id}/add/equipment")
+def add_event_equipment(event_id: str, equipment: EventAddEquipment):
+    try:
+        # Read existing data from JSON file
+        if os.path.exists(events_json_file_path):
+            with open(events_json_file_path, 'r') as file:
+                data = json.load(file)
+        else:
+            data = []
+
+        #find the event by ID
+        event = next((item for item in data if item['id'] == event_id), None)
+        if event is None:
+            raise HTTPException(status_code=404, detail="Event not found")
+
+        #check if the vehicle is already registered by the user (if yes, then inform)
+        if any(e['name'] == equipment.name and e['owner']['name'] == equipment.owner.name for e in event.get('expenses', {}).get('equipment', [])):
+            return {"message": "Equipment with the same name and author is already in the event"}
+
+        #get the last element ID increment this object ID
+        existing_equipment_ids = [e['id'] for e in event.get('expenses', {}).get('equipment', [])]
+        new_id = max(existing_equipment_ids, default=0) + 1
+        
+        #adding the new value to ID field 
+        new_equipment = {"id": new_id}
+        new_equipment.update(equipment.dict())
+
+        #adds equipment to 'expenses[equipment] list'
+        if 'expenses' not in event:
+            event['expenses'] = {}
+        if 'equipment' not in event['expenses']:
+            event['expenses']['equipment'] = []
+        
+        event['expenses']['equipment'].append(new_equipment)
+
+        #add changes to json
+        with open(events_json_file_path, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        return {"message": "New equipment added to event"}
+
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+

@@ -168,6 +168,21 @@
                             "status": "confirmed"
                         }
                     ]
+                },
+                {
+                    "id": 6,
+                    "name": "Van",
+                    "cost": "200.00",
+                    "itinerary": "blablabla",
+                    "owner": {
+                        "id": "owner789",
+                        "name": "John Doe",
+                        "email": "john.doe@example.com",
+                        "profilePicture": "http://example.com/john.jpg",
+                        "chavePix": "somePixKey"
+                    },
+                    "participants": [],
+                    "maxQuantity": 4
                 }
             ]
         }

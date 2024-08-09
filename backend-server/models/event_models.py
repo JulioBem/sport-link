@@ -14,7 +14,7 @@ class Owner(BaseModel):
     name: str
     email: str
     profilePicture: str
-    chavePix: str
+    chavePix: Optional[str]
 
 class ExpenseItem(BaseModel):
     id: int
@@ -60,3 +60,27 @@ class EventAddParticipant(BaseModel):
     email: Optional[str]
     profilePicture: Optional[str]
     status: str
+
+class EventAddVehicle(BaseModel):
+    name: str
+    cost: str
+    itinerary: str
+    owner: dict
+    participants: List[Participant]
+    maxQuantity: int
+
+class EventAddEquipment(BaseModel):
+    name: str
+    cost: str
+    owner: Owner
+    participants: List[Participant]
+    maxQuantity: int
+
+class EventReserveEquipment(BaseModel):
+    pass
+
+
+class EventReserveVehicle(BaseModel):
+    pass
+
+
