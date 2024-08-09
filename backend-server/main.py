@@ -338,7 +338,7 @@ def create_event(event: EventCreateRequest):
 
         # Create a new event with values from the request body
         new_event = {
-            "id": str(uuid.uuid4()),  # Generate a unique ID
+            "id": "event" + str(uuid.uuid4()),  # Generate a unique ID
             "title": event.title,
             "description": event.description,
             "location": event.location.dict(),  # Convert Location object to dict
@@ -366,6 +366,44 @@ def create_event(event: EventCreateRequest):
             json.dump(data, file, indent=4)
 
         return EventsJsonFields(**new_event)
+    
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+    
+
+#creates a new post in community mural
+@app.post("/posts/create", response_model=PostsJsonFields)
+def create_mural_post(event: EventCreatePost):
+    try:
+        # Read existing data from JSON file
+        if os.path.exists(posts_json_file_path):
+            with open(posts_json_file_path, 'r') as file:
+                data = json.load(file)
+        else:
+            data = []
+
+        # Determine the new post ID
+        new_id = max([post['id'] for post in data], default=0) + 1
+        
+        # Create the new post
+        new_post = {
+            "id": new_id,
+            "author": event.author,
+            "post": event.post
+        }
+
+        # Append the new post to the data list
+        data.append(new_post)
+
+        # Write the updated data back to the JSON file
+        with open(posts_json_file_path, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        return PostsJsonFields(**new_post)
     
     except FileNotFoundError:
         raise HTTPException(status_code=500, detail="JSON file not found")
