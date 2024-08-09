@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import { Icon } from 'react-native-elements';
-import events from '../../data/events.json';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import { Icon } from "react-native-elements";
 
-const MaterialColaborators = ({ eventId }) => {
+const MaterialColaborators = ({ event }) => {
+  const eventObject = JSON.parse(event);
   const [expandedMaterials, setExpandedMaterials] = useState({});
-
-  const event = events.find(event => event.id === eventId);
 
   const toggleMaterial = (materialId) => {
     setExpandedMaterials((prev) => ({
@@ -16,9 +21,9 @@ const MaterialColaborators = ({ eventId }) => {
   };
 
   const formatName = (fullName) => {
-    const names = fullName.split(' ');
-    const firstName = names.shift(); 
-    const lastName = names.join(' '); 
+    const names = fullName.split(" ");
+    const firstName = names.shift();
+    const lastName = names.join(" ");
     return { firstName, lastName };
   };
 
@@ -30,7 +35,10 @@ const MaterialColaborators = ({ eventId }) => {
         const { firstName, lastName } = formatName(item.name);
         return (
           <View style={styles.participantContainer}>
-            <Image source={{ uri: item.profilePicture }} style={styles.participantImage} />
+            <Image
+              source={{ uri: item.profilePicture }}
+              style={styles.participantImage}
+            />
             <View style={styles.participantTextContainer}>
               <Text style={styles.participantName}>
                 <Text style={styles.bold}>{firstName}</Text>
@@ -50,28 +58,34 @@ const MaterialColaborators = ({ eventId }) => {
         style={styles.ownerContainer}
         activeOpacity={0.85}
       >
-        <Image source={{ uri: material.owner.profilePicture }} style={styles.ownerImage} />
+        <Image
+          source={{ uri: material.owner.profilePicture }}
+          style={styles.ownerImage}
+        />
         <View style={styles.ownerInfo}>
           {formatName(material.owner.name).firstName && (
             <Text style={styles.ownerName}>
-              <Text style={styles.bold}>{formatName(material.owner.name).firstName}</Text> {formatName(material.owner.name).lastName}
+              <Text style={styles.bold}>
+                {formatName(material.owner.name).firstName}
+              </Text>{" "}
+              {formatName(material.owner.name).lastName}
             </Text>
           )}
           <Text style={styles.materialName}>{material.name}</Text>
         </View>
-        <Text style={styles.materialDisponibility}>{material.participants.length}/{material.maxQuantity}</Text>
+        <Text style={styles.materialDisponibility}>
+          {material.participants.length}/{material.maxQuantity}
+        </Text>
         <Icon
-          name={expandedMaterials[material.id] ? 'angle-up' : 'angle-down'}
-          type='font-awesome'
-          color='rgba(196, 196, 196, 1)'
+          name={expandedMaterials[material.id] ? "angle-up" : "angle-down"}
+          type="font-awesome"
+          color="rgba(196, 196, 196, 1)"
           size={20}
           containerStyle={styles.iconContainer}
         />
       </TouchableOpacity>
       {expandedMaterials[material.id] && (
-        <View>
-          {renderParticipants(material.participants)}
-        </View>
+        <View>{renderParticipants(material.participants)}</View>
       )}
     </View>
   );
@@ -84,11 +98,11 @@ const MaterialColaborators = ({ eventId }) => {
   );
 
   const sections = [
-    { title: 'Equipamentos', data: event.expenses.equipment },
-    { title: 'Transportes', data: event.expenses.transport },
-  ].filter(section => section.data.length > 0);
+    { title: "Equipamentos", data: eventObject.expenses.equipment },
+    { title: "Transportes", data: eventObject.expenses.transport },
+  ].filter((section) => section.data.length > 0);
 
-  if (!event) {
+  if (!eventObject) {
     return <Text>Evento não encontrado</Text>;
   }
 
@@ -107,7 +121,7 @@ const styles = StyleSheet.create({
   eventContainer: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   sectionContainer: {
     marginBottom: 16,
@@ -115,18 +129,18 @@ const styles = StyleSheet.create({
   sectionTitle: {
     height: 20,
     fontSize: 16,
-    fontWeight: '300',
+    fontWeight: "300",
     lineHeight: 20,
     marginBottom: 8,
-    color: '#333',
+    color: "#333",
   },
   ownerContainer: {
-    width: '100%',
+    width: "100%",
     height: 50,
     marginBottom: 12,
     borderRadius: 100,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 10,
   },
   ownerImage: {
@@ -140,30 +154,30 @@ const styles = StyleSheet.create({
   },
   ownerName: {
     fontSize: 16,
-    color: '#333',
-    textAlign: 'left',
+    color: "#333",
+    textAlign: "left",
   },
   materialName: {
     fontSize: 12,
-    color: '#999',
-    fontWeight: '300',
+    color: "#999",
+    fontWeight: "300",
   },
   materialDisponibility: {
     height: 18,
     fontSize: 15,
-    fontWeight: '300',
+    fontWeight: "300",
     lineHeight: 18.29,
-    textAlign: 'left',
+    textAlign: "left",
     marginRight: 10,
-    color: 'rgba(0, 0, 0, 1)',
+    color: "rgba(0, 0, 0, 1)",
   },
   participantContainer: {
-    width: '100%',
-    height: 50, 
-    marginBottom: 4, 
-    paddingHorizontal: 116, 
-    flexDirection: 'row',
-    alignItems: 'center',
+    width: "100%",
+    height: 50,
+    marginBottom: 4,
+    paddingHorizontal: 116,
+    flexDirection: "row",
+    alignItems: "center",
   },
   participantImage: {
     width: 30.51,
@@ -172,16 +186,16 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   participantTextContainer: {
-    flexDirection: 'column',
-    alignItems: 'flex-start', 
-    justifyContent: 'center', 
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "center",
   },
   participantName: {
     fontSize: 14,
-    color: '#333',
+    color: "#333",
   },
   bold: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   iconContainer: {
     marginLeft: 10,
@@ -190,22 +204,9 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 1,
-    backgroundColor: '#ccc',
+    backgroundColor: "#ccc",
     marginVertical: 16,
   },
 });
 
 export default MaterialColaborators;
-
-
-
-
-
-
-
-
-
-
-
-
-

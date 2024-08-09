@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Button } from "@rneui/themed";
 import {
@@ -48,7 +49,6 @@ const CommunityCostRegister = () => {
       cost: equipmentCost,
       maxQuantity: parseInt(equipmentQuantity, 10),
     };
-    console.log("🚀 ~ handleRegisterEquipment ~ newEquipment:", newEquipment);
 
     Platform.OS === "android" &&
       ToastAndroid.showWithGravity(
@@ -81,7 +81,6 @@ const CommunityCostRegister = () => {
       maxQuantity: parseInt(transportQuantity, 10),
       itinerary: transportItinerary,
     };
-    console.log("🚀 ~ handleRegisterTransport ~ newTransport:", newTransport);
 
     Platform.OS === "android" &&
       ToastAndroid.showWithGravity(
