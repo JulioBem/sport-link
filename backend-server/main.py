@@ -1,10 +1,20 @@
 from fastapi import FastAPI, HTTPException, Path
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
 from typing import List, Optional, Dict
 import os
 
 app = FastAPI()
+
+#Creating CORS configs
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 events_json_file_path = "../src/data/events.json"
 posts_json_file_path = "../src/data/posts.json"
