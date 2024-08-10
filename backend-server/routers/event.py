@@ -219,6 +219,7 @@ def read_event_author(event_id: str = Path(..., description="The Author of the e
 
 #----------------------------- POST FUNCTIONS -----------------------------#
 
+
 #creates a new event inside community
 @router.post("/events/create", response_model=EventsJsonFields)
 def create_event(event: EventCreateRequest):
@@ -340,6 +341,51 @@ def reserve_equipment(event_id: str, equipment_id: int, reservation: EventReserv
             json.dump(data, file, indent=4)
 
         return {"message": "Equipment reserved successfully"}
+
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+    
+
+#reserve a vehicle seat
+@router.post("/events/id/{event_id}/reserve/transport/{vehicle_id}")
+def reserve_vehicle_seat(event_id: str, vehicle_id: int, reservation: EventReserveVehicle):
+    try:
+        #read existing data from JSON file
+        if os.path.exists(events_json_file_path):
+            with open(events_json_file_path, 'r') as file:
+                data = json.load(file)
+        else:
+            data = []
+
+        #find the event by ID
+        event = next((item for item in data if item['id'] == event_id), None)
+        if event is None:
+            raise HTTPException(status_code=404, detail="Event not found")
+
+        #check if the vehicle exists within the event's transport
+        vehicle = next((v for v in event.get('expenses', {}).get('transport', []) if v['id'] == vehicle_id), None)
+        if vehicle is None:
+            raise HTTPException(status_code=404, detail="Vehicle not found")
+
+        #check if the number of participants is less than the vehicle's maxQuantity
+        if len(vehicle.get('participants', [])) >= vehicle['maxQuantity']:
+            raise HTTPException(status_code=400, detail="Vehicle is fully booked")
+
+        #add user to the 'transport'[participants] list
+        if not any(participant['id'] == reservation.participant.id for participant in vehicle.get('participants', [])):
+            vehicle['participants'].append(reservation.participant.dict())
+        else:
+            raise HTTPException(status_code=400, detail="Participant already booked in this vehicle")
+
+        #save changes to JSON file
+        with open(events_json_file_path, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        return {"message": "Seat reserved successfully"}
 
     except FileNotFoundError:
         raise HTTPException(status_code=500, detail="JSON file not found")
