@@ -256,7 +256,7 @@ def create_event(event: EventCreateRequest):
         data.append(new_event)
         #write the updated data back to the JSON file
         with open(events_json_file_path, 'w') as file:
-            json.dump(data, file, indent=4)
+            json.dump(data, file, indent=4, ensure_ascii=False)
 
         return EventsJsonFields(**new_event)
     
@@ -293,7 +293,7 @@ def add_event_participant(event_id: str, participant: EventAddParticipant):
 
         #add changes to json
         with open(events_json_file_path, 'w') as file:
-            json.dump(data, file, indent=4)
+            json.dump(data, file, indent=4, ensure_ascii=False)
 
         return {"message": "new user added"}
 
@@ -338,7 +338,7 @@ def reserve_equipment(event_id: str, equipment_id: int, reservation: EventReserv
 
         #save changes to JSON file
         with open(events_json_file_path, 'w') as file:
-            json.dump(data, file, indent=4)
+            json.dump(data, file, indent=4, ensure_ascii=False)
 
         return {"message": "Equipment reserved successfully"}
 
@@ -383,7 +383,7 @@ def reserve_vehicle_seat(event_id: str, vehicle_id: int, reservation: EventReser
 
         #save changes to JSON file
         with open(events_json_file_path, 'w') as file:
-            json.dump(data, file, indent=4)
+            json.dump(data, file, indent=4, ensure_ascii=False)
 
         return {"message": "Seat reserved successfully"}
 
@@ -433,7 +433,7 @@ def add_vehicle(event_id: str, vehicle: EventAddVehicle):
 
         #save changes to JSON file
         with open(events_json_file_path, 'w') as file:
-            json.dump(data, file, indent=4)
+            json.dump(data, file, indent=4, ensure_ascii=False)
 
         return {"message": "New vehicle added to event"}
 
@@ -483,7 +483,7 @@ def add_event_equipment(event_id: str, equipment: EventAddEquipment):
 
         #add changes to json
         with open(events_json_file_path, 'w') as file:
-            json.dump(data, file, indent=4)
+            json.dump(data, file, indent=4, ensure_ascii=False)
 
         return {"message": "New equipment added to event"}
 
@@ -517,7 +517,7 @@ def remove_event(event_id: str):
 
             #save the updated data back to the JSON file
             with open(events_json_file_path, 'w') as file:
-                json.dump(data, file, indent=4)
+                json.dump(data, file, indent=4, ensure_ascii=False)
 
             return {"message": f"Event with ID {event_id} has been removed successfully."}
         else:
