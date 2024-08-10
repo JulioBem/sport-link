@@ -15,6 +15,7 @@ const OrdinaryInput = ({
   onChangeText,
   backgroundColor,
   hasSendIcon,
+  onSend,
 }) => {
   return (
     <View style={styles.inputBoxContainer}>
@@ -39,7 +40,13 @@ const OrdinaryInput = ({
         onChangeText={onChangeText}
         rightIcon={
           hasSendIcon && (
-            <Icon name="send" size={15} reverse color={"#07284F"} />
+            <Icon
+              name="send"
+              size={15}
+              reverse
+              color={"#07284F"}
+              onPress={onSend}
+            />
           )
         }
       />

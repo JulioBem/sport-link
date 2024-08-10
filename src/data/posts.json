@@ -3,60 +3,60 @@
         "id": 1,
         "author": {
             "imageURI": "https://placehold.co/50.png",
-            "authorName": "John",
-            "authorSurname": "Doe"
+            "authorName": "Kai",
+            "authorSurname": "Lopez"
         },
         "post": {
-            "postContent": "Pessoal, os respons\u00e1veis pelos equipamentos avisaram que houve uma confus\u00e3o nos agendamentos. Atrasei o hor\u00e1rio do nosso encontro em 20 minutos!",
-            "postDate": "16:48 - 17jul"
+            "postContent": "Galera, as pranchas chegaram com atraso, então nosso treino de surf vai começar 20 minutos mais tarde. Aguardem na praia!",
+            "postDate": "2024-07-17T16:48:00Z"
         }
     },
     {
         "id": 2,
         "author": {
             "imageURI": "https://placehold.co/50.png",
-            "authorName": "Jane",
-            "authorSurname": "Smith"
+            "authorName": "Maya",
+            "authorSurname": "Reyes"
         },
         "post": {
-            "postContent": "Lembrete: nossa pr\u00f3xima reuni\u00e3o ser\u00e1 na sexta-feira \u00e0s 14h.",
-            "postDate": "14:00 - 16jul"
+            "postContent": "Lembrete: a próxima sessão de surf será na sexta-feira às 14h. Preparem suas pranchas!",
+            "postDate": "2024-07-16T14:00:00Z"
         }
     },
     {
         "id": 3,
         "author": {
             "imageURI": "https://placehold.co/50.png",
-            "authorName": "Alice",
-            "authorSurname": "Johnson"
+            "authorName": "Liam",
+            "authorSurname": "Parker"
         },
         "post": {
-            "postContent": "Obrigado a todos que participaram do evento de ontem! Foi um sucesso. As fotos est\u00e3o dispon\u00edveis no \u00e1lbum do grupo.",
-            "postDate": "09:15 - 18jul"
+            "postContent": "Obrigado a todos que participaram da competição ontem! As ondas estavam perfeitas. As fotos estão no álbum do grupo.",
+            "postDate": "2024-07-18T09:15:00Z"
         }
     },
     {
         "id": 4,
         "author": {
             "imageURI": "https://placehold.co/50.png",
-            "authorName": "Bob",
-            "authorSurname": "Williams"
+            "authorName": "Sophie",
+            "authorSurname": "Harris"
         },
         "post": {
-            "postContent": "Algu\u00e9m pode me enviar o link para o v\u00eddeo da apresenta\u00e7\u00e3o? Preciso revisar alguns pontos.",
-            "postDate": "19:30 - 17jul"
+            "postContent": "Alguém tem o link do vídeo da última sessão de surf? Preciso rever algumas manobras.",
+            "postDate": "2024-07-17T19:30:00Z"
         }
     },
     {
         "id": 5,
         "author": {
             "imageURI": "https://placehold.co/50.png",
-            "authorName": "Emily",
-            "authorSurname": "Davis"
+            "authorName": "Noah",
+            "authorSurname": "Anderson"
         },
         "post": {
-            "postContent": "Preparativos para o pr\u00f3ximo evento est\u00e3o a todo vapor. Se algu\u00e9m tiver sugest\u00f5es de atividades, por favor, compartilhem!",
-            "postDate": "11:00 - 18jul"
+            "postContent": "Preparativos para o próximo campeonato estão a todo vapor. Se alguém tiver sugestões de atividades ou manobras, por favor, compartilhem!",
+            "postDate": "2024-07-18T11:00:00Z"
         }
     },
     {
@@ -67,8 +67,8 @@
             "authorSurname": "Chupetao"
         },
         "post": {
-            "postContent": "au au",
-            "postDate": "16:48 - 17jul"
+            "postContent": "Au au! Ansioso para pegar as ondas hoje!",
+            "postDate": "2024-07-17T16:48:00Z"
         }
     },
     {
@@ -79,8 +79,20 @@
             "authorSurname": "Chupetao"
         },
         "post": {
-            "postContent": "au au",
-            "postDate": "16:48 - 17jul"
+            "postContent": "Au au! Vamos surfar!",
+            "postDate": "2024-07-17T16:48:00Z"
+        }
+    },
+    {
+        "id": 8,
+        "author": {
+            "imageURI": "https://placehold.co/50.png",
+            "authorName": "Kai",
+            "authorSurname": "Lopez"
+        },
+        "post": {
+            "postContent": "Acabei de testar minha nova prancha. As ondas estavam perfeitas!",
+            "postDate": "2024-08-10T23:13:28.008Z"
         }
     }
 ]
