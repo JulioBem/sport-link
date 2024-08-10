@@ -1,4 +1,4 @@
-import { Input } from "@rneui/themed";
+import { Icon, Input } from "@rneui/themed";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
@@ -13,6 +13,8 @@ const OrdinaryInput = ({
   numberOfLines,
   value,
   onChangeText,
+  backgroundColor,
+  hasSendIcon,
 }) => {
   return (
     <View style={styles.inputBoxContainer}>
@@ -21,6 +23,7 @@ const OrdinaryInput = ({
         inputContainerStyle={[
           styles.inputContainer,
           !isFilled && { backgroundColor: "transparent" },
+          backgroundColor && { backgroundColor },
           !isMultiLine && { maxHeight: 45 },
         ]}
         label={label}
@@ -34,6 +37,11 @@ const OrdinaryInput = ({
         numberOfLines={numberOfLines}
         value={value}
         onChangeText={onChangeText}
+        rightIcon={
+          hasSendIcon && (
+            <Icon name="send" size={15} reverse color={"#07284F"} />
+          )
+        }
       />
     </View>
   );
@@ -65,6 +73,7 @@ const styles = StyleSheet.create({
   disabledInputStyle: {},
   inputStyle: {
     fontSize: 14,
+    outlineStyle: "none",
   },
 });
 

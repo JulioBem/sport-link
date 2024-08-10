@@ -8,10 +8,13 @@ import {
   ScrollView,
 } from "react-native";
 import CommunityPost from "../community-post";
+import OrdinaryInput from "../ordinary-input";
+
 const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
 const CommunityMural = () => {
   const [posts, setPosts] = useState([]);
+  const [newPostTxt, setNewPostTxt] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -54,6 +57,20 @@ const CommunityMural = () => {
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.flatListContent}
       />
+      <View style={styles.postInputBox}>
+        <OrdinaryInput
+          placeholder="Escreva sua postagem..."
+          keyboardType="text"
+          inputMode="text"
+          isMultiLine={false}
+          numberOfLines={1}
+          isFilled={false}
+          backgroundColor="#fff"
+          hasSendIcon={true}
+          value={newPostTxt}
+          onChangeText={setNewPostTxt}
+        />
+      </View>
     </ScrollView>
   );
 };
@@ -62,10 +79,6 @@ const styles = StyleSheet.create({
   muralContainer: {
     width: "100%",
     height: "100%",
-    marginTop: 19.5,
-  },
-  flatListContent: {
-    paddingBottom: 20, // Adicione padding se necessário
   },
   loadingContainer: {
     flex: 1,
@@ -74,6 +87,14 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  postInputBox: {
+    backgroundColor: "#f0f0f0",
+    paddingVertical: 15,
+    width: "100%",
+    height: 75,
+    position: "fixed",
+    bottom: "0",
   },
 });
 
