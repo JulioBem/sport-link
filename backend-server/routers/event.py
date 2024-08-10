@@ -349,49 +349,6 @@ def reserve_equipment(event_id: str, equipment_id: int, reservation: EventReserv
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
 
 
-#reserve a new equipment inside event
-@router.post("/event/id/{event_id}/reserve/equipment/{equipment_id}")
-def reserve_equipment(event_id: str, equipment_id: int, event: EventReserveEquipment):
-    try:
-        #read the existing data from JSON file
-        with open("events.json", "r") as file:
-            data = json.load(file)
-        
-        #find the event by ID
-        event = next((event for event in data["events"] if event["id"] == event_id), None)
-        if not event:
-            raise HTTPException(status_code=404, detail="Event not found")
-        
-        #find the equipment by ID
-        equipment = next((equipment for equipment in event["equipment"] if equipment["id"] == equipment_id), None)
-        if not equipment:
-            raise HTTPException(status_code=404, detail="Equipment not found")
-        
-        #check if the participant is already in the equipment participants list
-        if any(participant["id"] == event.participant.id for participant in equipment["participants"]):
-            raise HTTPException(status_code=400, detail="Participant is already reserved in this equipment")
-        
-        #compare if the length of equipment['participants'] is less than the maxQuantity
-        if len(equipment["participants"]) < equipment["maxQuantity"]:
-            #add the participant to the 'equipment[participants]' list
-            equipment["participants"].append(event.participant.dict())
-        else:
-            raise HTTPException(status_code=400, detail="Equipment is fully booked")
-        
-        #save changes back to the JSON file
-        with open("events.json", "w") as file:
-            json.dump(data, file, indent=4)
-        
-        return {"message": "Equipment reserved successfully"}
-    
-    except FileNotFoundError:
-        raise HTTPException(status_code=500, detail="JSON file not found")
-    except json.JSONDecodeError:
-        raise HTTPException(status_code=500, detail="Error decoding JSON file")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
-
-
 #adds vehicles to events given the event ID
 @router.post("/event/id/{event_id}/add/vehicle")
 def add_vehicle(event_id: str, vehicle: EventAddVehicle):
