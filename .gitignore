@@ -30,6 +30,7 @@ yarn-error.*
 
 # local env files
 .env*.local
+/venv
 
 # typescript
 *.tsbuildinfo
@@ -37,4 +38,9 @@ yarn-error.*
 #python
 venv/
 .venv
-*__pycache__
+
+__pycache__
+backend-server/__pycache__
+backend-server/models/__pycache__
+backend-server/routers/__pycache__
+backend-server/utils/__pycache__
