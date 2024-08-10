@@ -34,7 +34,7 @@ const CommunityHeader = ({
         source={imageURI ? { uri: imageURI } : imageFile}
         resizeMode="cover"
         style={styles.headerImage}
-        imageStyle={{ filter: "brightness(0.8)" }}
+        imageStyle={{ filter: "brightness(0.8)", maxWidth: "100%" }}
       >
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>

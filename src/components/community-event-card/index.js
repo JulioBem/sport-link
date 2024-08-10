@@ -12,7 +12,6 @@ import { Avatar } from "@rneui/themed";
 import { useRouter } from "expo-router";
 
 const CommunityEventCard = ({ event, imageFile }) => {
-  console.log("🚀 ~ CommunityEventCard ~ event:", event);
   if (!event) return null;
   const router = useRouter();
   const {

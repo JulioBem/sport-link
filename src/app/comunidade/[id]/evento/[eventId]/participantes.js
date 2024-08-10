@@ -8,20 +8,19 @@ import {
   View,
 } from "react-native";
 import { SceneMap, TabView } from "react-native-tab-view";
-import { useRoute } from "@react-navigation/native"; // Alterar importação
 
 import CommunityHeader from "../../../../../components/community-header";
 import MaterialColaborators from "../../../../../components/event-colaborators";
 import ParticipantList from "../../../../../components/event-participants";
+import { useLocalSearchParams } from "expo-router";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
 export default function Evento() {
-  const route = useRoute();
-  const { eventId } = route.params; // Acesse o parâmetro diretamente
+  const { event } = useLocalSearchParams();
 
-  const Colaborators = () => <MaterialColaborators eventId={eventId} />;
-  const Participants = () => <ParticipantList eventId={eventId} />;
+  const Colaborators = () => <MaterialColaborators event={event} />;
+  const Participants = () => <ParticipantList event={event} />;
 
   const routes = [
     { key: "first", title: "Todos", component: Participants },
