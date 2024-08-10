@@ -4,7 +4,7 @@ from typing import List
 from models.event_models import *
 from utils.json_utils import events_json_file_path
 import uuid
-import datetime
+from datetime import datetime
 import os
 
 router = APIRouter()
