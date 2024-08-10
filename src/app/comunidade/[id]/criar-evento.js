@@ -19,6 +19,7 @@ export default function CriarEvento() {
   const [eventName, setEventName] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+  const [capacity, setCapacity] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [materials, setMaterials] = useState([]);
@@ -161,11 +162,21 @@ export default function CriarEvento() {
             placeholder="Insira o local"
           />
 
+          <Text style={styles.label}>Capacidade do evento</Text> {/* Novo rótulo */}
+                    <TextInput
+                      style={styles.inputCapacidade}  // Reutilizando o estilo existente
+                      value={capacity}
+                      onChangeText={setCapacity}
+                      placeholder="Insira a capacidade"
+                      keyboardType="numeric" // Configurando o teclado para números
+          />
+
           <Text style={styles.label}>Descrição do evento</Text>
           <TextInput
             style={styles.textArea}
             value={description}
             onChangeText={setDescription}
+            placeholder="Insira a descrição do evento"
             multiline
           />
 
@@ -290,6 +301,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 10,
     backgroundColor: "#f1f1f1",
+    placeholderTextColor: "grey",
   },
   button: {
     backgroundColor: "#2260a8",
@@ -373,5 +385,16 @@ const styles = StyleSheet.create({
   },
   toggle: {
     marginHorizontal: 10,
+  },
+  inputCapacidade: {
+    height: 40,
+    width: "100%",
+    borderColor: "#f1f1f1",
+    borderWidth: 1,
+    borderRadius: 9,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    backgroundColor: "#f1f1f1",
+    placeholderTextColor: "grey",
   },
 });
