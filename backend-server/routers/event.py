@@ -494,3 +494,38 @@ def add_event_equipment(event_id: str, equipment: EventAddEquipment):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
 
+
+#----------------------------- DELETE FUNCTIONS -----------------------------#
+
+
+@router.delete("/events/id/{event_id}/remove")
+def remove_event(event_id: str):
+    try:
+        #read existing data from JSON file
+        if os.path.exists(events_json_file_path):
+            with open(events_json_file_path, 'r') as file:
+                data = json.load(file)
+        else:
+            raise HTTPException(status_code=404, detail="No events found")
+
+        #find the event by the id in the URL
+        event_index = next((index for (index, event) in enumerate(data) if event["id"] == event_id), None)
+
+        #if event is found remove
+        if event_index is not None:
+            data.pop(event_index)
+
+            #save the updated data back to the JSON file
+            with open(events_json_file_path, 'w') as file:
+                json.dump(data, file, indent=4)
+
+            return {"message": f"Event with ID {event_id} has been removed successfully."}
+        else:
+            raise HTTPException(status_code=404, detail=f"Event with ID {event_id} not found")
+
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
