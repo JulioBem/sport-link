@@ -35,13 +35,7 @@ const CommunityMural = () => {
           ...post,
           post: {
             ...post.post,
-            postDate: new Date(post.post.postDate).toLocaleString("pt-BR", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            }),
+            postDate: String(new Date(post.post.postDate)),
           },
         }));
 

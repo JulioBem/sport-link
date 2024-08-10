@@ -7,7 +7,7 @@
             "authorSurname": "Lopez"
         },
         "post": {
-            "postContent": "Galera, as pranchas chegaram com atraso, então nosso treino de surf vai começar 20 minutos mais tarde. Aguardem na praia!",
+            "postContent": "Galera, as pranchas chegaram com atraso, ent\u00c3\u00a3o nosso treino de surf vai come\u00c3\u00a7ar 20 minutos mais tarde. Aguardem na praia!",
             "postDate": "2024-07-17T16:48:00Z"
         }
     },
@@ -19,7 +19,7 @@
             "authorSurname": "Reyes"
         },
         "post": {
-            "postContent": "Lembrete: a próxima sessão de surf será na sexta-feira às 14h. Preparem suas pranchas!",
+            "postContent": "Lembrete: a pr\u00c3\u00b3xima sess\u00c3\u00a3o de surf ser\u00c3\u00a1 na sexta-feira \u00c3\u00a0s 14h. Preparem suas pranchas!",
             "postDate": "2024-07-16T14:00:00Z"
         }
     },
@@ -31,7 +31,7 @@
             "authorSurname": "Parker"
         },
         "post": {
-            "postContent": "Obrigado a todos que participaram da competição ontem! As ondas estavam perfeitas. As fotos estão no álbum do grupo.",
+            "postContent": "Obrigado a todos que participaram da competi\u00c3\u00a7\u00c3\u00a3o ontem! As ondas estavam perfeitas. As fotos est\u00c3\u00a3o no \u00c3\u00a1lbum do grupo.",
             "postDate": "2024-07-18T09:15:00Z"
         }
     },
@@ -43,7 +43,7 @@
             "authorSurname": "Harris"
         },
         "post": {
-            "postContent": "Alguém tem o link do vídeo da última sessão de surf? Preciso rever algumas manobras.",
+            "postContent": "Algu\u00c3\u00a9m tem o link do v\u00c3\u00addeo da \u00c3\u00baltima sess\u00c3\u00a3o de surf? Preciso rever algumas manobras.",
             "postDate": "2024-07-17T19:30:00Z"
         }
     },
@@ -55,7 +55,7 @@
             "authorSurname": "Anderson"
         },
         "post": {
-            "postContent": "Preparativos para o próximo campeonato estão a todo vapor. Se alguém tiver sugestões de atividades ou manobras, por favor, compartilhem!",
+            "postContent": "Preparativos para o pr\u00c3\u00b3ximo campeonato est\u00c3\u00a3o a todo vapor. Se algu\u00c3\u00a9m tiver sugest\u00c3\u00b5es de atividades ou manobras, por favor, compartilhem!",
             "postDate": "2024-07-18T11:00:00Z"
         }
     },
@@ -93,6 +93,18 @@
         "post": {
             "postContent": "Acabei de testar minha nova prancha. As ondas estavam perfeitas!",
             "postDate": "2024-08-10T23:13:28.008Z"
+        }
+    },
+    {
+        "id": 9,
+        "author": {
+            "imageURI": "https://placehold.co/50.png",
+            "authorName": "John",
+            "authorSurname": "Doe"
+        },
+        "post": {
+            "postContent": "Surf \u00e9 muito legal!",
+            "postDate": "2024-08-10T23:27:02.000Z"
         }
     }
 ]
