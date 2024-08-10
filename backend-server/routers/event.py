@@ -268,7 +268,7 @@ def create_event(event: EventCreateRequest):
     
 
 #adds a new user to the event "participant" array
-@router.post("/event/id/{event_id}/add/participant")
+@router.post("/events/id/{event_id}/add/participant")
 def add_event_participant(event_id: str, participant: EventAddParticipant):
     try:
         #read existing data from JSON file
@@ -305,7 +305,7 @@ def add_event_participant(event_id: str, participant: EventAddParticipant):
     
 
 #reserve an equipment inside an event
-@router.post("/event/id/{event_id}/reserve/equipment/{equipment_id}")
+@router.post("/events/id/{event_id}/reserve/equipment/{equipment_id}")
 def reserve_equipment(event_id: str, equipment_id: int, reservation: EventReserveEquipment):
     try:
         #read existing data from JSON file
@@ -350,7 +350,7 @@ def reserve_equipment(event_id: str, equipment_id: int, reservation: EventReserv
 
 
 #adds vehicles to events given the event ID
-@router.post("/event/id/{event_id}/add/vehicle")
+@router.post("/events/id/{event_id}/add/vehicle")
 def add_vehicle(event_id: str, vehicle: EventAddVehicle):
     try:
         #read existing data from JSON file
@@ -400,7 +400,7 @@ def add_vehicle(event_id: str, vehicle: EventAddVehicle):
 
 
 #adds an equipment to event given the event ID
-@router.post("/event/id/{event_id}/add/equipment")
+@router.post("/events/id/{event_id}/add/equipment")
 def add_event_equipment(event_id: str, equipment: EventAddEquipment):
     try:
         #read existing data from JSON file
