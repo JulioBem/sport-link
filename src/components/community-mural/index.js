@@ -1,11 +1,50 @@
-import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+/* eslint-disable no-undef */
+import React, { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  View,
+  ScrollView,
+} from "react-native";
 import CommunityPost from "../community-post";
-import posts from "../../data/posts.json";
+const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
 const CommunityMural = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/posts/all`, {
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+          },
+        });
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.error("Erro ao buscar eventos:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#2260A8" />
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.muralContainer}>
+    <ScrollView style={styles.muralContainer}>
       <FlatList
         scrollEnabled={false}
         data={posts}
@@ -15,7 +54,7 @@ const CommunityMural = () => {
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.flatListContent}
       />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -27,6 +66,14 @@ const styles = StyleSheet.create({
   },
   flatListContent: {
     paddingBottom: 20, // Adicione padding se necessário
+  },
+  loadingContainer: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

@@ -12,11 +12,14 @@ import { SceneMap, TabView } from "react-native-tab-view";
 import CommunityHeader from "../../../../../components/community-header";
 import CommunityReservation from "../../../../../components/community-reservation";
 import CommunityCostRegister from "../../../../../components/community-cost-register";
+import { useLocalSearchParams } from "expo-router";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
-export default function Evento(props) {
-  const Reservation = () => <CommunityReservation />;
+const Organizacao = () => {
+  const { event } = useLocalSearchParams();
+
+  const Reservation = () => <CommunityReservation event={JSON.parse(event)} />;
 
   const CostRegister = () => <CommunityCostRegister />;
 
@@ -67,7 +70,6 @@ export default function Evento(props) {
         communityTitle="Organização do Evento"
         hasSubtitle={false}
         hideShadow={true}
-        {...props}
       />
       <View style={styles.tabContainer}>
         {renderTabBar({ navigationState: { index, routes }, setIndex })}
@@ -82,7 +84,7 @@ export default function Evento(props) {
       />
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -123,3 +125,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default Organizacao;
