@@ -150,7 +150,7 @@
                     "id": 5,
                     "name": "Van at\u00e9 a praia",
                     "cost": "R$ 23,65",
-                    "maxQuantity": 10,
+                    "maxQuantity": 5,
                     "itinerary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut gravida metus. Morbi convallis ipsum eu eros sodales laoreet. Vestibulum rutrum metus in convallis congue. Curabitur venenatis pellentesque diam, vitae consectetur diam dictum quis. Duis suscipit, tellus nec tincidunt ornare, orci odio bibendum lectus, at maximus ipsum arcu vitae velit. In accumsan rutrum felis id varius. Suspendisse sollicitudin dignissim ipsum, vel molestie purus posuere a.",
                     "owner": {
                         "id": "participant102",

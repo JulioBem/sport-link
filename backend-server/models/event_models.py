@@ -77,10 +77,11 @@ class EventAddEquipment(BaseModel):
     maxQuantity: int
 
 class EventReserveEquipment(BaseModel):
-    pass
+    participant:Participant
 
 
 class EventReserveVehicle(BaseModel):
-    pass
+    participant: Participant
+
 
 

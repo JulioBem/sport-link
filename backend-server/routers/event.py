@@ -32,7 +32,7 @@ def read_event_by_id(event_id: str = Path(..., description="The ID of the event 
     try:
         with open(events_json_file_path, 'r') as file:
             data = json.load(file)
-        # Find the event with the given ID
+        #find the event with the given ID
         event = next((item for item in data if item['id'] == event_id), None)
 
         if event is None:
@@ -53,13 +53,13 @@ def read_event_author(event_id: str = Path(..., description="The Author of the e
         with open(events_json_file_path, 'r') as file:
             data = json.load(file)
         
-        # Find the event with the given ID
+        #find the event with the given ID
         event = next((item for item in data if item['id'] == event_id), None)
 
         if event is None:
             raise HTTPException(status_code=404, detail="Event not found")
 
-        # Return only the author part of the event
+        #return only the author part of the event
         author = event.get('author')
         if not author:
             raise HTTPException(status_code=404, detail="Author not found in the event")
@@ -304,73 +304,123 @@ def add_event_participant(event_id: str, participant: EventAddParticipant):
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
     
 
-#reserve a vehicle seat 
-@router.post("/event/id/{event_id}/reserve/vehicle/{vehicle_id}")
-def reserve_vehicle_seat(event_id:str, vehicle_id, event=EventReserveVehicle):
-    try:
-        pass
-    #read existing data from JSON file
-    #find the event by ID
-    #check if vehicle exists
-    #compare if the lenght of equipment[participants] is less than the maxQuantity, if yes then add user, if no, inform he can't reserve this vehicle seat
-    #add user to the 'transport'[participants] list
-    #add changes to json
-    except FileNotFoundError:
-        raise HTTPException(status_code=500, detail="JSON file not found")
-    except json.JSONDecodeError:
-        raise HTTPException(status_code=500, detail="Error decoding JSON file")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
-
-
 #reserve an equipment inside an event
 @router.post("/event/id/{event_id}/reserve/equipment/{equipment_id}")
-def reserve_equipment(event_id:str, equipment_id, event=EventReserveEquipment):
+def reserve_equipment(event_id: str, equipment_id: int, reservation: EventReserveEquipment):
     try:
-        pass
-    #read existing data from JSON file
-    #find the event by ID
-    #check if equipments exists
-    #compare if the lenght of equipment[participants] is less than the maxQuantity, if yes then add user, if no, inform he can't reserve this equipment
-    #add user in 'equipment[participants]' list
-    #add changes to json
-    except FileNotFoundError:
-        raise HTTPException(status_code=500, detail="JSON file not found")
-    except json.JSONDecodeError:
-        raise HTTPException(status_code=500, detail="Error decoding JSON file")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
-
-
-# Adds vehicles to events given the event ID
-@router.post("/event/id/{event_id}/add/vehicle")
-def add_vehicle(event_id: str, vehicle: EventAddVehicle):
-    try:
-        # Read existing data from JSON file
+        #read existing data from JSON file
         if os.path.exists(events_json_file_path):
             with open(events_json_file_path, 'r') as file:
                 data = json.load(file)
         else:
             data = []
 
-        # Find the event by ID
+        #find the event by ID
         event = next((item for item in data if item['id'] == event_id), None)
         if event is None:
             raise HTTPException(status_code=404, detail="Event not found")
 
-        # Check if the vehicle with the same name and owner is already registered
+        #check if the equipment exists within the event's equipment list
+        equipment = next((eq for eq in event.get('expenses', {}).get('equipment', []) if eq['id'] == equipment_id), None)
+        if equipment is None:
+            raise HTTPException(status_code=404, detail="Equipment not found")
+
+        #check if the number of participants is less than the equipment's maxQuantity
+        if len(equipment.get('participants', [])) >= equipment['maxQuantity']:
+            raise HTTPException(status_code=400, detail="Equipment is fully booked")
+
+        #add user to the 'equipment'[participants] list
+        if not any(participant['id'] == reservation.participant.id for participant in equipment.get('participants', [])):
+            equipment['participants'].append(reservation.participant.dict())
+        else:
+            raise HTTPException(status_code=400, detail="Participant already reserved in this equipment")
+
+        #save changes to JSON file
+        with open(events_json_file_path, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        return {"message": "Equipment reserved successfully"}
+
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+
+
+#reserve a new equipment inside event
+@router.post("/event/id/{event_id}/reserve/equipment/{equipment_id}")
+def reserve_equipment(event_id: str, equipment_id: int, event: EventReserveEquipment):
+    try:
+        #read the existing data from JSON file
+        with open("events.json", "r") as file:
+            data = json.load(file)
+        
+        #find the event by ID
+        event = next((event for event in data["events"] if event["id"] == event_id), None)
+        if not event:
+            raise HTTPException(status_code=404, detail="Event not found")
+        
+        #find the equipment by ID
+        equipment = next((equipment for equipment in event["equipment"] if equipment["id"] == equipment_id), None)
+        if not equipment:
+            raise HTTPException(status_code=404, detail="Equipment not found")
+        
+        #check if the participant is already in the equipment participants list
+        if any(participant["id"] == event.participant.id for participant in equipment["participants"]):
+            raise HTTPException(status_code=400, detail="Participant is already reserved in this equipment")
+        
+        #compare if the length of equipment['participants'] is less than the maxQuantity
+        if len(equipment["participants"]) < equipment["maxQuantity"]:
+            #add the participant to the 'equipment[participants]' list
+            equipment["participants"].append(event.participant.dict())
+        else:
+            raise HTTPException(status_code=400, detail="Equipment is fully booked")
+        
+        #save changes back to the JSON file
+        with open("events.json", "w") as file:
+            json.dump(data, file, indent=4)
+        
+        return {"message": "Equipment reserved successfully"}
+    
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+
+
+#adds vehicles to events given the event ID
+@router.post("/event/id/{event_id}/add/vehicle")
+def add_vehicle(event_id: str, vehicle: EventAddVehicle):
+    try:
+        #read existing data from JSON file
+        if os.path.exists(events_json_file_path):
+            with open(events_json_file_path, 'r') as file:
+                data = json.load(file)
+        else:
+            data = []
+
+        #find the event by ID
+        event = next((item for item in data if item['id'] == event_id), None)
+        if event is None:
+            raise HTTPException(status_code=404, detail="Event not found")
+
+        #check if the vehicle with the same name and owner is already registered
         if any(v['name'] == vehicle.name and v['owner']['name'] == vehicle.owner.name for v in event.get('expenses', {}).get('transport', [])):
             return {"message": "Vehicle with the same name and owner is already registered"}
 
-        # Get the last element ID and increment this vehicle's ID
+        #get the last element ID and increment this vehicle's ID
         existing_vehicle_ids = [v['id'] for v in event.get('expenses', {}).get('transport', [])]
         new_id = max(existing_vehicle_ids, default=0) + 1
         
-        # Adding the new value to the ID field 
+        #adding the new value to the ID field 
         new_vehicle = {"id": new_id}
         new_vehicle.update(vehicle.dict())
 
-        # Add the vehicle to the 'expenses[transport]' list
+        #add the vehicle to the 'expenses[transport]' list
         if 'expenses' not in event:
             event['expenses'] = {}
         if 'transport' not in event['expenses']:
@@ -378,7 +428,7 @@ def add_vehicle(event_id: str, vehicle: EventAddVehicle):
         
         event['expenses']['transport'].append(new_vehicle)
 
-        # Save changes to JSON file
+        #save changes to JSON file
         with open(events_json_file_path, 'w') as file:
             json.dump(data, file, indent=4)
 
@@ -396,7 +446,7 @@ def add_vehicle(event_id: str, vehicle: EventAddVehicle):
 @router.post("/event/id/{event_id}/add/equipment")
 def add_event_equipment(event_id: str, equipment: EventAddEquipment):
     try:
-        # Read existing data from JSON file
+        #read existing data from JSON file
         if os.path.exists(events_json_file_path):
             with open(events_json_file_path, 'r') as file:
                 data = json.load(file)
