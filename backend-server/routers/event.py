@@ -365,7 +365,7 @@ def add_vehicle(event_id: str, vehicle: EventAddVehicle):
         if event is None:
             raise HTTPException(status_code=404, detail="Event not found")
 
-        #check if the vehicle with the same name and owner is already registered
+         #check if the vehicle is already registered by the user (if yes, then inform)
         if any(v['name'] == vehicle.name and v['owner']['name'] == vehicle.owner.name for v in event.get('expenses', {}).get('transport', [])):
             return {"message": "Vehicle with the same name and owner is already registered"}
 
@@ -415,7 +415,7 @@ def add_event_equipment(event_id: str, equipment: EventAddEquipment):
         if event is None:
             raise HTTPException(status_code=404, detail="Event not found")
 
-        #check if the vehicle is already registered by the user (if yes, then inform)
+        #check if the equipment is already registered by the user (if yes, then inform)
         if any(e['name'] == equipment.name and e['owner']['name'] == equipment.owner.name for e in event.get('expenses', {}).get('equipment', [])):
             return {"message": "Equipment with the same name and author is already in the event"}
 

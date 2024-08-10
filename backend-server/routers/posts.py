@@ -24,7 +24,6 @@ def read_all_posts():
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
 
 
-
 #creates a new post in community mural
 @router.post("/posts/create", response_model=PostsJsonFields)
 def create_mural_post(event: EventCreatePost):
