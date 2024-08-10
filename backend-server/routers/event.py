@@ -239,11 +239,11 @@ def create_event(event: EventCreateRequest):
             "date": event.date,
             "createdAt": datetime.utcnow().isoformat(),
             "author": {
-                "id": str(uuid.uuid4()),
-                "name": "Admin",
-                "email": "admin@example.com",
-                "profilePicture": "https://placehold.co/50.png",
-                "chavePix": ""
+                "id": event.author.id,
+                "name": event.author.name,
+                "email": event.author.email,
+                "profilePicture": event.author.profilePicture,
+                "chavePix": event.author.chavePix
             },
             "participants": [],
             "capacity": event.capacity,

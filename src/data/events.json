@@ -186,26 +186,5 @@
                 }
             ]
         }
-    },
-    {
-        "id": "event463acf48-ba31-4859-a366-f6ee2a209fe6",
-        "title": "evento bla bla",
-        "description": "aaaaaaaa",
-        "location": {
-            "address": "123 Event Street"
-        },
-        "date": "2024-08-10",
-        "createdAt": "2024-08-10T22:21:02.413239",
-        "author": {
-            "id": "69aef6c1-899f-460c-a7f9-24260ee547d2",
-            "name": "Admin",
-            "email": "admin@example.com",
-            "profilePicture": "https://placehold.co/50.png",
-            "chavePix": ""
-        },
-        "participants": [],
-        "capacity": 25,
-        "imageURI": "https://placehold.co/50.png",
-        "expenses": {}
     }
 ]

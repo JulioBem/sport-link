@@ -53,6 +53,7 @@ class EventCreateRequest(BaseModel):
     description: Optional[str]
     location: Location  
     date: Optional[str]
+    author: Owner
 
 class EventAddParticipant(BaseModel):
     id: str
