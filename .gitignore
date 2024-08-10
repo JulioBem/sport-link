@@ -38,4 +38,8 @@ yarn-error.*
 #python
 venv/
 .venv
+__pycache__
 backend-server/__pycache__
+backend-server/models/__pycache__
+backend-server/routers/__pycache__
+backend-server/utils/__pycache__
