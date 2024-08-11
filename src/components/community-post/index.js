@@ -8,6 +8,14 @@ const CommunityPost = (props) => {
   const { imageURI, authorName, authorSurname } = author || {};
   const { postContent, postDate } = post || {};
 
+  const formattedPostDate = new Date(postDate).toLocaleString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
   return (
     <View style={styles.postContainer}>
       <View style={styles.authorInfo}>
@@ -24,7 +32,9 @@ const CommunityPost = (props) => {
           {postContent ||
             "Pessoal, os responsáveis pelos equipamentos avisaram que houve uma confusão nos agendamentos. Atrasei o horário do nosso encontro em 20 minutos!"}
         </Text>
-        <Text style={styles.postDate}>{postDate || "16:48 - 17jul"}</Text>
+        <Text style={styles.postDate}>
+          {formattedPostDate || "16:48 - 17jul"}
+        </Text>
       </View>
     </View>
   );
