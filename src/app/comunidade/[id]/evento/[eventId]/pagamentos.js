@@ -55,7 +55,7 @@ export default function Pagamentos(props) {
     };
   };
 
-  const userId = "participant102";
+  const userId = "TESTE123";
   const userExpenses = getUserExpenses(expenses, userId);
   const ownedExpenses = getOwnedExpenses(expenses, userId);
 
