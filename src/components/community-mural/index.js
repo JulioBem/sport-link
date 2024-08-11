@@ -83,7 +83,7 @@ const CommunityMural = () => {
       }
 
       const createdPost = await response.json();
-      setPosts((prevPosts) => [createdPost, ...prevPosts]);
+      setPosts((prevPosts) => [...prevPosts, createdPost]);
       setNewPostTxt("");
 
       return (

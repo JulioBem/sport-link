@@ -15,7 +15,7 @@ import CommunityReservationController from "../community-reservation-controller"
 const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
 const CommunityReservation = ({ event }) => {
-  const [eventData, setEventData] = useState(event); // Novo estado para armazenar o evento atualizado
+  const [eventData, setEventData] = useState(event);
   const { expenses, capacity, participants, id } = eventData ?? {};
   const currentUserId = "TESTE123";
   const [newEventExpenses, setNewEventExpenses] = useState(expenses);
@@ -23,6 +23,16 @@ const CommunityReservation = ({ event }) => {
   const [totalTransportCost, setTotalTransportCost] = useState(0);
   const [changedEquipments, setChangedEquipments] = useState(new Set());
   const { equipment = [], transport = [] } = newEventExpenses ?? {};
+
+  const showToast = (message) => {
+    if (Platform.OS === "android") {
+      ToastAndroid.showWithGravity(
+        message,
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER
+      );
+    }
+  };
 
   const fetchEvent = useCallback(async () => {
     try {
@@ -33,10 +43,11 @@ const CommunityReservation = ({ event }) => {
         },
       });
       const data = await response.json();
-      setEventData(data); // Atualiza o estado do evento com os dados recebidos
-      setNewEventExpenses(data.expenses); // Atualiza as despesas com os dados recebidos
+      setEventData(data);
+      setNewEventExpenses(data.expenses);
     } catch (error) {
       console.error("Erro ao buscar evento:", error);
+      showToast("Erro ao atualizar dados do evento.");
     }
   }, [id]);
 
@@ -104,17 +115,15 @@ const CommunityReservation = ({ event }) => {
             item.id === id &&
             item.participants?.some((p) => p.id === currentUserId)
           ) {
-            console.log("🚀 ~ updatedItems ~ item:", item);
-            const oldItem = expenses[type].find((oldItem) => oldItem === item);
-            console.log("~ olditem", oldItem);
+            const oldItem = expenses[type].find(
+              (oldItem) => oldItem.id === item.id
+            );
 
-            // Verifica se o usuário está na lista local, mas não no evento atualizado
             const isInExpenses = oldItem?.participants?.some(
               (p) => p.id === currentUserId
             );
 
             if (!isInExpenses) {
-              // Se não estiver nas despesas do evento, pode remover
               return {
                 ...item,
                 participants: item.participants.filter(
@@ -137,7 +146,7 @@ const CommunityReservation = ({ event }) => {
         return updated;
       });
     },
-    [currentUserId, eventData?.expenses] // Adiciona eventData às dependências
+    [currentUserId, eventData?.expenses]
   );
 
   const handleReserveAll = useCallback(async () => {
@@ -155,7 +164,7 @@ const CommunityReservation = ({ event }) => {
           ? "equipment"
           : "transport";
 
-        await fetch(
+        const response = await fetch(
           `${apiUrl}/events/id/${eventData.id}/reserve/${type}/${id}`,
           {
             method: "POST",
@@ -165,13 +174,17 @@ const CommunityReservation = ({ event }) => {
             body: JSON.stringify({ participant }),
           }
         );
-      }
 
-      // Atualiza o evento após todas as reservas
+        const { ok } = response;
+        if (!ok) return showToast("Reserva falhou.");
+      }
+      showToast("Reserva realizada com sucesso");
+
       await fetchEvent();
       setChangedEquipments(new Set());
     } catch (error) {
-      console.error("Failed to reserve equipment:", error);
+      console.error("Erro ao reservar equipamentos:", error);
+      showToast("Erro ao reservar os itens selecionados.");
     }
   }, [changedEquipments, currentUserId, eventData.id, equipment, fetchEvent]);
 
@@ -198,19 +211,13 @@ const CommunityReservation = ({ event }) => {
       );
 
       if (!response.ok) {
+        showToast("Erro ao participar");
+
         throw new Error("Erro ao participar");
+      } else {
+        await fetchEvent();
+        showToast("Participação inserida com sucesso.");
       }
-
-      await fetchEvent();
-
-      return (
-        Platform.OS === "android" &&
-        ToastAndroid.showWithGravity(
-          "Participação inserida com sucesso",
-          ToastAndroid.LONG,
-          ToastAndroid.CENTER
-        )
-      );
     } catch (error) {
       console.error("Erro ao participar:", error);
       Alert.alert("Erro", "Não foi possível participar.");
