@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "@rneui/themed";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Platform,
+  ToastAndroid,
+  Alert,
+} from "react-native";
 import CommunityReservationController from "../community-reservation-controller";
 
 // eslint-disable-next-line no-undef
@@ -9,7 +17,6 @@ const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 const CommunityReservation = ({ event }) => {
   const [eventData, setEventData] = useState(event); // Novo estado para armazenar o evento atualizado
   const { expenses, capacity, participants, id } = eventData ?? {};
-  console.log("🚀 ~ CommunityReservation ~ expenses:", expenses);
   const currentUserId = "TESTE123";
   const [newEventExpenses, setNewEventExpenses] = useState(expenses);
   const [totalEquipmentCost, setTotalEquipmentCost] = useState(0);
@@ -168,6 +175,48 @@ const CommunityReservation = ({ event }) => {
     }
   }, [changedEquipments, currentUserId, eventData.id, equipment, fetchEvent]);
 
+  const enterEvent = async () => {
+    const newMember = {
+      id: "TESTE123",
+      name: "Participante de Teste",
+      email: "teste@example.com",
+      profilePicture: "https://example.com/profile.jpg",
+      status: "confirmed",
+    };
+
+    try {
+      const response = await fetch(
+        `${apiUrl}/events/id/${id}/add/participant`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+          },
+          body: JSON.stringify(newMember),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Erro ao participar");
+      }
+
+      await fetchEvent();
+
+      return (
+        Platform.OS === "android" &&
+        ToastAndroid.showWithGravity(
+          "Participação inserida com sucesso",
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER
+        )
+      );
+    } catch (error) {
+      console.error("Erro ao participar:", error);
+      Alert.alert("Erro", "Não foi possível participar.");
+    }
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.reservationContainer}>
       <View style={styles.reservationBox}>
@@ -189,6 +238,7 @@ const CommunityReservation = ({ event }) => {
             buttonStyle={{ borderRadius: 10 }}
             containerStyle={{ width: "100%" }}
             titleStyle={{ fontSize: 13 }}
+            onPress={() => enterEvent()}
           >
             Reservar Vaga
           </Button>
