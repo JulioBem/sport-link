@@ -7,7 +7,7 @@
             "authorSurname": "Doe"
         },
         "post": {
-            "postContent": "Pessoal, os respons\u00e1veis pelos equipamentos avisaram que houve uma confus\u00e3o nos agendamentos. Atrasei o hor\u00e1rio do nosso encontro em 20 minutos!",
+            "postContent": "Pessoal, os responsáveis pelos equipamentos avisaram que houve uma confusão nos agendamentos. Atrasei o horário do nosso encontro em 20 minutos!",
             "postDate": "16:48 - 17jul"
         }
     },
@@ -19,7 +19,7 @@
             "authorSurname": "Smith"
         },
         "post": {
-            "postContent": "Lembrete: nossa pr\u00f3xima reuni\u00e3o ser\u00e1 na sexta-feira \u00e0s 14h.",
+            "postContent": "Lembrete: nossa próxima reunião será na sexta-feira às 14h.",
             "postDate": "14:00 - 16jul"
         }
     },
@@ -31,7 +31,7 @@
             "authorSurname": "Johnson"
         },
         "post": {
-            "postContent": "Obrigado a todos que participaram do evento de ontem! Foi um sucesso. As fotos est\u00e3o dispon\u00edveis no \u00e1lbum do grupo.",
+            "postContent": "Obrigado a todos que participaram do evento de ontem! Foi um sucesso. As fotos estão disponíveis no álbum do grupo.",
             "postDate": "09:15 - 18jul"
         }
     },
@@ -43,7 +43,7 @@
             "authorSurname": "Williams"
         },
         "post": {
-            "postContent": "Algu\u00e9m pode me enviar o link para o v\u00eddeo da apresenta\u00e7\u00e3o? Preciso revisar alguns pontos.",
+            "postContent": "Alguém pode me enviar o link para o vídeo da apresentação? Preciso revisar alguns pontos.",
             "postDate": "19:30 - 17jul"
         }
     },
@@ -55,7 +55,7 @@
             "authorSurname": "Davis"
         },
         "post": {
-            "postContent": "Preparativos para o pr\u00f3ximo evento est\u00e3o a todo vapor. Se algu\u00e9m tiver sugest\u00f5es de atividades, por favor, compartilhem!",
+            "postContent": "Preparativos para o próximo evento estão a todo vapor. Se alguém tiver sugestões de atividades, por favor, compartilhem!",
             "postDate": "11:00 - 18jul"
         }
     },
@@ -80,6 +80,29 @@
         },
         "post": {
             "postContent": "au au",
+            "postDate": "16:48 - 17jul"
+        }
+    },
+    {
+        "id": 8,
+        "author": {
+            "imageURI": "https://placehold.co/50.png",
+            "authorName": "Alice",
+            "authorSurname": "Johnson"
+        },
+        "post": {
+            "postContent": "pão pão pão áááá"
+        }
+    },
+    {
+        "id": 9,
+        "author": {
+            "imageURI": "https://placehold.co/50.png",
+            "authorName": "John",
+            "authorSurname": "Doe"
+        },
+        "post": {
+            "postContent": "Pessoal, os responsáveis pelos equipamentos avisaram que houve uma confusão nos agendamentos. Atrasei o horário do nosso encontro em 20 minutos!",
             "postDate": "16:48 - 17jul"
         }
     }
