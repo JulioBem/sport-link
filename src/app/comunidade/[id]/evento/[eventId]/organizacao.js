@@ -21,7 +21,9 @@ const Organizacao = () => {
 
   const Reservation = () => <CommunityReservation event={JSON.parse(event)} />;
 
-  const CostRegister = () => <CommunityCostRegister />;
+  const CostRegister = () => (
+    <CommunityCostRegister event={JSON.parse(event)} />
+  );
 
   const routes = [
     { key: "first", title: "Reservar", component: Reservation },

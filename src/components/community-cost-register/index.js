@@ -12,13 +12,17 @@ import {
 import OrdinaryInput from "../ordinary-input";
 import { useRouter } from "expo-router";
 
+// eslint-disable-next-line no-undef
+const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+
 const formatCurrency = (value) => {
   const number = value.replace(/\D/g, "");
   const formattedValue = (number / 100).toFixed(2).replace(".", ",");
   return "R$ " + formattedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
 
-const CommunityCostRegister = () => {
+const CommunityCostRegister = ({ event }) => {
+  const { id } = event;
   const [equipmentName, setEquipmentName] = useState("");
   const [equipmentQuantity, setEquipmentQuantity] = useState("");
   const [equipmentCost, setEquipmentCost] = useState("");
@@ -26,10 +30,9 @@ const CommunityCostRegister = () => {
   const [transportCost, setTransportCost] = useState("");
   const [transportQuantity, setTransportQuantity] = useState("");
   const [transportItinerary, setTransportItinerary] = useState("");
+  const [transportName, setTransportName] = useState("");
 
-  const router = useRouter();
-
-  const handleRegisterEquipment = () => {
+  const handleRegisterEquipment = async () => {
     if (
       equipmentName?.length === 0 ||
       equipmentCost?.length === 0 ||
@@ -47,20 +50,47 @@ const CommunityCostRegister = () => {
     const newEquipment = {
       name: equipmentName,
       cost: equipmentCost,
+      owner: {
+        id: "TESTE123",
+        name: "Participante de Teste",
+        email: "teste@example.com",
+        profilePicture: "https://example.com/profile.jpg",
+        chavePix: "teste@gmail.com",
+      },
+      participants: [],
       maxQuantity: parseInt(equipmentQuantity, 10),
     };
 
-    Platform.OS === "android" &&
-      ToastAndroid.showWithGravity(
-        "Equipamento Registrado",
-        ToastAndroid.LONG,
-        ToastAndroid.CENTER
-      );
+    const response = await fetch(`${apiUrl}/events/id/${id}/add/equipment`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true",
+      },
+      body: JSON.stringify(newEquipment),
+    });
 
-    router.back();
+    if (response.ok) {
+      Platform.OS === "android" &&
+        ToastAndroid.showWithGravity(
+          "Equipamento Registrado",
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER
+        );
+
+      setEquipmentName("");
+      setEquipmentCost("");
+      setEquipmentQuantity("");
+    } else
+      Platform.OS === "android" &&
+        ToastAndroid.showWithGravity(
+          "Erro no Registro",
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER
+        );
   };
 
-  const handleRegisterTransport = () => {
+  const handleRegisterTransport = async () => {
     if (
       transportCost?.length === 0 ||
       transportQuantity?.length === 0 ||
@@ -76,20 +106,48 @@ const CommunityCostRegister = () => {
       );
 
     const newTransport = {
-      name: "Transporte",
+      name: transportName,
       cost: transportCost,
-      maxQuantity: parseInt(transportQuantity, 10),
       itinerary: transportItinerary,
+      owner: {
+        id: "TESTE123",
+        name: "Participante de Teste",
+        email: "teste@example.com",
+        profilePicture: "https://example.com/profile.jpg",
+        chavePix: "teste@gmail.com",
+      },
+      participants: [],
+      maxQuantity: parseInt(transportQuantity, 10),
     };
 
-    Platform.OS === "android" &&
-      ToastAndroid.showWithGravity(
-        "Transporte Registrado",
-        ToastAndroid.LONG,
-        ToastAndroid.CENTER
-      );
+    const response = await fetch(`${apiUrl}/events/id/${id}/add/vehicle`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true",
+      },
+      body: JSON.stringify(newTransport),
+    });
 
-    router.back();
+    if (response.ok) {
+      Platform.OS === "android" &&
+        ToastAndroid.showWithGravity(
+          "Transporte Registrado",
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER
+        );
+
+      setTransportCost("");
+      setTransportItinerary("");
+      setTransportName("");
+      setTransportQuantity("");
+    } else
+      Platform.OS === "android" &&
+        ToastAndroid.showWithGravity(
+          "Erro no Registro",
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER
+        );
   };
 
   return (
@@ -145,6 +203,16 @@ const CommunityCostRegister = () => {
           <Text style={styles.costRegisterBoxTitleTxt}>Transportes</Text>
         </View>
         <View style={styles.costRegisterContent}>
+          <OrdinaryInput
+            label="Nome do veículo *"
+            placeholder="Van"
+            isFilled={true}
+            keyboardType="text"
+            inputMode="text"
+            isMultiLine={false}
+            value={transportName}
+            onChangeText={(text) => setTransportName(text)}
+          />
           <OrdinaryInput
             label="Custo da gasolina *"
             placeholder="R$ 0,00"
