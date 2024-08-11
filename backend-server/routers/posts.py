@@ -50,7 +50,7 @@ def create_mural_post(event: EventCreatePost):
 
         #add in json
         with open(posts_json_file_path, 'w') as file:
-            json.dump(data, file, indent=4)
+            json.dump(data, file, indent=4, ensure_ascii=False)
 
         return PostsJsonFields(**new_post)
     
