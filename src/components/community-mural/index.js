@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -6,12 +5,19 @@ import {
   StyleSheet,
   View,
   ScrollView,
+  Alert,
+  Platform,
+  ToastAndroid,
 } from "react-native";
 import CommunityPost from "../community-post";
+import OrdinaryInput from "../ordinary-input";
+
+// eslint-disable-next-line no-undef
 const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
 const CommunityMural = () => {
   const [posts, setPosts] = useState([]);
+  const [newPostTxt, setNewPostTxt] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,9 +30,18 @@ const CommunityMural = () => {
           },
         });
         const data = await response.json();
-        setPosts(data);
+
+        const formattedPosts = data.map((post) => ({
+          ...post,
+          post: {
+            ...post.post,
+            postDate: String(new Date(post.post.postDate)),
+          },
+        }));
+
+        setPosts(formattedPosts);
       } catch (error) {
-        console.error("Erro ao buscar eventos:", error);
+        console.error("Erro ao buscar posts:", error);
       } finally {
         setLoading(false);
       }
@@ -34,6 +49,56 @@ const CommunityMural = () => {
 
     fetchPosts();
   }, []);
+
+  const createPost = async () => {
+    if (newPostTxt.trim() === "") {
+      Alert.alert("Erro", "A postagem não pode estar vazia.");
+      return;
+    }
+
+    const newPost = {
+      author: {
+        imageURI: "https://placehold.co/50.png",
+        authorName: "John",
+        authorSurname: "Doe",
+      },
+      post: {
+        postContent: newPostTxt,
+        postDate: new Date().toISOString(),
+      },
+    };
+
+    try {
+      const response = await fetch(`${apiUrl}/posts/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
+        },
+        body: JSON.stringify(newPost),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao criar o post");
+      }
+
+      const createdPost = await response.json();
+      setPosts((prevPosts) => [createdPost, ...prevPosts]);
+      setNewPostTxt("");
+
+      return (
+        Platform.OS === "android" &&
+        ToastAndroid.showWithGravity(
+          "Post criado com sucesso",
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER
+        )
+      );
+    } catch (error) {
+      console.error("Erro ao criar o post:", error);
+      Alert.alert("Erro", "Não foi possível criar o post.");
+    }
+  };
 
   if (loading) {
     return (
@@ -44,17 +109,38 @@ const CommunityMural = () => {
   }
 
   return (
-    <ScrollView style={styles.muralContainer}>
-      <FlatList
-        scrollEnabled={false}
-        data={posts}
-        renderItem={({ item }) => (
-          <CommunityPost key={item.id} author={item.author} post={item.post} />
-        )}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.flatListContent}
-      />
-    </ScrollView>
+    <>
+      <ScrollView style={styles.muralContainer}>
+        <FlatList
+          scrollEnabled={false}
+          data={posts}
+          renderItem={({ item }) => (
+            <CommunityPost
+              key={item.id}
+              author={item.author}
+              post={item.post}
+            />
+          )}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={styles.flatListContent}
+        />
+      </ScrollView>
+      <View style={styles.postInputBox}>
+        <OrdinaryInput
+          placeholder="Escreva sua postagem..."
+          keyboardType="text"
+          inputMode="text"
+          isMultiLine={false}
+          numberOfLines={1}
+          isFilled={false}
+          backgroundColor="#fff"
+          hasSendIcon={true}
+          value={newPostTxt}
+          onChangeText={setNewPostTxt}
+          onSend={createPost} // Adicione esta linha para enviar o post
+        />
+      </View>
+    </>
   );
 };
 
@@ -62,10 +148,7 @@ const styles = StyleSheet.create({
   muralContainer: {
     width: "100%",
     height: "100%",
-    marginTop: 19.5,
-  },
-  flatListContent: {
-    paddingBottom: 20, // Adicione padding se necessário
+    paddingBottom: 75,
   },
   loadingContainer: {
     flex: 1,
@@ -74,6 +157,14 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  postInputBox: {
+    backgroundColor: "#f0f0f0",
+    paddingVertical: 15,
+    width: "100vw",
+    height: 75,
+    position: "fixed",
+    bottom: "0",
   },
 });
 
