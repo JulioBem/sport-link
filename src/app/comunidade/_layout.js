@@ -12,6 +12,7 @@ export default function EventoLayout() {
     >
       <Stack.Screen name="[id]" options={{ headerShown: false }} />
       <Stack.Screen name="[id]/criar-evento" options={{ headerShown: false }} />
+      <Stack.Screen name="[id]/editar-evento" options={{ headerShown: false }} />
       <Stack.Screen
         name="[id]/evento/[eventId]"
         options={{ headerShown: false }}
