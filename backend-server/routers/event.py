@@ -249,7 +249,9 @@ def create_event(event: EventCreateRequest):
             "participants": [],
             "capacity": event.capacity,
             "imageURI": "https://placehold.co/50.png",
-            "expenses": {}
+            "expenses": {},
+            "difficulty": event.difficulty,
+            "materials": [material.dict() for material in event.materials]
         }
 
         #append the new event to the data list

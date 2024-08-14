@@ -10,23 +10,33 @@ import {
   ScrollView,
   Switch,
   Pressable,
+  Platform,
+  ToastAndroid,
+  Alert,
 } from "react-native";
 import AddImageIcon from "../../../../assets/images/icone-upload.png";
 import CommunityHeader from "../../../components/community-header";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
+// eslint-disable-next-line no-undef
+const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+
 export default function CriarEvento() {
   const [eventName, setEventName] = useState("");
   const [startTime, setStartTime] = useState("");
+  console.log("🚀 ~ CriarEvento ~ startTime:", startTime);
   const [endTime, setEndTime] = useState("");
+  console.log("🚀 ~ CriarEvento ~ endTime:", endTime);
   const [capacity, setCapacity] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [materials, setMaterials] = useState([]);
+  console.log("🚀 ~ CriarEvento ~ materials:", materials);
   const [currentMaterial, setCurrentMaterial] = useState("");
   const [isBeginner, setIsBeginner] = useState(false);
   const [isAdvanced, setIsAdvanced] = useState(false);
   const [date, setDate] = useState();
+  console.log("🚀 ~ CriarEvento ~ date:", date);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showStartTimePicker, setShowStartTimePicker] = useState(false);
   const [showEndTimePicker, setShowEndTimePicker] = useState(false);
@@ -69,15 +79,116 @@ export default function CriarEvento() {
     }
   };
 
+  const showToast = (message) => {
+    if (Platform.OS === "android") {
+      ToastAndroid.showWithGravity(
+        message,
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER
+      );
+    }
+  };
+
+  const createEvent = async () => {
+    const currentUserId = "TESTE123";
+
+    if (
+      !eventName?.length <= 0 ||
+      !capacity?.length <= 0 ||
+      !description?.length <= 0 ||
+      !location?.length <= 0 ||
+      !date ||
+      !startTime?.length <= 0 ||
+      !materials?.length <= 0
+    )
+      return Alert.alert("Preencha todos os campos obrigatórios.");
+
+    const combineDateAndTime = (date, time) => {
+      const [timePart, meridian] = time.split(" ");
+      const [hour, minute] = timePart.split(":").map(Number);
+
+      let adjustedHour = hour;
+      if (meridian === "PM" && hour !== 12) {
+        adjustedHour += 12;
+      } else if (meridian === "AM" && hour === 12) {
+        adjustedHour = 0;
+      }
+
+      const combinedDate = new Date(date);
+      combinedDate.setHours(adjustedHour);
+      combinedDate.setMinutes(minute);
+
+      return combinedDate.toISOString();
+    };
+
+    const difficulty = isBeginner
+      ? "Iniciante"
+      : isAdvanced
+        ? "Avançado"
+        : isBeginner && isAdvanced
+          ? "Iniciante/Avançado"
+          : "";
+
+    const newEvent = {
+      title: eventName,
+      capacity: capacity,
+      description: description,
+      location: {
+        address: location,
+      },
+      date: combineDateAndTime(date, startTime) || new Date().toISOString(),
+      author: {
+        id: currentUserId,
+        name: "Participante de Teste",
+        email: "teste@example.com",
+        profilePicture: "https://example.com/profile.jpg",
+        chavePix: "teste@example.com",
+      },
+      difficulty,
+      materials: materials || [],
+    };
+    console.log("🚀 ~ createEvent ~ newEvent:", newEvent);
+
+    try {
+      const response = await fetch(`${apiUrl}/events/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
+        },
+        body: JSON.stringify(newEvent),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao criar o post");
+      }
+
+      setEventName("");
+      setStartTime("");
+      setEndTime("");
+      setCapacity("");
+      setLocation("");
+      setDescription("");
+      setMaterials([]);
+      setIsBeginner(false);
+      setIsAdvanced(false);
+      setDate();
+
+      showToast(
+        "Evento criado com sucesso",
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER
+      );
+    } catch (error) {
+      console.error("Erro ao criar o post:", error);
+      Alert.alert("Erro", "Não foi possível criar o post.");
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <CommunityHeader
-          communityTitle="Título da Comunidade"
-          communitySubtitle="Subtítulo da Comunidade"
-          imageURI="image-url-here"
-          style={styles.communityHeader} // Adicione um estilo se necessário
-        />
+        <CommunityHeader style={styles.communityHeader} />
         <View style={styles.iconContainer}>
           <Image source={AddImageIcon} style={styles.icon} />
         </View>
@@ -153,7 +264,6 @@ export default function CriarEvento() {
               />
             )}
           </View>
-
           <Text style={styles.label}>Local</Text>
           <TextInput
             style={styles.inputlugar}
@@ -161,16 +271,15 @@ export default function CriarEvento() {
             onChangeText={setLocation}
             placeholder="Insira o local"
           />
-
-          <Text style={styles.label}>Capacidade do evento</Text> {/* Novo rótulo */}
-                    <TextInput
-                      style={styles.inputCapacidade}  // Reutilizando o estilo existente
-                      value={capacity}
-                      onChangeText={setCapacity}
-                      placeholder="Insira a capacidade"
-                      keyboardType="numeric" // Configurando o teclado para números
+          <Text style={styles.label}>Capacidade do evento</Text>
+          {/* Novo rótulo */}
+          <TextInput
+            style={styles.inputCapacidade} // Reutilizando o estilo existente
+            value={capacity}
+            onChangeText={setCapacity}
+            placeholder="Insira a capacidade"
+            keyboardType="numeric" // Configurando o teclado para números
           />
-
           <Text style={styles.label}>Descrição do evento</Text>
           <TextInput
             style={styles.textArea}
@@ -179,7 +288,6 @@ export default function CriarEvento() {
             placeholder="Insira a descrição do evento"
             multiline
           />
-
           <Text style={styles.label}>Materiais necessários</Text>
           {materials.map((material, index) => (
             <View key={index} style={styles.materialItem}>
@@ -193,7 +301,6 @@ export default function CriarEvento() {
             placeholder="Adicionar opção..."
             onSubmitEditing={addMaterial}
           />
-
           <Text style={styles.label}>Nível dos participantes</Text>
           <View style={styles.levelContainer}>
             <Text>Iniciantes</Text>
@@ -212,7 +319,7 @@ export default function CriarEvento() {
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={() => createEvent()} style={styles.button}>
           <Text style={styles.buttonText}>Criar Evento</Text>
         </TouchableOpacity>
       </View>
