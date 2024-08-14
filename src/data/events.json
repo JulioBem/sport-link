@@ -4,6 +4,8 @@
         "title": "Competições de Surf Local",
         "description": "Participe das competições locais de surfe e mostre suas habilidades nas ondas. Aberto para todos os níveis de habilidade.",
         "date": "2024-08-15T09:00:00Z",
+        "difficulty": "Iniciante",
+        "materials": [],
         "createdAt": "2024-07-21T09:00:00Z",
         "location": {
             "address": "Praia Exemplo, 123"
@@ -312,5 +314,35 @@
                 }
             ]
         }
+    },
+    {
+        "id": "eventb0271e45-7c58-4d81-afca-0a4987562f34",
+        "title": "Teste",
+        "description": "descricao!!",
+        "location": {
+            "address": "12312"
+        },
+        "date": "2024-08-14T02:30:48.878Z",
+        "createdAt": "2024-08-14T02:30:48.880653",
+        "author": {
+            "id": "TESTE123",
+            "name": "Participante de Teste",
+            "email": "teste@example.com",
+            "profilePicture": "https://example.com/profile.jpg",
+            "chavePix": "teste@example.com"
+        },
+        "participants": [],
+        "capacity": 12,
+        "imageURI": "https://placehold.co/50.png",
+        "expenses": {},
+        "difficulty": "Iniciante",
+        "materials": [
+            {
+                "name": "teste"
+            },
+            {
+                "name": "eeh"
+            }
+        ]
     }
 ]

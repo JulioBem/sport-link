@@ -34,6 +34,8 @@ class Author(BaseModel):
     profilePicture: str
     chavePix: Optional[str] 
 
+class Material(BaseModel):
+    name: str
 class EventsJsonFields(BaseModel):
     id: str
     title: str
@@ -46,6 +48,8 @@ class EventsJsonFields(BaseModel):
     capacity: int
     imageURI: str
     expenses: Optional[Dict]
+    difficulty: str
+    materials: List[Material]
 
 class EventCreateRequest(BaseModel):
     title: str
@@ -54,6 +58,8 @@ class EventCreateRequest(BaseModel):
     location: Location  
     date: Optional[str]
     author: Owner
+    difficulty: str
+    materials: List[Material]
 
 class EventAddParticipant(BaseModel):
     id: str

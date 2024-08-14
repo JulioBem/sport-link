@@ -16,8 +16,16 @@ import surfImage from "../../../../../assets/images/surf-image.jpeg";
 export default function Evento(props) {
   const { event, communityId, eventId } = useLocalSearchParams();
   const router = useRouter();
-  const { location, title, description, date, participants, expenses, author } =
-    JSON.parse(event);
+  const {
+    location,
+    title,
+    description,
+    date,
+    participants,
+    expenses,
+    author,
+    materials,
+  } = JSON.parse(event);
 
   const allParticipants = [author, ...participants];
 
@@ -74,12 +82,14 @@ export default function Evento(props) {
                 styles.pressableContainer,
               ]}
             >
-              <Text style={styles.pressableText}>
-                {allParticipants[0].name}, {allParticipants[1].name}
-                {allParticipants.length - 2 > 0
-                  ? ` e mais ${allParticipants.length - 2} estão envolvidos no evento`
-                  : "..."}
-              </Text>
+              {allParticipants?.length > 0 && (
+                <Text style={styles.pressableText}>
+                  {allParticipants[0]?.name}, {allParticipants[1]?.name}
+                  {allParticipants.length - 2 > 0
+                    ? ` e mais ${allParticipants.length - 2} estão envolvidos no evento`
+                    : "..."}
+                </Text>
+              )}
             </Pressable>
           </View>
         </View>
@@ -97,7 +107,7 @@ export default function Evento(props) {
             </Text>
             <FlatList
               scrollEnabled={false}
-              data={expenses.equipment}
+              data={materials}
               renderItem={({ item }) => (
                 <View style={styles.listItem}>
                   <Icon name="done" size={20} color="#000" />
