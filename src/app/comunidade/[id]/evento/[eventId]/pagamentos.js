@@ -6,12 +6,11 @@ import { useLocalSearchParams } from "expo-router";
 import { Avatar } from "@rneui/themed";
 
 export default function Pagamentos(props) {
-  const { expenses, currentPage } = useLocalSearchParams(); // Obtém o parâmetro "event"
+  const { expenses, currentPage } = useLocalSearchParams();
 
   const [totalAmountOwedToMe, setTotalAmountOwedToMe] = useState(0);
   const [totalAmountIOwe, setTotalAmountIOwe] = useState(0);
 
-  // Função para obter os custos e proprietários dos itens em que o usuário é participante
   const getUserExpenses = (expenses, userId) => {
     const expensesObject = JSON.parse(expenses);
     if (!expensesObject) return;
@@ -38,7 +37,6 @@ export default function Pagamentos(props) {
     if (!expensesObject) return;
 
     const getExpensesForType = (type) => {
-      // Verifica se o tipo existe e é um array
       const items = Array.isArray(expensesObject[type])
         ? expensesObject[type]
         : [];
@@ -57,12 +55,10 @@ export default function Pagamentos(props) {
     };
   };
 
-  // Exemplo de uso da função
-  const userId = "participant102"; // Substitua pelo ID do usuário desejado
+  const userId = "TESTE123";
   const userExpenses = getUserExpenses(expenses, userId);
   const ownedExpenses = getOwnedExpenses(expenses, userId);
 
-  // Unir as despesas de equipment e transport em uma única lista
   const combinedUserExpenses = [
     ...(userExpenses?.equipment || []),
     ...(userExpenses?.transport || []),
@@ -73,7 +69,6 @@ export default function Pagamentos(props) {
     ...(ownedExpenses?.transport || []),
   ];
 
-  // Calcular os totais
   useEffect(() => {
     const calculateTotal = (expensesList) => {
       return expensesList.reduce((total, expense) => {

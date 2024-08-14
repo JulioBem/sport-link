@@ -111,13 +111,10 @@ const CommunityEvents = () => {
 const styles = StyleSheet.create({
   scrollViewContent: {
     paddingBottom: 40,
+    height: "100vh",
   },
   eventsContainer: {
-    marginHorizontal: "auto",
     height: "100%",
-  },
-  eventListParticipating: {
-    marginHorizontal: "auto",
   },
   eventListHeading: {
     fontSize: 12,

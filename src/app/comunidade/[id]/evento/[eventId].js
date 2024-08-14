@@ -14,19 +14,18 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import surfImage from "../../../../../assets/images/surf-image.jpeg";
 
 export default function Evento(props) {
-  const { event, communityId, eventId } = useLocalSearchParams(); // Obtém o parâmetro "event"
+  const { event, communityId, eventId } = useLocalSearchParams();
   const router = useRouter();
-  const {
-    // id,
-    location,
-    title,
-    // participants,
-    // imageURI,
-    // description,
-    // date,
-    // capacity,
-    expenses,
-  } = JSON.parse(event);
+  const { location, title, description, date, participants, expenses, author } =
+    JSON.parse(event);
+
+  const allParticipants = [author, ...participants];
+
+  const formattedDate = new Date(date).toLocaleDateString("pt-BR", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -43,14 +42,15 @@ export default function Evento(props) {
           <View style={styles.mainInfoGrid}>
             <Icon containerStyle={{ top: 3 }} name="place" size={15} />
             <View>
-              <Text style={styles.boldText}>{`${location?.address}`}</Text>
+              <Text style={styles.boldText}>{location.address}</Text>
             </View>
           </View>
           <View style={styles.mainInfoGrid}>
             <Icon containerStyle={{ top: 3 }} name="schedule" size={15} />
             <View>
-              <Text style={styles.boldText}>Sábado tal tal</Text>
-              <Text>6 de Março</Text>
+              <Text style={[styles.boldText, { textTransform: "capitalize" }]}>
+                {formattedDate}
+              </Text>
             </View>
           </View>
           <View style={styles.mainInfoGrid}>
@@ -75,7 +75,10 @@ export default function Evento(props) {
               ]}
             >
               <Text style={styles.pressableText}>
-                Júlia, João, Marina e mais 10 estão envolvidos no evento
+                {allParticipants[0].name}, {allParticipants[1].name}
+                {allParticipants.length - 2 > 0
+                  ? ` e mais ${allParticipants.length - 2} estão envolvidos no evento`
+                  : "..."}
               </Text>
             </Pressable>
           </View>
@@ -86,15 +89,7 @@ export default function Evento(props) {
             <Text style={[styles.eventTitle, { marginBottom: 20 }]}>
               Descrição
             </Text>
-            <Text style={{ fontSize: 11 }}>
-              Venha participar do nosso incrível Encontro de Surfe na
-              paradisíaca Praia do Sol! Se você é amante das ondas ou quer
-              aprender mais sobre esse esporte radical, este evento é perfeito
-              para você. Junte-se a nós para um dia repleto de adrenalina,
-              aprendizado e muita diversão. Além de surfar, você terá a
-              oportunidade de conhecer novas pessoas, fazer amigos e
-              compartilhar essa paixão pelo mar.
-            </Text>
+            <Text style={{ fontSize: 11 }}>{description}</Text>
           </View>
           <View>
             <Text style={[styles.eventTitle, { marginBottom: 10 }]}>
@@ -102,16 +97,11 @@ export default function Evento(props) {
             </Text>
             <FlatList
               scrollEnabled={false}
-              data={[
-                { key: "Devin" },
-                { key: "Dan" },
-                { key: "Dominic" },
-                { key: "Jackson" },
-              ]}
+              data={expenses.equipment}
               renderItem={({ item }) => (
                 <View style={styles.listItem}>
                   <Icon name="done" size={20} color="#000" />
-                  <Text>{item.key}</Text>
+                  <Text>{item.name}</Text>
                 </View>
               )}
             />

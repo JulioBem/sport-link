@@ -29,6 +29,13 @@
                 "email": "carlos.santos@example.com",
                 "profilePicture": "https://example.com/profile-pictures/carlos-santos.jpg",
                 "status": "pending"
+            },
+            {
+                "id": "TESTE123",
+                "name": "Participante de Teste",
+                "email": "teste@example.com",
+                "profilePicture": "https://example.com/profile.jpg",
+                "status": "confirmed"
             }
         ],
         "capacity": 50,
@@ -59,6 +66,13 @@
                             "name": "Fernanda Costa",
                             "email": "fernanda.costa@example.com",
                             "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+                            "status": "confirmed"
+                        },
+                        {
+                            "id": "TESTE123",
+                            "name": "Participante de Teste",
+                            "email": "teste@example.com",
+                            "profilePicture": "https://example.com/profile.jpg",
                             "status": "confirmed"
                         }
                     ],
@@ -118,6 +132,13 @@
                             "email": "fernanda.costa@example.com",
                             "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
                             "status": "confirmed"
+                        },
+                        {
+                            "id": "TESTE123",
+                            "name": "Participante de Teste",
+                            "email": "teste@example.com",
+                            "profilePicture": "https://example.com/profile.jpg",
+                            "status": "confirmed"
                         }
                     ],
                     "maxQuantity": 10
@@ -143,11 +164,55 @@
                         }
                     ],
                     "maxQuantity": 10
+                },
+                {
+                    "id": 5,
+                    "name": "Peruca",
+                    "cost": "R$ 10,00",
+                    "owner": {
+                        "id": "TESTE123",
+                        "name": "Participante de Teste",
+                        "email": "teste@example.com",
+                        "profilePicture": "https://example.com/profile.jpg",
+                        "chavePix": "teste@gmail.com"
+                    },
+                    "participants": [
+                        {
+                            "id": "TESTE123",
+                            "name": "Participante de Teste",
+                            "email": "teste@example.com",
+                            "profilePicture": "https://example.com/profile.jpg",
+                            "status": "confirmed"
+                        }
+                    ],
+                    "maxQuantity": 2
+                },
+                {
+                    "id": 6,
+                    "name": "Escova de Dente",
+                    "cost": "R$ 25,00",
+                    "owner": {
+                        "id": "TESTE123",
+                        "name": "Participante de Teste",
+                        "email": "teste@example.com",
+                        "profilePicture": "https://example.com/profile.jpg",
+                        "chavePix": "teste@gmail.com"
+                    },
+                    "participants": [
+                        {
+                            "id": "TESTE123",
+                            "name": "Participante de Teste",
+                            "email": "teste@example.com",
+                            "profilePicture": "https://example.com/profile.jpg",
+                            "status": "confirmed"
+                        }
+                    ],
+                    "maxQuantity": 23
                 }
             ],
             "transport": [
                 {
-                    "id": 5,
+                    "id": 51,
                     "name": "Van até a praia",
                     "cost": "R$ 23,65",
                     "maxQuantity": 5,
@@ -166,11 +231,18 @@
                             "email": "fernanda.costa@example.com",
                             "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
                             "status": "confirmed"
+                        },
+                        {
+                            "id": "TESTE123",
+                            "name": "Participante de Teste",
+                            "email": "teste@example.com",
+                            "profilePicture": "https://example.com/profile.jpg",
+                            "status": "confirmed"
                         }
                     ]
                 },
                 {
-                    "id": 6,
+                    "id": 61,
                     "name": "Van",
                     "cost": "200.00",
                     "itinerary": "blablabla",
@@ -181,8 +253,62 @@
                         "profilePicture": "http://example.com/john.jpg",
                         "chavePix": "somePixKey"
                     },
-                    "participants": [],
+                    "participants": [
+                        {
+                            "id": "TESTE123",
+                            "name": "Participante de Teste",
+                            "email": "teste@example.com",
+                            "profilePicture": "https://example.com/profile.jpg",
+                            "status": "confirmed"
+                        }
+                    ],
                     "maxQuantity": 4
+                },
+                {
+                    "id": 11,
+                    "name": "Transporte",
+                    "cost": "R$ 20.000,00",
+                    "itinerary": "Vou andar pelo mundo.",
+                    "owner": {
+                        "id": "TESTE123",
+                        "name": "Participante de Teste",
+                        "email": "teste@example.com",
+                        "profilePicture": "https://example.com/profile.jpg",
+                        "chavePix": "teste@gmail.com"
+                    },
+                    "participants": [
+                        {
+                            "id": "TESTE123",
+                            "name": "Participante de Teste",
+                            "email": "teste@example.com",
+                            "profilePicture": "https://example.com/profile.jpg",
+                            "status": "confirmed"
+                        }
+                    ],
+                    "maxQuantity": 25
+                },
+                {
+                    "id": 81,
+                    "name": "Meganomania",
+                    "cost": "R$ 47.845,45",
+                    "itinerary": "Irei ir at� a esquina",
+                    "owner": {
+                        "id": "TESTE123",
+                        "name": "Participante de Teste",
+                        "email": "teste@example.com",
+                        "profilePicture": "https://example.com/profile.jpg",
+                        "chavePix": "teste@gmail.com"
+                    },
+                    "participants": [
+                        {
+                            "id": "TESTE123",
+                            "name": "Participante de Teste",
+                            "email": "teste@example.com",
+                            "profilePicture": "https://example.com/profile.jpg",
+                            "status": "confirmed"
+                        }
+                    ],
+                    "maxQuantity": 21
                 }
             ]
         }
