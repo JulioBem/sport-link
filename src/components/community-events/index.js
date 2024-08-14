@@ -1,17 +1,20 @@
-/* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
+  ToastAndroid,
   View,
 } from "react-native";
 import { Button, Divider, Icon } from "@rneui/themed";
 import CommunityEventCard from "../community-event-card";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import surfImage from "../../../assets/images/surf-image.jpeg";
+
+// eslint-disable-next-line no-undef
 const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
 const CommunityEvents = () => {
@@ -20,24 +23,24 @@ const CommunityEvents = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/events/all`, {
-          headers: {
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true",
-          },
-        });
-        const data = await response.json();
-        setEvents(data);
-      } catch (error) {
-        console.error("Erro ao buscar eventos:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchEvents = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/events/all`, {
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
+        },
+      });
+      const data = await response.json();
+      setEvents(data);
+    } catch (error) {
+      console.error("Erro ao buscar eventos:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchEvents();
   }, []);
 
@@ -48,6 +51,33 @@ const CommunityEvents = () => {
       </View>
     );
   }
+
+  const showToast = (message) => {
+    if (Platform.OS === "android") {
+      ToastAndroid.showWithGravity(
+        message,
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER
+      );
+    }
+  };
+
+  const deleteEvent = async (id) => {
+    const response = await fetch(`${apiUrl}/events/id/${id}/remove`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true",
+      },
+    });
+
+    if (response.ok) {
+      fetchEvents();
+      showToast("Evento deletado com sucesso!");
+    }
+
+    console.log("🚀 ~ deleteEvent ~ response:", response);
+  };
 
   return (
     <>
@@ -61,7 +91,11 @@ const CommunityEvents = () => {
               scrollEnabled={false}
               data={events}
               renderItem={({ item }) => (
-                <CommunityEventCard event={item} imageFile={surfImage} />
+                <CommunityEventCard
+                  event={item}
+                  imageFile={surfImage}
+                  deleteEvent={deleteEvent}
+                />
               )}
               keyExtractor={(item) => item.id}
               numColumns={1}
@@ -75,7 +109,11 @@ const CommunityEvents = () => {
               scrollEnabled={false}
               data={events}
               renderItem={({ item }) => (
-                <CommunityEventCard event={item} imageFile={surfImage} />
+                <CommunityEventCard
+                  event={item}
+                  imageFile={surfImage}
+                  deleteEvent={deleteEvent}
+                />
               )}
               keyExtractor={(item) => item.id}
               numColumns={1}
