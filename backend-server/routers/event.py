@@ -531,3 +531,60 @@ def remove_event(event_id: str):
         raise HTTPException(status_code=500, detail="Error decoding JSON file")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+
+
+#----------------------------- PATCH FUNCTIONS -----------------------------#
+
+#change expense status
+@router.patch("/events/id/{event_id}/expenses/{expense_id}/edit")
+def edit_expense_infos(event_id:str, expense_id:int, expense:EventUpdateExpenseStatus):
+    try:
+        #read existing data from JSON file
+        if os.path.exists(events_json_file_path):
+            with open(events_json_file_path, 'r') as file:
+                data = json.load(file)
+        else:
+            data = []
+
+        #find the event by ID
+        event = next((item for item in data if item['id'] == event_id), None)
+        if event is None:
+            raise HTTPException(status_code=404, detail="Event not found")
+        #find event flag
+        expense_found = False
+
+        #iterate through transports and equipments
+        event_expenses = event['expenses']
+
+        for transport in event_expenses['transport']:
+            if transport['id'] == expense_id:
+                participants_list = transport['participants']
+                expense_found = True
+                for participant in participants_list:
+                    if participant['id'] == expense.participant_id:
+                        participant['status'] = expense.status
+        
+
+        for equipment in event_expenses['equipment']:
+            if equipment['id'] == expense_id:
+                participants_list = equipment['participants']
+                expense_found = True
+                for participant in participants_list:
+                    if participant['id'] == expense.participant_id:
+                        participant['status'] = expense.status
+
+        if not expense_found:
+            raise HTTPException(status_code=404, detail="Expense not found")
+        
+        #add changes to json
+        with open(events_json_file_path, 'w') as file:
+            json.dump(data, file, indent=4, ensure_ascii=False)
+
+        return {"message": "Expense status updated!"}
+
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail="JSON file not found")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding JSON file")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")

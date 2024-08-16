@@ -90,5 +90,9 @@ class EventReserveEquipment(BaseModel):
 class EventReserveVehicle(BaseModel):
     participant: Participant
 
+class EventUpdateExpenseStatus(BaseModel):
+    participant_id:str
+    status:str
+
 
 
