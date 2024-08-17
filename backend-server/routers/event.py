@@ -591,6 +591,7 @@ def edit_expense_infos(event_id:str, expense_id:int, expense:EventUpdateExpenseS
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
     
 
+#change event informations
 @router.patch("/events/id/{event_id}/edit")
 def edit_event_infos(event_id:str, event_update_body:EventUpdateEvent):
     try:
@@ -629,7 +630,6 @@ def edit_event_infos(event_id:str, event_update_body:EventUpdateEvent):
 
         return {"message": "Expense status updated!"}
     
-
     except FileNotFoundError:
         raise HTTPException(status_code=500, detail="JSON file not found")
     except json.JSONDecodeError:
