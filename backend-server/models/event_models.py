@@ -36,6 +36,7 @@ class Author(BaseModel):
 
 class Material(BaseModel):
     name: str
+    
 class EventsJsonFields(BaseModel):
     id: str
     title: str
@@ -89,6 +90,21 @@ class EventReserveEquipment(BaseModel):
 
 class EventReserveVehicle(BaseModel):
     participant: Participant
+
+class EventUpdateExpenseStatus(BaseModel):
+    participant_id:str
+    status:str
+
+class EventUpdateEvent(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    location: Optional[Location] = None
+    date: Optional[str] = None
+    capacity: Optional[int] = None
+    imageURI: Optional[str] = None
+    difficulty: Optional[str] = None
+    materials: Optional[List[Material]] = None
+
 
 
 
