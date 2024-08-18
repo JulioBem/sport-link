@@ -13,7 +13,7 @@ import { useRouter } from "expo-router";
 import PopupMenu from "../popup-menu";
 import { MenuProvider } from "react-native-popup-menu";
 
-const CommunityEventCard = ({ event, imageFile }) => {
+const CommunityEventCard = ({ event, imageFile, deleteEvent }) => {
   if (!event) return null;
   const router = useRouter();
   const { participants, capacity, imageURI: eventIMG, title, id } = event;
@@ -40,16 +40,25 @@ const CommunityEventCard = ({ event, imageFile }) => {
           imageStyle={{ filter: "brightness(0.8)" }}
         >
           <PopupMenu leftPosition="45%">
-            <Text style={styles.optionText} onPress={() => alert("oi")}>
-              Editar Evento
-            </Text>
-            <Divider />
-            <Text
-              style={[styles.optionText, { color: "red" }]}
-              onPress={() => alert("ata")}
+            <Pressable
+              onPress={() =>
+                router.push({
+                  pathname: `/comunidade/123/editar-evento`,
+                  params: {
+                    event: JSON.stringify(event),
+                    communityId: "123",
+                  },
+                })
+              }
             >
-              Remover Evento
-            </Text>
+              <Text style={styles.optionText}>Editar Evento</Text>
+            </Pressable>
+            <Divider />
+            <Pressable onPress={() => deleteEvent(id)}>
+              <Text style={[styles.optionText, { color: "red" }]}>
+                Remover Evento
+              </Text>
+            </Pressable>
           </PopupMenu>
           <Text style={styles.eventName}>{title}</Text>
           <View style={styles.eventMembers}>
