@@ -77,5 +77,3 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 </ul>
 
 ```
-
-Sinta-se à vontade para personalizar o conteúdo, incluindo seu nome, e-mail e qualquer outro detalhe relevante.
