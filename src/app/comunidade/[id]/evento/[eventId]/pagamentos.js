@@ -8,6 +8,8 @@ import {
   FlatList,
   ScrollView,
   Pressable,
+  Platform,
+  ToastAndroid,
 } from "react-native";
 import CommunityHeader from "../../../../../components/community-header";
 import { useLocalSearchParams } from "expo-router";
@@ -15,11 +17,29 @@ import { Avatar } from "@rneui/themed";
 import PopupMenu from "../../../../../components/popup-menu";
 import { MenuProvider } from "react-native-popup-menu";
 
-export default function Pagamentos(props) {
-  const { expenses, currentPage } = useLocalSearchParams();
+// eslint-disable-next-line no-undef
+const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
+export default function Pagamentos(props) {
+  const {
+    expenses: eventExpenses,
+    currentPage,
+    eventId,
+  } = useLocalSearchParams();
+
+  const [expenses, setExpenses] = useState(eventExpenses);
   const [totalAmountOwedToMe, setTotalAmountOwedToMe] = useState(0);
   const [totalAmountIOwe, setTotalAmountIOwe] = useState(0);
+
+  const showToast = (message) => {
+    if (Platform.OS === "android") {
+      ToastAndroid.showWithGravity(
+        message,
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER
+      );
+    }
+  };
 
   const getUserExpenses = (expenses, userId) => {
     const expensesObject = JSON.parse(expenses);
@@ -82,6 +102,7 @@ export default function Pagamentos(props) {
           debts[participant.id].details.push({
             name: expense.name || "Despesa sem nome",
             cost: expense.cost,
+            id: expense.id,
             description: "Participante na despesa",
           });
         });
@@ -134,6 +155,58 @@ export default function Pagamentos(props) {
     setTotalAmountOwedToMe(totalOwedToMe);
   }, [combinedUserExpenses, ownedExpenses]);
 
+  const fetchExpenses = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/events/id/${eventId}/expenses`, {
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
+        },
+      });
+      const data = await response.json();
+
+      setExpenses(JSON.stringify(data));
+    } catch (error) {
+      console.error("Erro ao buscar posts:", error);
+    }
+  };
+
+  const confirmPayment = async (id) => {
+    const updatedPaymentPayload = {
+      participant_id: String(id),
+      status: "confirmed",
+    };
+
+    try {
+      const response = await fetch(
+        `${apiUrl}/events/id/${eventId}/expenses/${id}/edit`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+          },
+          body: JSON.stringify(updatedPaymentPayload),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Erro ao criar o post");
+      } else {
+        fetchExpenses();
+      }
+
+      showToast(
+        "Evento criado com sucesso",
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER
+      );
+    } catch (error) {
+      console.error("Erro ao criar o post:", error);
+      showToast("Erro", "Não foi possível criar o post.");
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <MenuProvider>
@@ -168,7 +241,10 @@ export default function Pagamentos(props) {
                       containerMarginBottom={-20}
                     >
                       <Pressable>
-                        <Text style={[styles.optionText, { color: "blue" }]}>
+                        <Text
+                          style={[styles.optionText, { color: "blue" }]}
+                          onPress={() => confirmPayment(item?.id)}
+                        >
                           Confirmar Pagamento
                         </Text>
                       </Pressable>
@@ -239,7 +315,10 @@ export default function Pagamentos(props) {
                         containerMarginBottom={-20}
                       >
                         <Pressable>
-                          <Text style={[styles.optionText, { color: "blue" }]}>
+                          <Text
+                            style={[styles.optionText, { color: "blue" }]}
+                            onPress={() => confirmPayment(item?.id)}
+                          >
                             Confirmar Pagamento
                           </Text>
                         </Pressable>
