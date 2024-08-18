@@ -30,7 +30,7 @@
                 "name": "Maria Oliveira",
                 "email": "maria.oliveira@example.com",
                 "profilePicture": "https://example.com/profile-pictures/maria-oliveira.jpg",
-                "status": "confirmed"
+                "status": "pending"
             },
             {
                 "id": "participant101",
@@ -44,7 +44,7 @@
                 "name": "Participante de Teste",
                 "email": "teste@example.com",
                 "profilePicture": "https://example.com/profile.jpg",
-                "status": "confirmed"
+                "status": "pending"
             }
         ],
         "capacity": 25,
@@ -88,35 +88,6 @@
                     "maxQuantity": 10
                 },
                 {
-                    "id": 2,
-                    "name": "Prancha de surfe",
-                    "cost": "R$ 82,53",
-                    "owner": {
-                        "id": "author457",
-                        "name": "Ana Pereira",
-                        "email": "ana.pereira@example.com",
-                        "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
-                        "chavePix": "teste@gmail.com"
-                    },
-                    "participants": [
-                        {
-                            "id": "participant102",
-                            "name": "Luiz Almeida",
-                            "email": "luiz.almeida@example.com",
-                            "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
-                            "status": "confirmed"
-                        },
-                        {
-                            "id": "participant103",
-                            "name": "Fernanda Costa",
-                            "email": "fernanda.costa@example.com",
-                            "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
-                            "status": "confirmed"
-                        }
-                    ],
-                    "maxQuantity": 10
-                },
-                {
                     "id": 3,
                     "name": "Leash",
                     "cost": "R$ 9,16",
@@ -133,21 +104,14 @@
                             "name": "Luiz Almeida",
                             "email": "luiz.almeida@example.com",
                             "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
-                            "status": "confirmed"
+                            "status": "pending"
                         },
                         {
                             "id": "participant103",
                             "name": "Fernanda Costa",
                             "email": "fernanda.costa@example.com",
                             "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
-                            "status": "confirmed"
-                        },
-                        {
-                            "id": "TESTE123",
-                            "name": "Participante de Teste",
-                            "email": "teste@example.com",
-                            "profilePicture": "https://example.com/profile.jpg",
-                            "status": "confirmed"
+                            "status": "pending"
                         }
                     ],
                     "maxQuantity": 10
@@ -169,7 +133,7 @@
                             "name": "Fernanda Costa",
                             "email": "fernanda.costa@example.com",
                             "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
-                            "status": "confirmed"
+                            "status": "pending"
                         }
                     ],
                     "maxQuantity": 10
@@ -187,11 +151,18 @@
                     },
                     "participants": [
                         {
-                            "id": "TESTE123",
-                            "name": "Participante de Teste",
-                            "email": "teste@example.com",
-                            "profilePicture": "https://example.com/profile.jpg",
-                            "status": "confirmed"
+                            "id": "participant103",
+                            "name": "Fernanda Costa",
+                            "email": "fernanda.costa@example.com",
+                            "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+                            "status": "pending"
+                        },
+                        {
+                            "id": "participant102",
+                            "name": "Luiz Almeida",
+                            "email": "luiz.almeida@example.com",
+                            "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+                            "status": "pending"
                         }
                     ],
                     "maxQuantity": 2
@@ -207,16 +178,22 @@
                         "profilePicture": "https://example.com/profile.jpg",
                         "chavePix": "teste@gmail.com"
                     },
-                    "participants": [
-                        {
-                            "id": "TESTE123",
-                            "name": "Participante de Teste",
-                            "email": "teste@example.com",
-                            "profilePicture": "https://example.com/profile.jpg",
-                            "status": "confirmed"
-                        }
-                    ],
+                    "participants": [],
                     "maxQuantity": 23
+                },
+                {
+                    "id": 7,
+                    "name": "Algum equipamento legal",
+                    "cost": "R$ 48,80",
+                    "owner": {
+                        "id": "TESTE123",
+                        "name": "Participante de Teste",
+                        "email": "teste@example.com",
+                        "profilePicture": "https://example.com/profile.jpg",
+                        "chavePix": "teste@gmail.com"
+                    },
+                    "participants": [],
+                    "maxQuantity": 12
                 }
             ],
             "transport": [
@@ -239,14 +216,7 @@
                             "name": "Fernanda Costa",
                             "email": "fernanda.costa@example.com",
                             "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
-                            "status": "confirmed"
-                        },
-                        {
-                            "id": "TESTE123",
-                            "name": "Participante de Teste",
-                            "email": "teste@example.com",
-                            "profilePicture": "https://example.com/profile.jpg",
-                            "status": "confirmed"
+                            "status": "pending"
                         }
                     ]
                 },
@@ -268,7 +238,7 @@
                             "name": "Participante de Teste",
                             "email": "teste@example.com",
                             "profilePicture": "https://example.com/profile.jpg",
-                            "status": "confirmed"
+                            "status": "pending"
                         }
                     ],
                     "maxQuantity": 4
@@ -285,15 +255,7 @@
                         "profilePicture": "https://example.com/profile.jpg",
                         "chavePix": "teste@gmail.com"
                     },
-                    "participants": [
-                        {
-                            "id": "TESTE123",
-                            "name": "Participante de Teste",
-                            "email": "teste@example.com",
-                            "profilePicture": "https://example.com/profile.jpg",
-                            "status": "confirmed"
-                        }
-                    ],
+                    "participants": [],
                     "maxQuantity": 25
                 },
                 {
@@ -308,16 +270,31 @@
                         "profilePicture": "https://example.com/profile.jpg",
                         "chavePix": "teste@gmail.com"
                     },
+                    "participants": [],
+                    "maxQuantity": 21
+                },
+                {
+                    "id": 82,
+                    "name": "Veiculo Massa",
+                    "cost": "R$ 15,55",
+                    "itinerary": "Vou dar a volta ao mundo",
+                    "owner": {
+                        "id": "TESTE123",
+                        "name": "Participante de Teste",
+                        "email": "teste@example.com",
+                        "profilePicture": "https://example.com/profile.jpg",
+                        "chavePix": "teste@gmail.com"
+                    },
                     "participants": [
                         {
-                            "id": "TESTE123",
-                            "name": "Participante de Teste",
-                            "email": "teste@example.com",
-                            "profilePicture": "https://example.com/profile.jpg",
-                            "status": "confirmed"
-                        }
-                    ],
-                    "maxQuantity": 21
+                        "id": "participant103",
+                        "name": "Fernanda Costa",
+                        "email": "fernanda.costa@example.com",
+                        "profilePicture": "https://s3-alpha-sig.figma.com/img/d5bd/ba1f/b38cf03e9b74b73ff178353ce375aba9?Expires=1724025600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ihTP4UpzoBEAZC3zU116EjtmwOarps6vXMXsK8QwyI6~y5SYO33zVNjNDbhGml5HqnGfb6x2oP-9vTV-2mMXd7yY5ZSa2MUG8IJnPy2wsVK9kw4og04CRa7qov2dlUAADpJzWHuszwMfP4rVmDb~YjtBWKYwvpsskXYP7mDCSAee8nx3L8WxSEVu8zW-MzctWusbPiZCAPMnHN6M93LkzJwyvsDZNWgmjr7Y0P8nPSNctV03PXg6icJARCt5vqCmtImdhJ6CugUqb9hcTD~RhnxF94bzh-y1kOSPKAe-zTROmYpa5UlLx0CAhUPI8HC7yGUWHl6xnI25CfjWygA-Bw__",
+                        "status": "confirmed"
+                    }
+                ],
+                    "maxQuantity": 2
                 }
             ]
         }
