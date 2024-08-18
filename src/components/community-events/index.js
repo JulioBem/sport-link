@@ -75,8 +75,6 @@ const CommunityEvents = () => {
       fetchEvents();
       showToast("Evento deletado com sucesso!");
     }
-
-    console.log("🚀 ~ deleteEvent ~ response:", response);
   };
 
   return (

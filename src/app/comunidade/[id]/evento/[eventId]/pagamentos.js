@@ -1,29 +1,57 @@
 /* eslint-disable no-constant-binary-expression */
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, StyleSheet, Text, View, FlatList } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  ScrollView,
+  Pressable,
+  Platform,
+  ToastAndroid,
+} from "react-native";
 import CommunityHeader from "../../../../../components/community-header";
 import { useLocalSearchParams } from "expo-router";
 import { Avatar } from "@rneui/themed";
+import PopupMenu from "../../../../../components/popup-menu";
+import { MenuProvider } from "react-native-popup-menu";
+
+// eslint-disable-next-line no-undef
+const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
 export default function Pagamentos(props) {
-  const { expenses, currentPage } = useLocalSearchParams();
+  const {
+    expenses: eventExpenses,
+    currentPage,
+    eventId,
+  } = useLocalSearchParams();
 
+  const [expenses, setExpenses] = useState(eventExpenses);
   const [totalAmountOwedToMe, setTotalAmountOwedToMe] = useState(0);
   const [totalAmountIOwe, setTotalAmountIOwe] = useState(0);
+
+  const showToast = (message) => {
+    if (Platform.OS === "android") {
+      ToastAndroid.showWithGravity(
+        message,
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER
+      );
+    }
+  };
 
   const getUserExpenses = (expenses, userId) => {
     const expensesObject = JSON.parse(expenses);
     if (!expensesObject) return;
 
     const getExpensesForType = (type) => {
-      return expensesObject[type]
-        ?.filter((expense) =>
-          expense.participants.some((participant) => participant.id === userId)
+      return expensesObject[type]?.filter((expense) =>
+        expense.participants.some(
+          (participant) =>
+            participant.id === userId && participant.status !== "confirmed"
         )
-        ?.map((expense) => ({
-          cost: expense.cost,
-          owner: expense.owner,
-        }));
+      );
     };
 
     return {
@@ -41,12 +69,9 @@ export default function Pagamentos(props) {
         ? expensesObject[type]
         : [];
 
-      return items
-        .filter((expense) => expense.owner && expense.owner.id === userId)
-        .map((expense) => ({
-          cost: expense.cost,
-          participants: expense.participants,
-        }));
+      return items.filter(
+        (expense) => expense.owner && expense.owner.id === userId
+      );
     };
 
     return {
@@ -55,18 +80,49 @@ export default function Pagamentos(props) {
     };
   };
 
+  const getDebts = (ownedExpenses) => {
+    const debts = {};
+
+    const processExpenses = (expenses) => {
+      expenses.forEach((expense) => {
+        expense.participants.forEach((participant) => {
+          if (participant.status === "confirmed") return;
+
+          if (!debts[participant.id]) {
+            debts[participant.id] = {
+              name: participant.name,
+              totalOwed: 0,
+              details: [],
+            };
+          }
+
+          debts[participant.id].totalOwed += parseFloat(
+            expense.cost.replace("R$", "").replace(",", ".")
+          );
+          debts[participant.id].details.push({
+            name: expense.name || "Despesa sem nome",
+            cost: expense.cost,
+            id: expense.id,
+            description: "Participante na despesa",
+          });
+        });
+      });
+    };
+
+    Object.keys(ownedExpenses).forEach((type) => {
+      processExpenses(ownedExpenses[type]);
+    });
+
+    return debts;
+  };
+
   const userId = "TESTE123";
   const userExpenses = getUserExpenses(expenses, userId);
-  const ownedExpenses = getOwnedExpenses(expenses, userId);
+  const ownedExpenses = getDebts(getOwnedExpenses(expenses, userId));
 
   const combinedUserExpenses = [
     ...(userExpenses?.equipment || []),
     ...(userExpenses?.transport || []),
-  ];
-
-  const combinedOwnedExpenses = [
-    ...(ownedExpenses?.equipment || []),
-    ...(ownedExpenses?.transport || []),
   ];
 
   useEffect(() => {
@@ -80,117 +136,238 @@ export default function Pagamentos(props) {
     };
 
     const totalIOwe = calculateTotal(combinedUserExpenses);
-    const totalOwedToMe = combinedOwnedExpenses.reduce((total, expense) => {
-      const numericCost = parseFloat(
-        expense.cost.replace("R$", "").replace(",", ".")
-      );
-      return (
-        total +
-        (isNaN(numericCost) ? 0 : numericCost) * expense.participants.length
-      );
-    }, 0);
+    const totalOwedToMe = Object.values(ownedExpenses).reduce(
+      (total, participantData) => {
+        participantData.details.forEach((detail) => {
+          const numericCost = parseFloat(
+            detail.cost.replace("R$", "").replace(",", ".")
+          );
+          if (!isNaN(numericCost)) {
+            total += numericCost;
+          }
+        });
+        return total;
+      },
+      0
+    );
 
     setTotalAmountIOwe(totalIOwe);
     setTotalAmountOwedToMe(totalOwedToMe);
-  }, [combinedUserExpenses, combinedOwnedExpenses]);
+  }, [combinedUserExpenses, ownedExpenses]);
+
+  const fetchExpenses = async () => {
+    try {
+      const response = await fetch(`${apiUrl}/events/id/${eventId}/expenses`, {
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
+        },
+      });
+      const data = await response.json();
+
+      setExpenses(JSON.stringify(data));
+    } catch (error) {
+      console.error("Erro ao buscar posts:", error);
+    }
+  };
+
+  const confirmPayment = async (id) => {
+    const updatedPaymentPayload = {
+      participant_id: String(id),
+      status: "confirmed",
+    };
+
+    try {
+      const response = await fetch(
+        `${apiUrl}/events/id/${eventId}/expenses/${id}/edit`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+          },
+          body: JSON.stringify(updatedPaymentPayload),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Erro ao criar o post");
+      } else {
+        fetchExpenses();
+      }
+
+      showToast(
+        "Evento criado com sucesso",
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER
+      );
+    } catch (error) {
+      console.error("Erro ao criar o post:", error);
+      showToast("Erro", "Não foi possível criar o post.");
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <CommunityHeader
-        communityTitle={`${currentPage} Pendentes`}
-        hasSubtitle={false}
-        hideShadow={true}
-        {...props}
-      />
-      <View style={styles.totalExpenses}>
-        <Text style={{ fontSize: 16 }}>{`${currentPage}`} totais</Text>
-        <Text style={{ fontWeight: 600, fontSize: 24 }}>
-          R${" "}
-          {currentPage === "Despesas"
-            ? totalAmountIOwe.toFixed(2).replace(".", ",")
-            : totalAmountOwedToMe.toFixed(2).replace(".", ",")}
-        </Text>
-      </View>
-      <View style={styles.listContainer}>
-        {currentPage === "Despesas" && (
-          <FlatList
-            data={combinedUserExpenses}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 25,
-                  borderBottomWidth: 1,
-                  borderColor: "#d4d4d4",
-                  paddingVertical: 10,
-                }}
-              >
-                <Avatar
-                  source={{
-                    uri: `${"https://placehold.co/50.png" || item?.profilePicture}`,
-                  }}
-                  size={50}
-                  rounded
-                />
-                <View style={styles.listItem}>
-                  <Text style={styles.participantName}>{item.owner.name}</Text>
-                  <Text style={styles.amountDue}>
-                    <Text style={{ fontWeight: "600" }}>Valor: </Text>
-                    {item.cost}
-                  </Text>
-                  <Text style={styles.amountDue}>
-                    <Text style={{ fontWeight: "600" }}>Chave Pix: </Text>
-                    {item.owner.chavePix}
-                  </Text>
-                </View>
-              </View>
+      <MenuProvider>
+        <CommunityHeader
+          communityTitle={`${currentPage} Pendentes`}
+          hasSubtitle={false}
+          hideShadow={true}
+          {...props}
+        />
+        <ScrollView>
+          <View style={styles.totalExpenses}>
+            <Text style={{ fontSize: 16 }}>{`${currentPage}`} totais</Text>
+            <Text style={{ fontWeight: 600, fontSize: 24 }}>
+              R${" "}
+              {currentPage === "Despesas"
+                ? totalAmountIOwe.toFixed(2).replace(".", ",")
+                : totalAmountOwedToMe.toFixed(2).replace(".", ",")}
+            </Text>
+          </View>
+          <View style={styles.listContainer}>
+            {currentPage === "Despesas" && (
+              <FlatList
+                data={combinedUserExpenses}
+                keyExtractor={(item, index) => index.toString()}
+                scrollEnabled={false}
+                renderItem={({ item }) => (
+                  <>
+                    <PopupMenu
+                      leftPosition="95%"
+                      entypoColor="black"
+                      topPositionTrigger={10}
+                      containerMarginBottom={-20}
+                    >
+                      <Pressable>
+                        <Text
+                          style={[styles.optionText, { color: "blue" }]}
+                          onPress={() => confirmPayment(item?.id)}
+                        >
+                          Confirmar Pagamento
+                        </Text>
+                      </Pressable>
+                    </PopupMenu>
+                    <View
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: 25,
+                        borderBottomWidth: 1,
+                        borderColor: "#d4d4d4",
+                        paddingVertical: 10,
+                      }}
+                    >
+                      <Avatar
+                        source={{
+                          uri: `${"https://placehold.co/50.png" || item?.profilePicture}`,
+                        }}
+                        size={50}
+                        rounded
+                      />
+                      <View style={styles.listItem}>
+                        <Text
+                          style={[
+                            styles.participantName,
+                            {
+                              fontWeight: 600,
+                            },
+                          ]}
+                        >
+                          {item.name}
+                        </Text>
+                        <Text style={styles.participantName}>
+                          {item.owner.name}
+                        </Text>
+                        <Text style={styles.amountDue}>
+                          <Text style={{ fontWeight: "600" }}>Valor: </Text>
+                          {item?.cost}
+                        </Text>
+                        <Text style={styles.amountDue}>
+                          <Text style={{ fontWeight: "600" }}>Chave Pix: </Text>
+                          {item.owner.chavePix}
+                        </Text>
+                      </View>
+                    </View>
+                  </>
+                )}
+              />
             )}
-          />
-        )}
-        {currentPage === "Receitas" && (
-          <FlatList
-            data={combinedOwnedExpenses}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 25,
-                  borderBottomWidth: 1,
-                  borderColor: "#d4d4d4",
-                  paddingVertical: 10,
-                }}
-              >
-                <Avatar
-                  source={{
-                    uri: `${"https://placehold.co/50.png" || item?.profilePicture}`,
-                  }}
-                  size={50}
-                  rounded
+            {currentPage === "Receitas" && (
+              <>
+                <FlatList
+                  data={Object.values(ownedExpenses).flatMap((participant) =>
+                    participant.details.map((detail) => ({
+                      participantName: participant.name,
+                      ...detail,
+                    }))
+                  )}
+                  keyExtractor={(item, index) => index.toString()}
+                  scrollEnabled={false}
+                  renderItem={({ item }) => (
+                    <>
+                      <PopupMenu
+                        leftPosition="95%"
+                        entypoColor="black"
+                        topPositionTrigger={10}
+                        containerMarginBottom={-20}
+                      >
+                        <Pressable>
+                          <Text
+                            style={[styles.optionText, { color: "blue" }]}
+                            onPress={() => confirmPayment(item?.id)}
+                          >
+                            Confirmar Pagamento
+                          </Text>
+                        </Pressable>
+                      </PopupMenu>
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          gap: 25,
+                          borderBottomWidth: 1,
+                          borderColor: "#d4d4d4",
+                          paddingVertical: 10,
+                        }}
+                      >
+                        <Avatar
+                          source={{
+                            uri: "https://placehold.co/50.png",
+                          }}
+                          size={50}
+                          rounded
+                        />
+                        <View style={styles.listItem}>
+                          <Text
+                            style={[
+                              styles.participantName,
+                              {
+                                fontWeight: "600",
+                              },
+                            ]}
+                          >
+                            {item.participantName}
+                          </Text>
+                          <Text style={styles.amountDue}>
+                            <Text style={{ fontWeight: "600" }}>
+                              {item.name} -{" "}
+                            </Text>
+                            {item.cost}
+                          </Text>
+                        </View>
+                      </View>
+                    </>
+                  )}
                 />
-                <View style={styles.listItem}>
-                  <View>
-                    {item.participants.map((participant, index) => (
-                      <Text key={index} style={styles.participantName}>
-                        {participant.name}
-                      </Text>
-                    ))}
-                  </View>
-                  <Text style={styles.amountDue}>
-                    <Text style={{ fontWeight: "600" }}>Valor: </Text>
-                    {item.cost}
-                  </Text>
-                </View>
-              </View>
+              </>
             )}
-          />
-        )}
-      </View>
+          </View>
+        </ScrollView>
+      </MenuProvider>
     </SafeAreaView>
   );
 }

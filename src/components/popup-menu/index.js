@@ -2,17 +2,30 @@ import React from "react";
 import { Menu, MenuOptions, MenuTrigger } from "react-native-popup-menu";
 import { Entypo } from "@expo/vector-icons";
 
-const PopupMenu = ({ leftPosition, children }) => {
+const PopupMenu = ({
+  leftPosition,
+  children,
+  entypoColor = "white",
+  topPositionTrigger = -20,
+  containerMarginBottom = 0,
+}) => {
   return (
-    <Menu style={{ position: "relative", left: leftPosition }}>
+    <Menu
+      style={{
+        position: "relative",
+        left: leftPosition,
+        marginBottom: containerMarginBottom,
+        zIndex: 2,
+      }}
+    >
       <MenuTrigger
         customStyles={{
           triggerWrapper: {
-            top: -20,
+            top: topPositionTrigger,
           },
         }}
       >
-        <Entypo name="dots-three-vertical" size={16} color="white" />
+        <Entypo name="dots-three-vertical" size={16} color={entypoColor} />
       </MenuTrigger>
       <MenuOptions
         customStyles={{
@@ -21,13 +34,7 @@ const PopupMenu = ({ leftPosition, children }) => {
             padding: 8,
             backgroundColor: "#f1f1f1",
             elevation: 3,
-          },
-          optionWrapper: {
-            padding: 10,
-          },
-          optionText: {
-            color: "#000",
-            fontSize: 16,
+            marginTop: topPositionTrigger + 20,
           },
         }}
       >

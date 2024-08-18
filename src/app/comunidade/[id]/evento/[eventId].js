@@ -25,6 +25,7 @@ export default function Evento(props) {
     expenses,
     author,
     materials,
+    difficulty,
   } = JSON.parse(event);
 
   const allParticipants = [author, ...participants];
@@ -51,6 +52,13 @@ export default function Evento(props) {
             <Icon containerStyle={{ top: 3 }} name="place" size={15} />
             <View>
               <Text style={styles.boldText}>{location.address}</Text>
+            </View>
+          </View>
+          <View style={styles.mainInfoGrid}>
+            <Icon containerStyle={{ top: 3 }} name="military-tech" size={15} />
+            <View style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
+              <Text style={styles.boldText}>Dificuldade:</Text>
+              <Text>{difficulty}</Text>
             </View>
           </View>
           <View style={styles.mainInfoGrid}>

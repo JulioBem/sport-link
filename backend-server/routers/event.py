@@ -103,7 +103,7 @@ def read_event_participants(event_id: str = Path(..., description="All members i
     
 
 #returns all expenses by the specific event ID
-@router.get("/events/id/{event_id}/expenses", response_model=List[ExpenseItem])
+@router.get("/events/id/{event_id}/expenses", response_model=dict)
 def read_event_expenses(event_id: str = Path(..., description="All expenses by event ID")):
     try:
         with open(events_json_file_path, 'r') as file:
@@ -116,12 +116,12 @@ def read_event_expenses(event_id: str = Path(..., description="All expenses by e
             raise HTTPException(status_code=404, detail="Event not found")
 
         #extract the expenses and return them
-        expenses = event.get('expenses', {}).get('equipment', []) + event.get('expenses', {}).get('transport', [])
-        
+        expenses = event.get('expenses', {})
+
         if not expenses:
             raise HTTPException(status_code=404, detail="No expenses found for this event")
 
-        return [ExpenseItem(**expense) for expense in expenses]
+        return expenses
         
     except FileNotFoundError:
         raise HTTPException(status_code=500, detail="JSON file not found")

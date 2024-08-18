@@ -24,19 +24,15 @@ const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 export default function CriarEvento() {
   const [eventName, setEventName] = useState("");
   const [startTime, setStartTime] = useState("");
-  console.log("🚀 ~ CriarEvento ~ startTime:", startTime);
   const [endTime, setEndTime] = useState("");
-  console.log("🚀 ~ CriarEvento ~ endTime:", endTime);
   const [capacity, setCapacity] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [materials, setMaterials] = useState([]);
-  console.log("🚀 ~ CriarEvento ~ materials:", materials);
   const [currentMaterial, setCurrentMaterial] = useState("");
   const [isBeginner, setIsBeginner] = useState(false);
   const [isAdvanced, setIsAdvanced] = useState(false);
   const [date, setDate] = useState();
-  console.log("🚀 ~ CriarEvento ~ date:", date);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showStartTimePicker, setShowStartTimePicker] = useState(false);
   const [showEndTimePicker, setShowEndTimePicker] = useState(false);
@@ -147,7 +143,6 @@ export default function CriarEvento() {
       difficulty,
       materials: materials || [],
     };
-    console.log("🚀 ~ createEvent ~ newEvent:", newEvent);
 
     try {
       const response = await fetch(`${apiUrl}/events/create`, {

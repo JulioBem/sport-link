@@ -23,7 +23,6 @@ const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
 export default function EditarEvento() {
   const { event } = useLocalSearchParams();
-  console.log("🚀 ~ EditarEvento ~ event:", event);
   const router = useRouter();
 
   const {
@@ -151,8 +150,6 @@ export default function EditarEvento() {
       difficulty,
       materials: materials ?? eventCurrentMaterials,
     };
-
-    console.log("🚀 ~ createEvent ~ newEvent:", newEvent);
 
     try {
       const response = await fetch(`${apiUrl}/events/id/${id}/edit`, {
