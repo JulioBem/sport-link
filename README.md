@@ -1,6 +1,6 @@
 # Sport Link
 
-O **Sport Link** é um aplicativo de logística desenvolvido para a disciplina **"Projetão"** do curso de **Sistemas de Informação** da **UFPE**. O aplicativo foi criado para facilitar a organização e a participação em eventos e competições de surf, além de fornecer uma plataforma para interação entre surfistas.
+O **Sport Link** é um aplicativo de logística desenvolvido para a disciplina **"Projetão"** do curso de **Sistemas de Informação** da **UFPE**. O aplicativo foi criado para otimizar a logística de encontros esportivos, promovendo uma organização colaborativa entre atletas, treinadores e organizadores. Ele oferece uma plataforma onde os usuários podem facilmente criar, gerenciar e participar de encontros esportivos, simplificando desde a comunicação até a coordenação de recursos.
 
 ## Tecnologias Utilizadas
 
@@ -67,7 +67,15 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ## Equipe
 
-- **Em construção...**
+<h2>Time de Desenvolvimento</h2>
+
+<ul>
+    <li>Júlio Bem - <i>Liderança Técnica & Desenvolvedor</i> - <a href="https://github.com/JulioBem">JulioBem</a></li>
+    <li>Higor Cunha - <i>Desenvolvedor Front-end</i> - <a href="https://github.com/higorcunha1">higorcunha1</a></li>
+    <li>Luiz Roberto - <i>Desenvolvedor Front-end</i> - <a href="https://github.com/roboberto1403">roboberto1403</a></li>
+    <li>Arthur Conegundes - <i>Desenvolvedor Back-end</i> - <a href="https://github.com/ArthurConegundes29102002">ArthurConegundes29102002</a></li>
+</ul>
+
 ```
 
 Sinta-se à vontade para personalizar o conteúdo, incluindo seu nome, e-mail e qualquer outro detalhe relevante.
