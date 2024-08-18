@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "wave-sync",
-    "slug": "wave-sync",
+    "name": "sport-link",
+    "slug": "sport-link",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "scheme": "wave-sync-scheme",
+    "scheme": "sport-link-scheme",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

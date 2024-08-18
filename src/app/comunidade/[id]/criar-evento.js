@@ -136,7 +136,7 @@ export default function CriarEvento() {
       location: {
         address: location,
       },
-      date: combineDateAndTime(date, startTime) || new Date().toISOString(),
+      date: combineDateAndTime(date, startTime),
       author: {
         id: currentUserId,
         name: "Participante de Teste",

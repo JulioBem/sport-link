@@ -1,6 +1,6 @@
-# Wave Sync
+# Sport Link
 
-O **Wave Sync** é um aplicativo de logística desenvolvido para a disciplina **"Projetão"** do curso de **Sistemas de Informação** da **UFPE**. O aplicativo foi criado para facilitar a organização e a participação em eventos e competições de surf, além de fornecer uma plataforma para interação entre surfistas.
+O **Sport Link** é um aplicativo de logística desenvolvido para a disciplina **"Projetão"** do curso de **Sistemas de Informação** da **UFPE**. O aplicativo foi criado para facilitar a organização e a participação em eventos e competições de surf, além de fornecer uma plataforma para interação entre surfistas.
 
 ## Tecnologias Utilizadas
 
@@ -29,8 +29,8 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
 1. **Clone o Repositório**
 
    ```bash
-   git clone https://github.com/JulioBem/wave-sync.git
-   cd wave-sync
+   git clone https://github.com/JulioBem/sport-link.git
+   cd sport-link
    ```
 
 2. **Instale as Dependências**

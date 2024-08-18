@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Path
+from fastapi import APIRouter, HTTPException, Path # type: ignore
 import json
 from typing import List
 from models.event_models import *
@@ -593,43 +593,37 @@ def edit_expense_infos(event_id:str, expense_id:int, expense:EventUpdateExpenseS
 
 #change event informations
 @router.patch("/events/id/{event_id}/edit")
-def edit_event_infos(event_id:str, event_update_body:EventUpdateEvent):
+def edit_event_infos(event_id: str, event_update_body: EventUpdateEvent):
     try:
-        #read existing data from JSON file
         if os.path.exists(events_json_file_path):
             with open(events_json_file_path, 'r') as file:
                 data = json.load(file)
         else:
             data = []
 
-        #find the event by ID
         event = next((item for item in data if item['id'] == event_id), None)
         if event is None:
             raise HTTPException(status_code=404, detail="Event not found")
-        
-        #create a json with the updated values
         updated_fields_json = {
             "title": event_update_body.title,
             "description": event_update_body.description,
-            "location": event_update_body.location,
+            "location": event_update_body.location.dict() if event_update_body.location else None,
             "date": event_update_body.date,
             "capacity": event_update_body.capacity,
             "imageURI": event_update_body.imageURI,
             "difficulty": event_update_body.difficulty,
-            "materials": event_update_body.materials
+            "materials": [material.dict() for material in event_update_body.materials] if event_update_body.materials else None
         }
-        
-        #iterate through the event object and insert the new values
+
         for field in updated_fields_json:
-            if updated_fields_json[field] != None:
+            if updated_fields_json[field] is not None:
                 event[field] = updated_fields_json[field]
 
-        #add changes to json
         with open(events_json_file_path, 'w') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
 
         return {"message": "Expense status updated!"}
-    
+
     except FileNotFoundError:
         raise HTTPException(status_code=500, detail="JSON file not found")
     except json.JSONDecodeError:
