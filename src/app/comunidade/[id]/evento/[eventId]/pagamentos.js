@@ -7,10 +7,13 @@ import {
   View,
   FlatList,
   ScrollView,
+  Pressable,
 } from "react-native";
 import CommunityHeader from "../../../../../components/community-header";
 import { useLocalSearchParams } from "expo-router";
 import { Avatar } from "@rneui/themed";
+import PopupMenu from "../../../../../components/popup-menu";
+import { MenuProvider } from "react-native-popup-menu";
 
 export default function Pagamentos(props) {
   const { expenses, currentPage } = useLocalSearchParams();
@@ -133,125 +136,143 @@ export default function Pagamentos(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <CommunityHeader
-        communityTitle={`${currentPage} Pendentes`}
-        hasSubtitle={false}
-        hideShadow={true}
-        {...props}
-      />
-      <ScrollView>
-        <View style={styles.totalExpenses}>
-          <Text style={{ fontSize: 16 }}>{`${currentPage}`} totais</Text>
-          <Text style={{ fontWeight: 600, fontSize: 24 }}>
-            R${" "}
-            {currentPage === "Despesas"
-              ? totalAmountIOwe.toFixed(2).replace(".", ",")
-              : totalAmountOwedToMe.toFixed(2).replace(".", ",")}
-          </Text>
-        </View>
-        <View style={styles.listContainer}>
-          {currentPage === "Despesas" && (
-            <FlatList
-              data={combinedUserExpenses}
-              keyExtractor={(item, index) => index.toString()}
-              scrollEnabled={false}
-              renderItem={({ item }) => (
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 25,
-                    borderBottomWidth: 1,
-                    borderColor: "#d4d4d4",
-                    paddingVertical: 10,
-                  }}
-                >
-                  <Avatar
-                    source={{
-                      uri: `${"https://placehold.co/50.png" || item?.profilePicture}`,
-                    }}
-                    size={50}
-                    rounded
-                  />
-                  <View style={styles.listItem}>
-                    <Text
-                      style={[
-                        styles.participantName,
-                        {
-                          fontWeight: 600,
-                        },
-                      ]}
+      <MenuProvider>
+        <CommunityHeader
+          communityTitle={`${currentPage} Pendentes`}
+          hasSubtitle={false}
+          hideShadow={true}
+          {...props}
+        />
+        <ScrollView>
+          <View style={styles.totalExpenses}>
+            <Text style={{ fontSize: 16 }}>{`${currentPage}`} totais</Text>
+            <Text style={{ fontWeight: 600, fontSize: 24 }}>
+              R${" "}
+              {currentPage === "Despesas"
+                ? totalAmountIOwe.toFixed(2).replace(".", ",")
+                : totalAmountOwedToMe.toFixed(2).replace(".", ",")}
+            </Text>
+          </View>
+          <View style={styles.listContainer}>
+            {currentPage === "Despesas" && (
+              <FlatList
+                data={combinedUserExpenses}
+                keyExtractor={(item, index) => index.toString()}
+                scrollEnabled={false}
+                renderItem={({ item }) => (
+                  <>
+                    <PopupMenu
+                      leftPosition="95%"
+                      entypoColor="black"
+                      topPositionTrigger={0}
+                      containerMarginBottom={-20}
                     >
-                      {item.name}
-                    </Text>
-                    <Text style={styles.participantName}>
-                      {item.owner.name}
-                    </Text>
-                    <Text style={styles.amountDue}>
-                      <Text style={{ fontWeight: "600" }}>Valor: </Text>
-                      {item?.cost}
-                    </Text>
-                    <Text style={styles.amountDue}>
-                      <Text style={{ fontWeight: "600" }}>Chave Pix: </Text>
-                      {item.owner.chavePix}
-                    </Text>
-                  </View>
-                </View>
-              )}
-            />
-          )}
-          {currentPage === "Receitas" && (
-            <FlatList
-              data={Object.values(ownedExpenses).flatMap((participant) =>
-                participant.details.map((detail) => ({
-                  participantName: participant.name,
-                  ...detail,
-                }))
-              )}
-              keyExtractor={(item, index) => index.toString()}
-              scrollEnabled={false}
-              renderItem={({ item }) => (
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 25,
-                    borderBottomWidth: 1,
-                    borderColor: "#d4d4d4",
-                    paddingVertical: 10,
-                  }}
-                >
-                  <Avatar
-                    source={{
-                      uri: "https://placehold.co/50.png",
-                    }}
-                    size={50}
-                    rounded
-                  />
-                  <View style={styles.listItem}>
-                    <Text
-                      style={[
-                        styles.participantName,
-                        {
-                          fontWeight: "600",
-                        },
-                      ]}
+                      <Pressable>
+                        <Text style={[styles.optionText, { color: "blue" }]}>
+                          Confirmar Pagamento
+                        </Text>
+                      </Pressable>
+                    </PopupMenu>
+                    <View
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: 25,
+                        borderBottomWidth: 1,
+                        borderColor: "#d4d4d4",
+                        paddingVertical: 10,
+                      }}
                     >
-                      {item.participantName}
-                    </Text>
-                    <Text style={styles.amountDue}>
-                      <Text style={{ fontWeight: "600" }}>{item.name} - </Text>
-                      {item.cost}
-                    </Text>
+                      <Avatar
+                        source={{
+                          uri: `${"https://placehold.co/50.png" || item?.profilePicture}`,
+                        }}
+                        size={50}
+                        rounded
+                      />
+                      <View style={styles.listItem}>
+                        <Text
+                          style={[
+                            styles.participantName,
+                            {
+                              fontWeight: 600,
+                            },
+                          ]}
+                        >
+                          {item.name}
+                        </Text>
+                        <Text style={styles.participantName}>
+                          {item.owner.name}
+                        </Text>
+                        <Text style={styles.amountDue}>
+                          <Text style={{ fontWeight: "600" }}>Valor: </Text>
+                          {item?.cost}
+                        </Text>
+                        <Text style={styles.amountDue}>
+                          <Text style={{ fontWeight: "600" }}>Chave Pix: </Text>
+                          {item.owner.chavePix}
+                        </Text>
+                      </View>
+                    </View>
+                  </>
+                )}
+              />
+            )}
+            {currentPage === "Receitas" && (
+              <FlatList
+                data={Object.values(ownedExpenses).flatMap((participant) =>
+                  participant.details.map((detail) => ({
+                    participantName: participant.name,
+                    ...detail,
+                  }))
+                )}
+                keyExtractor={(item, index) => index.toString()}
+                scrollEnabled={false}
+                renderItem={({ item }) => (
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 25,
+                      borderBottomWidth: 1,
+                      borderColor: "#d4d4d4",
+                      paddingVertical: 10,
+                    }}
+                  >
+                    <Avatar
+                      source={{
+                        uri: "https://placehold.co/50.png",
+                      }}
+                      size={50}
+                      rounded
+                    />
+                    <View style={styles.listItem}>
+                      <Text
+                        style={[
+                          styles.participantName,
+                          {
+                            fontWeight: "600",
+                          },
+                        ]}
+                      >
+                        {item.participantName}
+                      </Text>
+                      <Text style={styles.amountDue}>
+                        <Text style={{ fontWeight: "600" }}>
+                          {item.name} -{" "}
+                        </Text>
+                        {item.cost}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              )}
-            />
-          )}
-        </View>
-      </ScrollView>
+                )}
+              />
+            )}
+          </View>
+        </ScrollView>
+      </MenuProvider>
     </SafeAreaView>
   );
 }
