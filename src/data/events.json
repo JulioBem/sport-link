@@ -1,14 +1,21 @@
 [
     {
         "id": "event123",
-        "title": "aquele evento l�",
+        "title": "Competições de Surf Local",
         "description": "Participe das competições locais de surfe e mostre suas habilidades nas ondas. Aberto para todos os níveis de habilidade.",
         "date": "2024-08-15T09:00:00Z",
-        "difficulty": "dificil pra krl",
-        "materials": [],
+        "difficulty": "Iniciante",
+        "materials": [
+            {
+                "name": "teste"
+            },
+            {
+                "name": "vento"
+            }
+        ],
         "createdAt": "2024-07-21T09:00:00Z",
         "location": {
-            "address": "Praia Exemplo, 123"
+            "address": "Na Ruaa"
         },
         "author": {
             "id": "author456",
@@ -40,7 +47,7 @@
                 "status": "confirmed"
             }
         ],
-        "capacity": 50,
+        "capacity": 25,
         "imageURI": "https://example.com/event-images/competicoes-surf-local.jpg",
         "expenses": {
             "equipment": [

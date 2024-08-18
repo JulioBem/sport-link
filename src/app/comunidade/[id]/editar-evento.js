@@ -10,22 +10,45 @@ import {
   ScrollView,
   Switch,
   Pressable,
+  ToastAndroid,
+  Platform,
 } from "react-native";
 import AddImageIcon from "../../../../assets/images/icone-upload.png";
 import CommunityHeader from "../../../components/community-header";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
-export default function CriarEvento() {
-  const [eventName, setEventName] = useState("");
+// eslint-disable-next-line no-undef
+const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+
+export default function EditarEvento() {
+  const { event } = useLocalSearchParams();
+  console.log("🚀 ~ EditarEvento ~ event:", event);
+  const router = useRouter();
+
+  const {
+    id,
+    title,
+    description: eventCurrentDescription,
+    date: eventCurrentDate,
+    capacity: eventCurrentCapacity,
+    location: eventCurrentLocation,
+    materials: eventCurrentMaterials,
+    difficulty,
+  } = JSON.parse(event);
+
+  const [eventName, setEventName] = useState(title);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [capacity, setCapacity] = useState("");
-  const [location, setLocation] = useState("");
-  const [description, setDescription] = useState("");
-  const [materials, setMaterials] = useState([]);
+  const [capacity, setCapacity] = useState(eventCurrentCapacity);
+  const [location, setLocation] = useState(eventCurrentLocation?.address);
+  const [description, setDescription] = useState(eventCurrentDescription);
+  const [materials, setMaterials] = useState(eventCurrentMaterials);
   const [currentMaterial, setCurrentMaterial] = useState("");
-  const [isBeginner, setIsBeginner] = useState(false);
-  const [isAdvanced, setIsAdvanced] = useState(false);
+  const [isBeginner, setIsBeginner] = useState(
+    difficulty.includes("Iniciante")
+  );
+  const [isAdvanced, setIsAdvanced] = useState(difficulty.includes("Avançado"));
   const [date, setDate] = useState();
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showStartTimePicker, setShowStartTimePicker] = useState(false);
@@ -66,6 +89,95 @@ export default function CriarEvento() {
     if (currentMaterial.trim() !== "") {
       setMaterials([...materials, { name: currentMaterial }]);
       setCurrentMaterial("");
+    }
+  };
+
+  const showToast = (message) => {
+    if (Platform.OS === "android") {
+      ToastAndroid.showWithGravity(
+        message,
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER
+      );
+    }
+  };
+
+  const createEvent = async () => {
+    const currentUserId = "TESTE123";
+
+    const combineDateAndTime = (date, time) => {
+      if (!date || !time) return null;
+
+      const [timePart, meridian] = time.split(" ");
+      const [hour, minute] = timePart.split(":").map(Number);
+
+      let adjustedHour = hour;
+      if (meridian === "PM" && hour !== 12) {
+        adjustedHour += 12;
+      } else if (meridian === "AM" && hour === 12) {
+        adjustedHour = 0;
+      }
+
+      const combinedDate = new Date(date);
+      combinedDate.setHours(adjustedHour);
+      combinedDate.setMinutes(minute);
+
+      return combinedDate.toISOString();
+    };
+
+    const difficulty = isBeginner
+      ? "Iniciante"
+      : isAdvanced
+        ? "Avançado"
+        : isBeginner && isAdvanced
+          ? "Iniciante/Avançado"
+          : difficulty;
+
+    const newEvent = {
+      title: eventName ?? title,
+      capacity: capacity ?? eventCurrentCapacity,
+      description: description ?? eventCurrentDescription,
+      location: {
+        address: location,
+      },
+      date: combineDateAndTime(date, startTime) ?? eventCurrentDate,
+      author: {
+        id: currentUserId,
+        name: "Participante de Teste",
+        email: "teste@example.com",
+        profilePicture: "https://example.com/profile.jpg",
+        chavePix: "teste@example.com",
+      },
+      difficulty,
+      materials: materials ?? eventCurrentMaterials,
+    };
+
+    console.log("🚀 ~ createEvent ~ newEvent:", newEvent);
+
+    try {
+      const response = await fetch(`${apiUrl}/events/id/${id}/edit`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
+        },
+        body: JSON.stringify(newEvent),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao criar o post");
+      }
+
+      showToast(
+        "Evento criado com sucesso",
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER
+      );
+
+      router.back();
+    } catch (error) {
+      console.error("Erro ao criar o post:", error);
+      showToast("Erro", "Não foi possível criar o post.");
     }
   };
 
@@ -153,7 +265,6 @@ export default function CriarEvento() {
               />
             )}
           </View>
-
           <Text style={styles.label}>Local</Text>
           <TextInput
             style={styles.inputlugar}
@@ -161,16 +272,15 @@ export default function CriarEvento() {
             onChangeText={setLocation}
             placeholder="Insira o local"
           />
-
-          <Text style={styles.label}>Capacidade do evento</Text> {/* Novo rótulo */}
-                    <TextInput
-                      style={styles.inputCapacidade}  // Reutilizando o estilo existente
-                      value={capacity}
-                      onChangeText={setCapacity}
-                      placeholder="Insira a capacidade"
-                      keyboardType="numeric" // Configurando o teclado para números
+          <Text style={styles.label}>Capacidade do evento</Text>{" "}
+          {/* Novo rótulo */}
+          <TextInput
+            style={styles.inputCapacidade} // Reutilizando o estilo existente
+            value={capacity}
+            onChangeText={setCapacity}
+            placeholder="Insira a capacidade"
+            keyboardType="numeric" // Configurando o teclado para números
           />
-
           <Text style={styles.label}>Descrição do evento</Text>
           <TextInput
             style={styles.textArea}
@@ -179,7 +289,6 @@ export default function CriarEvento() {
             placeholder="Insira a descrição do evento"
             multiline
           />
-
           <Text style={styles.label}>Materiais necessários</Text>
           {materials.map((material, index) => (
             <View key={index} style={styles.materialItem}>
@@ -193,7 +302,6 @@ export default function CriarEvento() {
             placeholder="Adicionar opção..."
             onSubmitEditing={addMaterial}
           />
-
           <Text style={styles.label}>Nível dos participantes</Text>
           <View style={styles.levelContainer}>
             <Text>Iniciantes</Text>
@@ -212,7 +320,7 @@ export default function CriarEvento() {
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => createEvent()}>
           <Text style={styles.buttonText}>Confirmar Alterações</Text>
         </TouchableOpacity>
       </View>
