@@ -56,7 +56,7 @@ export default function Evento(props) {
           </View>
           <View style={styles.mainInfoGrid}>
             <Icon containerStyle={{ top: 3 }} name="military-tech" size={15} />
-            <View style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
+            <View style={{ display: "flex", flexDirection: "row", gap: 5 }}>
               <Text style={styles.boldText}>Dificuldade:</Text>
               <Text>{difficulty}</Text>
             </View>
