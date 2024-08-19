@@ -91,6 +91,7 @@ export default function Pagamentos(props) {
           if (!debts[participant.id]) {
             debts[participant.id] = {
               name: participant.name,
+              id: participant.id,
               totalOwed: 0,
               details: [],
             };
@@ -119,11 +120,13 @@ export default function Pagamentos(props) {
   const userId = "TESTE123";
   const userExpenses = getUserExpenses(expenses, userId);
   const ownedExpenses = getDebts(getOwnedExpenses(expenses, userId));
+  console.log("🚀 ~ Pagamentos ~ ownedExpenses:", ownedExpenses);
 
   const combinedUserExpenses = [
     ...(userExpenses?.equipment || []),
     ...(userExpenses?.transport || []),
   ];
+  console.log("🚀 ~ Pagamentos ~ combinedUserExpenses:", combinedUserExpenses);
 
   useEffect(() => {
     const calculateTotal = (expensesList) => {
@@ -171,9 +174,9 @@ export default function Pagamentos(props) {
     }
   };
 
-  const confirmPayment = async (id) => {
+  const confirmPayment = async (id, participantId) => {
     const updatedPaymentPayload = {
-      participant_id: String(id),
+      participant_id: participantId ?? userId,
       status: "confirmed",
     };
 
@@ -262,7 +265,7 @@ export default function Pagamentos(props) {
                     >
                       <Avatar
                         source={{
-                          uri: `${"https://placehold.co/50.png" || item?.profilePicture}`,
+                          uri: `${item?.profilePicture}`,
                         }}
                         size={50}
                         rounded
@@ -301,6 +304,7 @@ export default function Pagamentos(props) {
                   data={Object.values(ownedExpenses).flatMap((participant) =>
                     participant.details.map((detail) => ({
                       participantName: participant.name,
+                      participantId: participant.id,
                       ...detail,
                     }))
                   )}
@@ -317,7 +321,9 @@ export default function Pagamentos(props) {
                         <Pressable>
                           <Text
                             style={[styles.optionText, { color: "blue" }]}
-                            onPress={() => confirmPayment(item?.id)}
+                            onPress={() =>
+                              confirmPayment(item?.id, item?.participantId)
+                            }
                           >
                             Confirmar Pagamento
                           </Text>
