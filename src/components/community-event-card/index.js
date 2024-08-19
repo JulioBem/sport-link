@@ -21,7 +21,7 @@ const CommunityEventCard = ({ event, imageFile, deleteEvent }) => {
   const Divider = () => <View style={styles.divider} />;
 
   return (
-    <MenuProvider>
+    <MenuProvider skipInstanceCheck={true}>
       <Pressable
         onPress={() =>
           router.push({

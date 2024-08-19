@@ -162,7 +162,7 @@ export default function EditarEvento() {
       });
 
       if (!response.ok) {
-        throw new Error("Erro ao criar o post");
+        throw new Error("Erro ao editar o evento");
       }
 
       showToast(
@@ -173,8 +173,8 @@ export default function EditarEvento() {
 
       router.back();
     } catch (error) {
-      console.error("Erro ao criar o post:", error);
-      showToast("Erro", "Não foi possível criar o post.");
+      console.error("Erro ao editar o evento:", error);
+      showToast("Erro", "Não foi possível editar o evento.");
     }
   };
 

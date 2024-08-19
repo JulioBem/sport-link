@@ -170,7 +170,7 @@ export default function Pagamentos(props) {
 
       setExpenses(JSON.stringify(data));
     } catch (error) {
-      console.error("Erro ao buscar posts:", error);
+      console.error("Erro ao buscar pagamentos:", error);
     }
   };
 
@@ -194,25 +194,25 @@ export default function Pagamentos(props) {
       );
 
       if (!response.ok) {
-        throw new Error("Erro ao criar o post");
+        throw new Error("Erro ao atualizar o pagamento");
       } else {
         fetchExpenses();
       }
 
       showToast(
-        "Evento criado com sucesso",
+        "Pagamento atualizado com sucesso",
         ToastAndroid.LONG,
         ToastAndroid.CENTER
       );
     } catch (error) {
       console.error("Erro ao criar o post:", error);
-      showToast("Erro", "Não foi possível criar o post.");
+      showToast("Erro", "Não foi possível atualizar o pagamento.");
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <MenuProvider>
+      <MenuProvider skipInstanceCheck={true}>
         <CommunityHeader
           communityTitle={`${currentPage} Pendentes`}
           hasSubtitle={false}
