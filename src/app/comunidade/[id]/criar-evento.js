@@ -89,13 +89,13 @@ export default function CriarEvento() {
     const currentUserId = "TESTE123";
 
     if (
-      !eventName?.length <= 0 ||
-      !capacity?.length <= 0 ||
-      !description?.length <= 0 ||
-      !location?.length <= 0 ||
+      eventName?.length <= 0 ||
+      capacity?.length <= 0 ||
+      description?.length <= 0 ||
+      location?.length <= 0 ||
       !date ||
-      !startTime?.length <= 0 ||
-      !materials?.length <= 0
+      startTime?.length <= 0 ||
+      materials?.length <= 0
     )
       return Alert.alert("Preencha todos os campos obrigatórios.");
 

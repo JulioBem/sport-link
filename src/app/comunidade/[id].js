@@ -13,11 +13,11 @@ import CommunityHeader from "../../components/community-header";
 import CommunityMural from "../../components/community-mural";
 import CommunityEvents from "../../components/community-events";
 import surfImage from "../../../assets/images/surf-image.jpeg";
+import { MenuProvider } from "react-native-popup-menu";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
 export default function Comunidade(props) {
-
   const Mural = () => <CommunityMural />;
 
   const Events = () => <CommunityEvents />;
@@ -66,23 +66,25 @@ export default function Comunidade(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <CommunityHeader
-        communityTitle="Comunidade de Surf"
-        communitySubtitle="Grupo de surfistas da UFPE"
-        imageFile={surfImage}
-        {...props}
-      />
-      <View style={styles.tabContainer}>
-        {renderTabBar({ navigationState: { index, routes }, setIndex })}
-      </View>
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderSceneMap}
-        renderTabBar={() => <></>}
-        onIndexChange={setIndex}
-        initialLayout={initialLayout}
-        style={styles.tabView}
-      />
+      <MenuProvider>
+        <CommunityHeader
+          communityTitle="Comunidade de Surf"
+          communitySubtitle="Grupo de surfistas da UFPE"
+          imageFile={surfImage}
+          {...props}
+        />
+        <View style={styles.tabContainer}>
+          {renderTabBar({ navigationState: { index, routes }, setIndex })}
+        </View>
+        <TabView
+          navigationState={{ index, routes }}
+          renderScene={renderSceneMap}
+          renderTabBar={() => <></>}
+          onIndexChange={setIndex}
+          initialLayout={initialLayout}
+          style={styles.tabView}
+        />
+      </MenuProvider>
     </SafeAreaView>
   );
 }

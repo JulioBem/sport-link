@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   FlatList,
   SafeAreaView,
@@ -7,34 +7,91 @@ import {
   Text,
   View,
   Pressable,
+  ActivityIndicator,
 } from "react-native";
 import CommunityHeader from "../../../../components/community-header";
 import { Avatar, Button, Divider, Icon } from "@rneui/themed";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import surfImage from "../../../../../assets/images/surf-image.jpeg";
 
+// eslint-disable-next-line no-undef
+const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+
 export default function Evento(props) {
-  const { event, communityId, eventId } = useLocalSearchParams();
+  const { communityId, eventId } = useLocalSearchParams();
   const router = useRouter();
-  const {
-    location,
-    title,
-    description,
-    date,
-    participants,
-    expenses,
-    author,
-    materials,
-    difficulty,
-  } = JSON.parse(event);
 
-  const allParticipants = [author, ...participants];
+  const [loading, setLoading] = useState(true);
 
-  const formattedDate = new Date(date).toLocaleDateString("pt-BR", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-  });
+  const [location, setLocation] = useState();
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
+  const [date, setDate] = useState();
+  const [participants, setParticipants] = useState();
+  const [expenses, setExpenses] = useState();
+  const [materials, setMaterials] = useState();
+  const [difficulty, setDifficulty] = useState();
+
+  const [updatedEvent, setUpdatedEvent] = useState();
+
+  const fetchEvent = useCallback(async () => {
+    try {
+      const response = await fetch(`${apiUrl}/events/id/${eventId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
+        },
+      });
+      const data = await response.json();
+
+      const {
+        location,
+        title,
+        description,
+        date,
+        participants,
+        expenses,
+        author,
+        materials,
+        difficulty,
+      } = data;
+
+      const allParticipants = [author, ...participants];
+
+      const formattedDate = new Date(date).toLocaleDateString("pt-BR", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+      });
+
+      setLocation(location);
+      setTitle(title);
+      setDescription(description);
+      setDate(formattedDate);
+      setParticipants(allParticipants);
+      setExpenses(expenses);
+      setMaterials(materials);
+      setDifficulty(difficulty);
+
+      setUpdatedEvent(data);
+    } catch (error) {
+      console.error("Erro ao buscar evento:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [eventId]);
+
+  useEffect(() => {
+    fetchEvent();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#2260A8" />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -51,7 +108,7 @@ export default function Evento(props) {
           <View style={styles.mainInfoGrid}>
             <Icon containerStyle={{ top: 3 }} name="place" size={15} />
             <View>
-              <Text style={styles.boldText}>{location.address}</Text>
+              <Text style={styles.boldText}>{location?.address}</Text>
             </View>
           </View>
           <View style={styles.mainInfoGrid}>
@@ -65,7 +122,7 @@ export default function Evento(props) {
             <Icon containerStyle={{ top: 3 }} name="schedule" size={15} />
             <View>
               <Text style={[styles.boldText, { textTransform: "capitalize" }]}>
-                {formattedDate}
+                {date}
               </Text>
             </View>
           </View>
@@ -80,7 +137,7 @@ export default function Evento(props) {
               onPress={() =>
                 router.push({
                   pathname: `/comunidade/${communityId}/evento/${eventId}/participantes`,
-                  params: { event: event },
+                  params: { event: JSON.stringify(updatedEvent) },
                 })
               }
               style={({ pressed }) => [
@@ -90,11 +147,11 @@ export default function Evento(props) {
                 styles.pressableContainer,
               ]}
             >
-              {allParticipants?.length > 0 && (
+              {participants?.length > 0 && (
                 <Text style={styles.pressableText}>
-                  {allParticipants[0]?.name}, {allParticipants[1]?.name}
-                  {allParticipants.length - 2 > 0
-                    ? ` e mais ${allParticipants.length - 2} estão envolvidos no evento`
+                  {participants[0]?.name}, {participants[1]?.name}
+                  {participants.length - 2 > 0
+                    ? ` e mais ${participants.length - 2} estão envolvidos no evento`
                     : "..."}
                 </Text>
               )}
@@ -166,7 +223,7 @@ export default function Evento(props) {
             onPress={() =>
               router.push({
                 pathname: `/comunidade/${communityId}/evento/${eventId}/organizacao`,
-                params: { event: event },
+                params: { event: JSON.stringify(updatedEvent) },
               })
             }
           >
@@ -182,6 +239,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
+  },
+  loadingContainer: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   scrollViewContent: {
     flexGrow: 1,

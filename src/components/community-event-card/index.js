@@ -11,7 +11,6 @@ import {
 import { Avatar } from "@rneui/themed";
 import { useRouter } from "expo-router";
 import PopupMenu from "../popup-menu";
-import { MenuProvider } from "react-native-popup-menu";
 
 const CommunityEventCard = ({ event, imageFile, deleteEvent }) => {
   if (!event) return null;
@@ -21,76 +20,71 @@ const CommunityEventCard = ({ event, imageFile, deleteEvent }) => {
   const Divider = () => <View style={styles.divider} />;
 
   return (
-    <MenuProvider skipInstanceCheck={true}>
-      <Pressable
-        onPress={() =>
-          router.push({
-            pathname: `/comunidade/123/evento/${id}`,
-            params: {
-              event: JSON.stringify(event),
-              communityId: "123",
-            },
-          })
-        }
+    <Pressable
+      onPress={() =>
+        router.push({
+          pathname: `/comunidade/123/evento/${id}`,
+          params: {
+            event: JSON.stringify(event),
+            communityId: "123",
+          },
+        })
+      }
+    >
+      <ImageBackground
+        style={styles.eventContainer}
+        source={imageFile ? imageFile : { uri: eventIMG }}
+        resizeMode="cover"
+        imageStyle={{ filter: "brightness(0.8)" }}
       >
-        <ImageBackground
-          style={styles.eventContainer}
-          source={imageFile ? imageFile : { uri: eventIMG }}
-          resizeMode="cover"
-          imageStyle={{ filter: "brightness(0.8)" }}
-        >
-          <PopupMenu leftPosition="45%">
-            <Pressable
-              onPress={() =>
-                router.push({
-                  pathname: `/comunidade/123/editar-evento`,
-                  params: {
-                    event: JSON.stringify(event),
-                    communityId: "123",
-                  },
-                })
-              }
-            >
-              <Text style={styles.optionText}>Editar Evento</Text>
-            </Pressable>
-            <Divider />
-            <Pressable onPress={() => deleteEvent(id)}>
-              <Text style={[styles.optionText, { color: "red" }]}>
-                Remover Evento
-              </Text>
-            </Pressable>
-          </PopupMenu>
-          <Text style={styles.eventName}>{title}</Text>
-          <View style={styles.eventMembers}>
-            <FlatList
-              scrollEnabled={false}
-              data={participants}
-              renderItem={({ item, index }) => (
-                <Avatar
-                  source={{
-                    uri: `${"https://placehold.co/50.png" || item?.profilePicture}`,
-                  }}
-                  size={index === 1 ? 20 : 16}
-                  rounded
-                  containerStyle={index !== 0 ? { right: index * 10 } : null}
-                />
-              )}
-              keyExtractor={(item, index) => `${item.id}-${index}`}
-              style={styles.avatarGroup}
-            />
-            <Text
-              style={[
-                styles.eventMembersTxt,
-                { right: participants.length * 8 },
-              ]}
-            >
-              {participants?.length}
-              <Text style={{ fontWeight: "500" }}>/{capacity}</Text>
+        <PopupMenu leftPosition="45%">
+          <Pressable
+            onPress={() =>
+              router.push({
+                pathname: `/comunidade/123/editar-evento`,
+                params: {
+                  event: JSON.stringify(event),
+                  communityId: "123",
+                },
+              })
+            }
+          >
+            <Text style={styles.optionText}>Editar Evento</Text>
+          </Pressable>
+          <Divider />
+          <Pressable onPress={() => deleteEvent(id)}>
+            <Text style={[styles.optionText, { color: "red" }]}>
+              Remover Evento
             </Text>
-          </View>
-        </ImageBackground>
-      </Pressable>
-    </MenuProvider>
+          </Pressable>
+        </PopupMenu>
+        <Text style={styles.eventName}>{title}</Text>
+        <View style={styles.eventMembers}>
+          <FlatList
+            scrollEnabled={false}
+            data={participants}
+            renderItem={({ item, index }) => (
+              <Avatar
+                source={{
+                  uri: `${"https://placehold.co/50.png" || item?.profilePicture}`,
+                }}
+                size={index === 1 ? 20 : 16}
+                rounded
+                containerStyle={index !== 0 ? { right: index * 10 } : null}
+              />
+            )}
+            keyExtractor={(item, index) => `${item.id}-${index}`}
+            style={styles.avatarGroup}
+          />
+          <Text
+            style={[styles.eventMembersTxt, { right: participants.length * 8 }]}
+          >
+            {participants?.length}
+            <Text style={{ fontWeight: "500" }}>/{capacity}</Text>
+          </Text>
+        </View>
+      </ImageBackground>
+    </Pressable>
   );
 };
 
