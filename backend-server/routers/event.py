@@ -2,12 +2,14 @@ from fastapi import APIRouter, HTTPException, Path # type: ignore
 import json
 from typing import List
 from models.event_models import *
-from utils.json_utils import events_json_file_path
+import re
+# from utils.json_utils import events_json_file_path
 import uuid
 from datetime import datetime
 import os
 
 router = APIRouter()
+events_json_file_path = "../src/data/events.json"
 
 #returns all events json
 @router.get("/events/all", response_model=List[EventsJsonFields])
@@ -226,7 +228,7 @@ def create_event(event: EventCreateRequest):
     try:
         #read existing data from JSON file
         if os.path.exists(events_json_file_path):
-            with open(events_json_file_path, 'r') as file:
+            with open(events_json_file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
         else:
             data = []
@@ -257,7 +259,7 @@ def create_event(event: EventCreateRequest):
         #append the new event to the data list
         data.append(new_event)
         #write the updated data back to the JSON file
-        with open(events_json_file_path, 'w') as file:
+        with open(events_json_file_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
 
         return EventsJsonFields(**new_event)
@@ -276,7 +278,7 @@ def add_event_participant(event_id: str, participant: EventAddParticipant):
     try:
         #read existing data from JSON file
         if os.path.exists(events_json_file_path):
-            with open(events_json_file_path, 'r') as file:
+            with open(events_json_file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
         else:
             data = []
@@ -294,7 +296,7 @@ def add_event_participant(event_id: str, participant: EventAddParticipant):
         event['participants'].append(participant.dict())
 
         #add changes to json
-        with open(events_json_file_path, 'w') as file:
+        with open(events_json_file_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
 
         return {"message": "new user added"}
@@ -313,7 +315,7 @@ def reserve_equipment(event_id: str, equipment_id: int, reservation: EventReserv
     try:
         #read existing data from JSON file
         if os.path.exists(events_json_file_path):
-            with open(events_json_file_path, 'r') as file:
+            with open(events_json_file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
         else:
             data = []
@@ -339,7 +341,7 @@ def reserve_equipment(event_id: str, equipment_id: int, reservation: EventReserv
             raise HTTPException(status_code=400, detail="Participant already reserved in this equipment")
 
         #save changes to JSON file
-        with open(events_json_file_path, 'w') as file:
+        with open(events_json_file_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
 
         return {"message": "Equipment reserved successfully"}
@@ -358,7 +360,7 @@ def reserve_vehicle_seat(event_id: str, vehicle_id: int, reservation: EventReser
     try:
         #read existing data from JSON file
         if os.path.exists(events_json_file_path):
-            with open(events_json_file_path, 'r') as file:
+            with open(events_json_file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
         else:
             data = []
@@ -384,7 +386,7 @@ def reserve_vehicle_seat(event_id: str, vehicle_id: int, reservation: EventReser
             raise HTTPException(status_code=400, detail="Participant already booked in this vehicle")
 
         #save changes to JSON file
-        with open(events_json_file_path, 'w') as file:
+        with open(events_json_file_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
 
         return {"message": "Seat reserved successfully"}
@@ -403,7 +405,7 @@ def add_vehicle(event_id: str, vehicle: EventAddVehicle):
     try:
         #read existing data from JSON file
         if os.path.exists(events_json_file_path):
-            with open(events_json_file_path, 'r') as file:
+            with open(events_json_file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
         else:
             data = []
@@ -434,7 +436,7 @@ def add_vehicle(event_id: str, vehicle: EventAddVehicle):
         event['expenses']['transport'].append(new_vehicle)
 
         #save changes to JSON file
-        with open(events_json_file_path, 'w') as file:
+        with open(events_json_file_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
 
         return {"message": "New vehicle added to event"}
@@ -453,7 +455,7 @@ def add_event_equipment(event_id: str, equipment: EventAddEquipment):
     try:
         #read existing data from JSON file
         if os.path.exists(events_json_file_path):
-            with open(events_json_file_path, 'r') as file:
+            with open(events_json_file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
         else:
             data = []
@@ -484,7 +486,7 @@ def add_event_equipment(event_id: str, equipment: EventAddEquipment):
         event['expenses']['equipment'].append(new_equipment)
 
         #add changes to json
-        with open(events_json_file_path, 'w') as file:
+        with open(events_json_file_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
 
         return {"message": "New equipment added to event"}
@@ -505,7 +507,7 @@ def remove_event(event_id: str):
     try:
         #read existing data from JSON file
         if os.path.exists(events_json_file_path):
-            with open(events_json_file_path, 'r') as file:
+            with open(events_json_file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
         else:
             raise HTTPException(status_code=404, detail="No events found")
@@ -518,7 +520,7 @@ def remove_event(event_id: str):
             data.pop(event_index)
 
             #save the updated data back to the JSON file
-            with open(events_json_file_path, 'w') as file:
+            with open(events_json_file_path, 'w', encoding='utf-8') as file:
                 json.dump(data, file, indent=4, ensure_ascii=False)
 
             return {"message": f"Event with ID {event_id} has been removed successfully."}
@@ -542,7 +544,7 @@ def edit_expense_infos(event_id:str, expense_id:int, expense:EventUpdateExpenseS
     try:
         #read existing data from JSON file
         if os.path.exists(events_json_file_path):
-            with open(events_json_file_path, 'r') as file:
+            with open(events_json_file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
         else:
             data = []
@@ -578,7 +580,7 @@ def edit_expense_infos(event_id:str, expense_id:int, expense:EventUpdateExpenseS
             raise HTTPException(status_code=404, detail="Expense not found")
         
         #add changes to json
-        with open(events_json_file_path, 'w') as file:
+        with open(events_json_file_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
 
         return {"message": "Expense status updated!"}
@@ -596,7 +598,7 @@ def edit_expense_infos(event_id:str, expense_id:int, expense:EventUpdateExpenseS
 def edit_event_infos(event_id: str, event_update_body: EventUpdateEvent):
     try:
         if os.path.exists(events_json_file_path):
-            with open(events_json_file_path, 'r') as file:
+            with open(events_json_file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
         else:
             data = []
@@ -619,7 +621,7 @@ def edit_event_infos(event_id: str, event_update_body: EventUpdateEvent):
             if updated_fields_json[field] is not None:
                 event[field] = updated_fields_json[field]
 
-        with open(events_json_file_path, 'w') as file:
+        with open(events_json_file_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, indent=4, ensure_ascii=False)
 
         return {"message": "Expense status updated!"}
