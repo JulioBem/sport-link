@@ -74,7 +74,7 @@ const MaterialColaborators = ({ event }) => {
           <Text style={styles.materialName}>{material.name}</Text>
         </View>
         <Text style={styles.materialDisponibility}>
-          {material.participants.length}/{material.maxQuantity}
+          {material.participants?.length}/{material.maxQuantity}
         </Text>
         <Icon
           name={expandedMaterials[material.id] ? "angle-up" : "angle-down"}
@@ -100,7 +100,7 @@ const MaterialColaborators = ({ event }) => {
   const sections = [
     { title: "Equipamentos", data: eventObject.expenses.equipment },
     { title: "Transportes", data: eventObject.expenses.transport },
-  ].filter((section) => section.data.length > 0);
+  ].filter((section) => section.data?.length > 0);
 
   if (!eventObject) {
     return <Text>Evento não encontrado</Text>;
