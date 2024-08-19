@@ -209,7 +209,7 @@ export default function Pagamentos(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <MenuProvider>
+      <MenuProvider skipInstanceCheck={true}>
         <CommunityHeader
           communityTitle={`${currentPage} Pendentes`}
           hasSubtitle={false}
